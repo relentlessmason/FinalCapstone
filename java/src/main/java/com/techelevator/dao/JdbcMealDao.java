@@ -96,7 +96,7 @@ public class JdbcMealDao implements MealDao{
     }
 
     @Override
-    public boolean deleteMeal(Long id) {
+    public boolean deleteMeal(int id) {
         String sql = "DELETE from meals where meal_id = ?;";
         return jdbcTemplate.update(sql, id) == 1;
     }

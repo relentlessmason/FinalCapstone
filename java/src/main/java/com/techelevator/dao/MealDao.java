@@ -18,6 +18,6 @@ public interface MealDao {
 
     void addMeal(Meal meal);
 
-    boolean deleteMeal(Long id);
+    boolean deleteMeal(int id);
 
 }

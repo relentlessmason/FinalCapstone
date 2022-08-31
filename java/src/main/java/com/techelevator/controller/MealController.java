@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@PreAuthorize("permitAll")
+//@PreAuthorize("permitAll")
 public class MealController {
 
     private MealDao mealDao;
@@ -33,7 +33,7 @@ public class MealController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping(path = "meals/{id}")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable int id) {
         mealDao.deleteMeal(id);
     }
 
