@@ -3,9 +3,10 @@ import {Switch, Route, Redirect, Link} from 'react-router-dom'
 import Login from '../Login/Login'
 import Register from '../Register/Register'
 import Home from '../Home/Home'
-import {addMeals, fetchMeals, addToken, deleteUser} from '../../Redux/actionCreators'
+import {postMeal, fetchMeals, addToken, deleteUser} from '../../Redux/actionCreators'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
+import {actions} from 'react-redux-form';
 import TEST from '../TEST'
 
 const mapStateToProps = state => {
@@ -21,7 +22,7 @@ const mapDispatchToProps = (dispatch) => ({
     deleteUser: () => { dispatch(deleteUser())},
 
     //IMPLEMENT ON BACKEND FIRST
-    // addMeals: () => { dispatch(addMeals())}
+    postMeal: (mealName, categoryId, timeOfDayId, description, recipe, ingredients) =>dispatch(postMeal(mealName, categoryId, timeOfDayId, description, recipe, ingredients)),
 
     fetchMeals: ()=>{dispatch(fetchMeals())}
     
@@ -61,11 +62,17 @@ class Main extends Component {
                     <Home
                     meal={this.props.meal}
                     /> : null}/>
-                    <Redirect to='/login'/>
-                    <Route path='/test'component={() => 
+
+                    {/* TEST PATH  */}
+                    <Route path='/test' component={() => 
                     <TEST
                     meal={this.props.meal}
+                    postMeal={this.props.postMeal}
                     />}/>
+
+                    
+                    <Redirect to='/login'/>
+                    
 
                 </Switch>
             </div>

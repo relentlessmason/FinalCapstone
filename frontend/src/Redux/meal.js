@@ -1,13 +1,20 @@
-import * as ActionTypes from './actionTypes';
+import * as ActionTypes from "./actionTypes";
 
-export const Meal = (state = {
-    meal:[]
-}, action) => {
-    switch (action.type) {
-        case ActionTypes.ADD_MEAL:
-            return {...state, meal: action.payload};
+export const Meal = (
+  state = {
+    meal: [],
+  },
+  action
+) => {
+  switch (action.type) {
+    case ActionTypes.ADD_MEALS:
+      return { ...state, meal: action.payload };
 
-        default:
-          return state;
-      }
+    case ActionTypes.ADD_MEAL:
+      let m = action.payload;
+      return { ...state, meal: state.meal.concat(m) };
+
+    default:
+      return state;
+  }
 };
