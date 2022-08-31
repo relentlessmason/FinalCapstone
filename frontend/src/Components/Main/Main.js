@@ -3,7 +3,7 @@ import {Switch, Route, Redirect, Link} from 'react-router-dom'
 import Login from '../Login/Login'
 import Register from '../Register/Register'
 import Home from '../Home/Home'
-import {postMeal, fetchMeals, addToken, deleteUser} from '../../Redux/actionCreators'
+import {postMeal, deleteMeals, fetchMeals, addToken, deleteUser} from '../../Redux/actionCreators'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {actions} from 'react-redux-form';
@@ -15,6 +15,7 @@ const mapStateToProps = state => {
         user: state.user,
         meal: state.meal
     }
+
     
 }
 
@@ -24,10 +25,12 @@ const mapDispatchToProps = (dispatch) => ({
     addToken: () => { dispatch(addToken()) },
     deleteUser: () => { dispatch(deleteUser())},
 
-    //IMPLEMENT ON BACKEND FIRST
-    postMeal: (mealName, categoryId, timeOfDayId, description, recipe, ingredients) =>dispatch(postMeal(mealName, categoryId, timeOfDayId, description, recipe, ingredients)),
+    // MEALS
+    fetchMeals: ()=>{dispatch(fetchMeals())},
+    deleteMeals: ()=> {dispatch(deleteMeals())},
+    postMeal: (mealName, categoryId, timeOfDayId, description, recipe, ingredients) =>dispatch(postMeal(mealName, categoryId, timeOfDayId, description, recipe, ingredients))
 
-    fetchMeals: ()=>{dispatch(fetchMeals())}
+    
     
 });
 
@@ -39,6 +42,10 @@ class Main extends Component {
     handleLogout = () => {
         this.props.addToken("")
         this.props.deleteUser()
+    }
+
+    handleDeleteMeals=(id)=>{
+        this.props.deleteMeals(parseInt(id))
     }
 
     
@@ -76,6 +83,8 @@ class Main extends Component {
                     meal={this.props.meal}
                     postMeal={this.props.postMeal}
                     fetchMeals={this.props.fetchMeals}
+                    deleteMeal={this.props.deleteMeal}
+                    handleDeleteMeals={this.handleDeleteMeals}
                     />}/>
 
                     

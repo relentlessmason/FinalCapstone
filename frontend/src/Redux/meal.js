@@ -2,7 +2,7 @@ import * as ActionTypes from "./actionTypes";
 
 export const Meal = (
   state = {
-    meal: []
+    meal: [],
   },
   action
 ) => {
@@ -13,6 +13,12 @@ export const Meal = (
     case ActionTypes.ADD_MEAL:
       let m = action.payload;
       return { ...state, meal: state.meal.concat(m) };
+
+    case ActionTypes.DELETE_MEAL:
+      return {
+        ...state,
+        meal: state.meal.filter((meal) => meal !== action.payload),
+      };
 
     default:
       return state;

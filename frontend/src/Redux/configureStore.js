@@ -3,6 +3,7 @@ import thunk from 'redux-thunk'
 import {Token} from './token'
 import {User} from './user'
 import { Meal } from './meal'
+import logger from 'redux-logger';
 import {createForms} from 'react-redux-form';
 
 export const ConfigureStore = () => {
@@ -13,7 +14,7 @@ export const ConfigureStore = () => {
             meal: Meal
             
         }),
-        applyMiddleware(thunk)
+        applyMiddleware(thunk, logger)
     );
 
     return store;

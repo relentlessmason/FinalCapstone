@@ -31,5 +31,11 @@ public class MealController {
         mealDao.addMeal(meal);
     };
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping(path = "meals/{id}")
+    public void delete(@PathVariable Long id) {
+        mealDao.deleteMeal(id);
+    }
+
 }
 

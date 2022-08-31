@@ -1,4 +1,4 @@
-import React, {Component, useEffect,useCallback} from 'react'
+import React, {Component, useEffect, useState ,useCallback} from 'react'
 import {
   Card,
   CardImg,
@@ -17,6 +17,8 @@ import {
   CardHeader
 } from "reactstrap";
 import { Control, LocalForm, Errors } from "react-redux-form";
+import axios from "axios";
+import { baseUrl } from '../Shared/baseUrl';
 
 
 class TESTING extends Component {
@@ -25,7 +27,12 @@ class TESTING extends Component {
 
     this.handleSubmit=this.handleSubmit.bind(this);
     this.handleRefresh=this.handleRefresh.bind(this);
+    this.handleDeleteMeals=props.handleDeleteMeals.bind(this);
+
+    
   }
+
+
 
   handleSubmit(values) {
     this.props.postMeal(
@@ -41,6 +48,7 @@ class TESTING extends Component {
 
   handleRefresh(){
    this.props.fetchMeals();
+   window.location.reload();
   };
 
  
@@ -52,14 +60,16 @@ class TESTING extends Component {
     
 
     return (<>
-      <h2>Hello this is our practice page</h2>
+      <h2 className='pt-4 pb-4'>Hello this is our practice page</h2>
       
       {/* <RenderMeals 
       meal={props.meal.meal} /> */}
 
       {/* we can use this form to practice input */}
 
-      <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+      <LocalForm onSubmit={(values) => 
+        this.handleSubmit(values)}
+        >
         
       <Row className="form-group">
         <Label htmlFor="mealName" md={2}>
@@ -156,7 +166,8 @@ class TESTING extends Component {
         <Col md={{ size: 10, offset: 2 }}>
           <Button
          onClick={()=>{
-          this.props.memoizedCallback();
+          // this.props.memoizedCallback();
+          this.handleRefresh();
          }}
           type="submit" 
           color="primary">
@@ -176,12 +187,13 @@ const TEST = (props) => {
     
   // }, [props.meal.meal, props.postMeal]);
 
+ 
   
   const memoizedCallback = useCallback(
     () => {
      props.fetchMeals();
     },
-    [props.meal, props.postMeal],
+    [],
   );
  
 
@@ -190,6 +202,8 @@ const TEST = (props) => {
   <>
   <RenderMeals
   meal={props.meal.meal}
+  deleteMeal={props.deleteMeal}
+  handleDeleteMeals={props.handleDeleteMeals}
   />
 
   <TESTING
@@ -197,6 +211,7 @@ const TEST = (props) => {
   postMeal={props.postMeal}
   fetchMeals={props.fetchMeals}
   memoizedCallback={memoizedCallback}
+  handleDeleteMeals={props.handleDeleteMeals}
   />
   
   </> );
@@ -205,13 +220,13 @@ const TEST = (props) => {
 export default TEST;
 
 
+  function RenderMeals({ meal, deleteMeal, handleDeleteMeals }) {
 
 
-
-
-
-  function RenderMeals({ meal }) {
-
+    const handleDeleteButton = async (id) => {
+      await axios.delete(baseUrl + "/meals/"+id);
+      window.location.reload();
+    };
    
    
 
@@ -223,26 +238,45 @@ export default TEST;
               <div className="row">
                 <div className='col-12 col-md-5 m-1'>
               <Card key={m.id} className='mt-4' >
-                <CardHeader className="h2">{m.mealName}</CardHeader>
+                <CardHeader className="h1 text-center">{m.mealName}</CardHeader>
+                <CardTitle className="text-center h5 mt-2">
+                    <br/>
+                '{m.description}'
+                </CardTitle>
                 <CardBody>
                 <CardText className="text-center">
                     ID: {m.id}
                   </CardText>
 
                   <CardText className="text-center">
-                    Description: {m.description}
+                    Recipe: <br/> {m.recipe}
                   </CardText>
 
                   <CardText className="text-center">
-                    Recipe: {m.recipe}
-                  </CardText>
-
-                  <CardText className="text-center">
-                    Ingredients: {m.ingredients}
+                    Ingredients: <br/> {m.ingredients}
                   </CardText>
                   
-                </CardBody>             
+                </CardBody> 
+
+                <div>
+                <Button className='m-3' onClick={()=>{
+                  // let i = parseInt(m.id)
+                  // console.log("Hello " + i);
+                  // handleDeleteMeals(Number(i));
+                  // console.log("Goodbye " + i);
+
+                  handleDeleteButton(m.id)
+                  console.log(handleDeleteButton)
+                }}>Delete</Button> 
+                
+                <Button>
+                  Edit
+                </Button>
+                </div>
+
               </Card>
+
+              
               </div>
               </div>
                )})}

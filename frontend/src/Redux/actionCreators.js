@@ -24,6 +24,44 @@ export const addMeal =  (meal) => ({
   payload: meal
 });
 
+export const deleteMeal = () => ({
+  type: ActionTypes.DELETE_MEAL
+});
+
+export const deleteMeals = (id) => async (dispatch) => {
+  let auth= localStorage.getItem('token')
+
+  const response = await fetch(baseUrl + "/meals/" + id, {
+    method: "DELETE",
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + auth
+    }
+  });
+  const meal = await response.json();
+  return dispatch(deleteMeal(meal));
+}
+
+// export const deleteMeal=(id)=> {
+  
+//   fetch(baseUrl + "/meals/" + id , {
+//       method: "DELETE"
+      
+//   })
+//     .then((response) => {
+//       return response.text();
+//     })
+//     .then((data) => {
+//       console.log(data);
+//       alert("Meal Deleted!");
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       alert("Could not delete Meal!");
+//     });
+// }
+
  export const postMeal = 
   (mealName, categoryId, timeOfDayId, description, recipe, ingredients) =>
   (dispatch) => {
