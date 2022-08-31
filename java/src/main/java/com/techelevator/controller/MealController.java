@@ -5,13 +5,14 @@ import com.techelevator.model.Meal;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @CrossOrigin
-@PreAuthorize("hasRole('USER')")
+@PreAuthorize("permitAll")
 public class MealController {
 
     private MealDao mealDao;
@@ -24,5 +25,6 @@ public class MealController {
     public Meal[] findAllAccounts(){
         return mealDao.findAllMeals();
     }
+
 }
 

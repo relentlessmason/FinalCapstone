@@ -1,7 +1,6 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Meal;
-import com.techelevator.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -38,7 +37,7 @@ public class JdbcMealDao implements MealDao{
 
     @Override
     public Meal getMealById(Long mealId) {
-        String sql = "SELECT * FROM meals WHERE meal_id = ?"
+        String sql = "SELECT * FROM meals WHERE meal_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, mealId);
         if (results.next()) {
             return mapToRowMeal(results);
@@ -49,7 +48,7 @@ public class JdbcMealDao implements MealDao{
 
     @Override
     public Meal findByIngredient(String ingredients) {
-        String sql= "SELECT meal_name FROM meals WHERE ingredients LIKE ? "
+        String sql= "SELECT meal_name FROM meals WHERE ingredients LIKE ? ";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, ingredients);
         if (results.next()) {
             return mapToRowMeal(results);
@@ -60,7 +59,7 @@ public class JdbcMealDao implements MealDao{
 
     @Override
     public Meal findByMealName(String mealName) {
-        String sql = "SELECT meal_name FROM meals WHERE meal_name LIKE ? "
+        String sql = "SELECT meal_name FROM meals WHERE meal_name LIKE ? ";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, mealName );
         if (results.next()) {
             return mapToRowMeal(results);
@@ -70,8 +69,8 @@ public class JdbcMealDao implements MealDao{
     }
 
     @Override
-    public long findIdByMealName(String mealName) {
-        return jdbcTemplate.queryForObject("SELECT meal_id FROM meals WHERE meal_name LIKE ? ", long.class, mealName);
+    public Long findIdByMealName(String mealName) {
+        return jdbcTemplate.queryForObject("SELECT meal_id FROM meals WHERE meal_name LIKE ? ", Long.class, mealName);
 
     }
 

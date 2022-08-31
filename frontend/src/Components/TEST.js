@@ -24,8 +24,13 @@ const TEST = (props) => {
     return (
       <div>
         <p>
-          <li>{meal.mealName}</li>
-          <li>{meal.description}</li>
+            {/* meal can't map?? */}
+          {/* {meal.map((m) => {
+            <>
+              <li>{m.mealName}</li>
+              <li>{m.description}</li>
+            </>;
+          })} */}
         </p>
       </div>
     );
