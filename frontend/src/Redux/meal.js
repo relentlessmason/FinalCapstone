@@ -2,7 +2,7 @@ import * as ActionTypes from "./actionTypes";
 
 export const Meal = (
   state = {
-    meal: [],
+    meal: []
   },
   action
 ) => {

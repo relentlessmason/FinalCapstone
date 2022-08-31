@@ -19,12 +19,12 @@ export const deleteUser = () => ({
 
 //***MEALS***//
 
-export const addMeal = (meal) => ({
+export const addMeal =  (meal) => ({
   type: ActionTypes.ADD_MEAL,
   payload: meal
 });
 
-export const postMeal =
+ export const postMeal = 
   (mealName, categoryId, timeOfDayId, description, recipe, ingredients) =>
   (dispatch) => {
     const newMeal = {
@@ -33,16 +33,18 @@ export const postMeal =
       timeOfDayId: timeOfDayId,
       description: description,
       recipe: recipe,
-      ingredients: ingredients,
+      ingredients: ingredients
     };
+
 
     return fetch(baseUrl + "/meals/", {
       method: "POST",
       body: JSON.stringify(newMeal),
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
+        
       },
-      credentials: "same-origin",
+      credentials: "same-origin"
     })
       .then(
         (response) => {
@@ -59,17 +61,28 @@ export const postMeal =
       .then((response) =>
         alert("Current state is: " + JSON.stringify(response))
       )
-      .then((response) => dispatch(addMeal(response)))
+      .then((meal) => dispatch(addMeal(meal)))
 
       .catch((error) => {
-        console.log("Post Feedback", error.message);
+        console.log("Post Meal ", error.message);
       });
   };
 
-export const fetchMeals = () => (dispatch) => {
-  return fetch(baseUrl + "/meals/")
-    .then((response) => response.json())
-    .then((meals) => dispatch(addMeals(meals)));
+  
+
+export const fetchMeals = () => async (dispatch) => {
+  let auth= localStorage.getItem('token')
+
+  const response = await fetch(baseUrl + "/meals/", {
+    method: "GET",
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + auth
+    }
+  });
+  const meal = await response.json();
+  return dispatch(addMeals(meal));
 
   //TODO AFTER ACTION TYPES
   // .catch(error => dispatch(dishesFailed(error.message)));
@@ -86,9 +99,11 @@ export const fetchMeals = () => (dispatch) => {
 //     payload: errmess
 // });
 
-export const addMeals = (meals) => ({
+export const addMeals = (meal) => ({
   type: ActionTypes.ADD_MEALS,
-  payload: meals
+  payload: meal
 });
 
 //***END MEALS***//
+
+

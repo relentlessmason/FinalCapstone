@@ -1,4 +1,4 @@
-import {Component} from 'react'
+import React, {Component} from 'react'
 import {Switch, Route, Redirect, Link} from 'react-router-dom'
 import Login from '../Login/Login'
 import Register from '../Register/Register'
@@ -15,7 +15,10 @@ const mapStateToProps = state => {
         user: state.user,
         meal: state.meal
     }
+    
 }
+
+
 
 const mapDispatchToProps = (dispatch) => ({
     addToken: () => { dispatch(addToken()) },
@@ -38,13 +41,17 @@ class Main extends Component {
         this.props.deleteUser()
     }
 
+    
+
     componentDidMount(){
         this.props.fetchMeals();
     }
 
+  
+
     render(){
         return(
-            <div>
+            <div className='container'>
                 {this.props.token.token !== undefined ?
                         <div>
                             <Link to='/home'>Home | </Link>
@@ -68,6 +75,7 @@ class Main extends Component {
                     <TEST
                     meal={this.props.meal}
                     postMeal={this.props.postMeal}
+                    fetchMeals={this.props.fetchMeals}
                     />}/>
 
                     
@@ -77,7 +85,11 @@ class Main extends Component {
                 </Switch>
             </div>
         )
+        
     }
+    
 } 
+
+
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

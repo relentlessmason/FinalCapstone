@@ -74,6 +74,27 @@ public class JdbcMealDao implements MealDao{
 
     }
 
+    @Override
+    public void addMeal(Meal meal) {
+        String SQL = "INSERT INTO meals" +
+                " (meal_name, " +
+                "category_id, " +
+                "time_of_day_id, " +
+                "description, " +
+                "recipe, " +
+                "ingredients) "+
+                "VALUES (?, ?, ?, ?, ?, ?);";
+
+        jdbcTemplate.update(SQL,
+                meal.getMealName(),
+                meal.getCategoryId(),
+                meal.getTimeOfDayId(),
+                meal.getDescription(),
+                meal.getRecipe(),
+                meal.getIngredients());
+
+    }
+
     private Meal mapToRowMeal(SqlRowSet m) {
         Meal meal = new Meal();
         meal.setId(m.getLong("meal_id"));

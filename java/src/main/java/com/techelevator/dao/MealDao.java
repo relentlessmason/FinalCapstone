@@ -16,6 +16,6 @@ public interface MealDao {
 
     Long findIdByMealName(String username);
 
-
+    void addMeal(Meal meal);
 
 }
