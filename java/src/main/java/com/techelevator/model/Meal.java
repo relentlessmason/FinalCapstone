@@ -6,6 +6,7 @@ import java.util.Arrays;
 public class Meal {
 
     private Long id;
+    private Long mealAccountId;
     private String mealName;
     private Long categoryId;
     private Long timeOfDayId;
@@ -17,32 +18,38 @@ public class Meal {
     public String toString() {
         return "Meal{" +
                 "id=" + id +
+                ", mealAccountId=" + mealAccountId +
                 ", mealName='" + mealName + '\'' +
                 ", categoryId=" + categoryId +
                 ", timeOfDayId=" + timeOfDayId +
                 ", description='" + description + '\'' +
                 ", recipe='" + recipe + '\'' +
-                ", ingredients=" + ingredients +
+                ", ingredients='" + ingredients + '\'' +
                 '}';
     }
 
-    public Meal() {
-    }
-
-    public Meal(Long id,
-                String mealName,
-                Long categoryId,
-                Long timeOfDayId,
-                String description,
-                String recipe,
-                String ingredients) {
+    public Meal(Long id, Long mealAccountId, String mealName, Long categoryId, Long timeOfDayId, String description, String recipe, String ingredients) {
         this.id = id;
+        this.mealAccountId = mealAccountId;
         this.mealName = mealName;
         this.categoryId = categoryId;
         this.timeOfDayId = timeOfDayId;
         this.description = description;
         this.recipe = recipe;
         this.ingredients = ingredients;
+    }
+
+    public Meal() {
+    }
+
+
+
+    public Long getMealAccountId() {
+        return mealAccountId;
+    }
+
+    public void setMealAccountId(Long mealAccountId) {
+        this.mealAccountId = mealAccountId;
     }
 
     public Long getId() {

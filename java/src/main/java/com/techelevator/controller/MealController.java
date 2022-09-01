@@ -1,7 +1,9 @@
 package com.techelevator.controller;
 
+import com.techelevator.dao.MealAccountDao;
 import com.techelevator.dao.MealDao;
 import com.techelevator.model.Meal;
+import com.techelevator.model.MealAccount;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +17,16 @@ import java.util.List;
 public class MealController {
 
     private MealDao mealDao;
+    private MealAccountDao mealAccountDao;
 
-    public MealController(MealDao mealDao) {
+    public MealController(MealDao mealDao, MealAccountDao mealAccountDao) {
         this.mealDao = mealDao;
+        this.mealAccountDao = mealAccountDao;
+    }
+
+    @GetMapping(path="mealaccount/")
+    public MealAccount[] findAllMealAccounts(){
+        return mealAccountDao.findAllAccounts();
     }
 
     @GetMapping(path = "meals/")
