@@ -6,6 +6,7 @@ import { addToken, addUser } from "../../Redux/actionCreators";
 import { baseUrl } from "../../Shared/baseUrl";
 import axios from "axios";
 
+
 const mapDispatchToProps = (dispatch) => ({
   addToken: () => dispatch(addToken()),
   addUser: () => dispatch(addUser()),
@@ -42,10 +43,11 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Please Sign In</h1>
-        <label class="sr-only">Username</label>
-        <input
+      <div className="login_entity">
+        <h1 className="login_header">Please Sign In</h1>
+        <div className='spacer'></div>
+        <label class="sr-only" className="login_username_label">Username</label>
+        <input className="login_username"
           type="text"
           id="username"
           name="username"
@@ -55,8 +57,9 @@ class Login extends Component {
           onChange={this.handleInputChange}
           required
         />
-        <label class="sr-only">Password</label>
-        <input
+        <div className='spacer'></div>
+        <label class="sr-only" className="login_password_label">Password</label>
+        <input className="login_password"
           type="password"
           id="password"
           name="password"
@@ -66,8 +69,9 @@ class Login extends Component {
           onChange={this.handleInputChange}
           required
         />
-        <Link to="/register">Need an account?</Link>
-        <button type="submit" onClick={this.handleLogin}>
+        <div className='spacer'></div>
+        <Link to="/register" className="login_signup">Need an account?</Link>
+        <button type="submit" className="submit" onClick={this.handleLogin}>
           Sign in
         </button>
       </div>

@@ -58,7 +58,10 @@ class Main extends Component {
 
     render(){
         return(
-            <div className='container'>
+            <div className='container_x'>
+
+                <div className='header_container'>
+                    <h1 className='header_title'>meal please!</h1>
                 {this.props.token.token !== undefined ?
                         <div>
                             <Link to='/home'>Home | </Link>
@@ -69,6 +72,8 @@ class Main extends Component {
                     : 
                         <Link to='/login'>Home | </Link>
                 }
+                    
+                </div>
                 <Switch>
                     <Route path='/login' component={() => <Login/>}/>
                     <Route path='/register'component={() => <Register/>}/>

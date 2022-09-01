@@ -36,3 +36,174 @@
     transform: rotate(360deg);
   }
 } */
+
+body {
+  margin: 0 auto;
+  background-color: #EEB1D5;
+  background-image: linear-gradient(#D10081, #EEB1D5);
+  background-attachment: fixed;
+}
+
+.container_x {
+  max-width: 20000px;
+}
+
+.container {
+  padding: 0;
+  margin: 0;
+  max-width: 20000px;
+}
+
+
+/* HEADER */
+
+.header_container {
+  height: 100px;
+  max-width: 20000px;
+  margin: 0;
+
+  text-align: center;
+  justify-items: center;
+
+  color: #330036;
+  box-shadow: 5px 0px 5px 5px #6F5E5C;
+  background-color: #FEDEFF;
+}
+
+.header_title {
+  padding-top: 15px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+
+/* LOGIN */
+
+.login_entity {
+  display: flexbox;
+  justify-self: center;
+  margin-left: 33%;
+  margin-top: 8%;
+  height: fit-content;
+  text-align: center;
+  width: 33%;
+  padding: 5px;
+  padding-top: 20px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #6F5E5C;
+  border-radius: 5px;
+
+  color: #330036;
+  background-color: #FEDEFF;
+ 
+}
+
+.login_header {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+.login_signup {
+  margin-top: 5px;
+}
+
+.login_username, .login_password {
+  margin-top: 15px;
+}
+
+/* REGISTER */
+
+.register_entity {
+  display: flexbox;
+  justify-self: center;
+  margin-left: 33%;
+  margin-top: 8%;
+  height: fit-content;
+  text-align: center;
+  width: 33%;
+  padding: 5px;
+  padding-top: 20px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #6F5E5C;
+  border-radius: 5px;
+
+  color: #330036;
+  background-color: #FEDEFF;
+ 
+}
+
+.register_header{
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+.register_input {
+  margin: 500px;
+}
+
+.spacer {
+  margin: 2.5px;
+}
+
+/* SUBMIT BUTTON */
+
+.submit {
+  padding: 15px 20px;
+  background: #D10081;
+  border:0;
+  border-radius: 5px;
+  color: #fff;
+  text-transform: uppercase;
+  font-family: helvetica;
+  font-size: 12px;
+  letter-spacing: 3px;
+  position: relative;
+  transition:         all .4s cubic-bezier(0.645, 0.045, 0.355, 1);
+  cursor: pointer;
+  display: block;
+  margin: 50px auto;
+}
+
+.submit::after,
+.submit::before{
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  transform: translateY(-50%);
+    opacity: 0;
+  transition:         all .4s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.submit::after{
+    width: 30px;
+    height: 1px;
+    background: white;
+    transform: translateX(-3px);
+    margin-top: 0px;
+}
+
+.submit::before{
+    content: "";
+    transform: rotate(-135deg) translateX(50%);
+    width: 11px;
+    height: 11px;
+    background: transparent;
+    border-left: 1px solid white;
+    border-bottom: 1px solid white;
+  margin-top: -1px;
+}
+
+
+.submit:hover{
+  padding: 15px 60px 15px 20px;
+}
+
+.submit:hover::after,
+.submit:hover::before{
+  opacity: 1;
+  right: 15px;
+}
