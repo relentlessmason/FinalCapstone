@@ -2,7 +2,7 @@ package com.techelevator.model;
 
 public class MealAccount {
 
-    private Long accountId;
+    private Long mealId;
     private Long userId;
 
     public MealAccount() {
@@ -11,22 +11,22 @@ public class MealAccount {
     @Override
     public String toString() {
         return "MealAccount{" +
-                "accountId=" + accountId +
+                "accountId=" + mealId +
                 ", userId=" + userId +
                 '}';
     }
 
-    public MealAccount(Long accountId, Long userId) {
-        this.accountId = accountId;
+    public MealAccount(Long mealId, Long userId) {
+        this.mealId = mealId;
         this.userId = userId;
     }
 
-    public Long getAccountId() {
-        return accountId;
+    public Long getMealId() {
+        return mealId;
     }
 
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
+    public void setMealId(Long mealId) {
+        this.mealId = mealId;
     }
 
     public Long getUserId() {
@@ -36,4 +36,5 @@ public class MealAccount {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
 }

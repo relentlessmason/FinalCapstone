@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -53,6 +54,20 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
+    public List<User> findAllTEST(Long id) {
+        List<User> users = new ArrayList<>();
+        String sql = "select * from users where user_id = ?";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+        while(results.next()) {
+            User user = mapRowToUser(results);
+            users.add(user);
+        }
+
+        return users;
+    }
+
+    @Override
     public User findByUsername(String username) throws UsernameNotFoundException {
         for (User user : this.findAll()) {
             if( user.getUsername().toLowerCase().equals(username.toLowerCase())) {
@@ -82,6 +97,13 @@ public class JdbcUserDao implements UserDao {
                 }
                 , keyHolder) == 1;
         int newUserId = (int) keyHolder.getKeys().get(id_column);
+
+//        sql = "INSERT INTO meaL_account (user_id, balance) values(?, ?)";
+//        try {
+//            jdbcTemplate.update(sql, newUserId, STARTING_BALANCE);
+//        } catch (DataAccessException e) {
+//            return false;
+//        }
 
         return userCreated;
     }

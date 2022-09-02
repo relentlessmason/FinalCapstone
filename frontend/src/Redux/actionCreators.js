@@ -15,14 +15,34 @@ export const addUser = (user) => ({
 export const deleteUser = () => ({
   type: ActionTypes.DELETE_USER,
 });
+
+
+// export const fetchUser = (id) => (dispatch) => {    
+//   return fetch(baseUrl + '/user/'+id)
+//   .then(response => {
+//       if (response.ok) {
+//         return response;
+//       } else {
+//         var error = new Error('Error ' + response.status + ': ' + response.statusText);
+//         error.response = response;
+//         throw error;
+//       }
+//     },
+//     error => {
+//           var errmess = new Error(error.message);
+//           throw errmess;
+//     })
+//   .then(response => response.json())
+//   .then(users => dispatch(addUser(users)));
+// };
+
+
 //END TOKEN/USERS
+
 
 //***MEALS***//
 
-export const addMeal =  (meal) => ({
-  type: ActionTypes.ADD_MEAL,
-  payload: meal
-});
+
 
 export const deleteMeal = () => ({
   type: ActionTypes.DELETE_MEAL
@@ -43,27 +63,9 @@ export const deleteMeals = (id) => async (dispatch) => {
   return dispatch(deleteMeal(meal));
 }
 
-// export const deleteMeal=(id)=> {
-  
-//   fetch(baseUrl + "/meals/" + id , {
-//       method: "DELETE"
-      
-//   })
-//     .then((response) => {
-//       return response.text();
-//     })
-//     .then((data) => {
-//       console.log(data);
-//       alert("Meal Deleted!");
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       alert("Could not delete Meal!");
-//     });
-// }
 
- export const postMeal = 
-  (mealName, categoryId, timeOfDayId, description, recipe, ingredients) =>
+ export  let  postMeal = 
+ (mealName, categoryId, timeOfDayId, description, recipe, ingredients)  =>
   (dispatch) => {
     const newMeal = {
       mealName: mealName,
@@ -74,13 +76,11 @@ export const deleteMeals = (id) => async (dispatch) => {
       ingredients: ingredients
     };
 
-
     return fetch(baseUrl + "/meals/", {
       method: "POST",
       body: JSON.stringify(newMeal),
       headers: {
-        "Content-Type": "application/json"
-        
+        'Content-Type': 'application/json'
       },
       credentials: "same-origin"
     })
@@ -96,19 +96,20 @@ export const deleteMeals = (id) => async (dispatch) => {
         }
       )
       .then((response) => response.json())
-      .then((response) =>
-        alert("Current state is: " + JSON.stringify(response))
-      )
       .then((meal) => dispatch(addMeal(meal)))
-
       .catch((error) => {
         console.log("Post Meal ", error.message);
       });
   };
 
+  export let addMeal =  (meal) => ({
+    type: ActionTypes.ADD_MEAL,
+    payload: meal
+  });
+
   
 
-export const fetchMeals = () => async (dispatch) => {
+export const fetchMeals = (auth) => async (dispatch) => {
   let auth= localStorage.getItem('token')
 
   const response = await fetch(baseUrl + "/meals/", {
@@ -121,10 +122,13 @@ export const fetchMeals = () => async (dispatch) => {
   });
   const meal = await response.json();
   return dispatch(addMeals(meal));
-
-  //TODO AFTER ACTION TYPES
-  // .catch(error => dispatch(dishesFailed(error.message)));
 };
+
+export const addMeals = (meal) => ({
+  type: ActionTypes.ADD_MEALS,
+  payload: meal
+});
+
 
 //TODO ADD TO ACTION TYPES
 // export const mealsLoading = () => ({
@@ -137,11 +141,76 @@ export const fetchMeals = () => async (dispatch) => {
 //     payload: errmess
 // });
 
-export const addMeals = (meal) => ({
-  type: ActionTypes.ADD_MEALS,
-  payload: meal
-});
-
 //***END MEALS***//
 
 
+
+// ***MEAL ACCOUNTS ***
+
+export const addMealAccount = (mealAccount) => ({
+  type: ActionTypes.ADD_MEAL_ACCOUNT,
+  payload: mealAccount
+});
+
+export let postMealAccount = (mealId, userId) => (dispatch)=> {
+
+const newMealAccount = {
+  mealId: mealId,
+  userId: userId
+}
+
+const url = baseUrl+'/mealaccount/'+parseInt(newMealAccount.mealId)+"/"+parseInt(newMealAccount.userId);
+
+
+return fetch(url, {
+  method: 'POST',
+  body: JSON.stringify(newMealAccount),
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  credentials: "same-origin"
+})
+.then(response => {
+  if (response.ok) {
+    return response;
+  } else {
+    var error = new Error('Error ' + response.status + ': ' + response.statusText);
+    error.response = response;
+    throw error;
+  }
+},
+(error) => {
+      var errmess = new Error(error.message);
+      throw errmess;
+})
+.then(response => response.json())
+.then(mealAccount => dispatch(addMealAccount(mealAccount)))
+.catch(error => {console.log('Post Meal Account ',error.message)})
+}
+
+export const fetchMealAccount = () => (dispatch) => {    
+  return fetch(baseUrl + '/mealaccounts/')
+  .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        var error = new Error('Error ' + response.status + ': ' + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    },
+    error => {
+          var errmess = new Error(error.message);
+          throw errmess;
+    })
+  .then(response => response.json())
+  .then(mealAccount => dispatch(postAccounts(mealAccount)));
+};
+
+export const postAccounts = (mealAccount) => ({
+  type: ActionTypes.ADD_MEAL_ACCOUNTS,
+  payload: mealAccount
+});
+
+
+// *** END MEAL ACCOUNTS***
