@@ -58,46 +58,29 @@ class Main extends Component {
 
     render(){
         return(
-            <div className='container_x'>
+         <> <Switch>
+         <Route path='/login' component={() => <Login/>}/>
+         <Route path='/register'component={() => <Register/>}/>
+         <Route path='/home' component={this.props.token.token !== undefined ? () => 
+         <Home
+         meal={this.props.meal}
+         /> : null}/>
 
-                <div className='header_container'>
-                    <h1 className='header_title'>meal please!</h1>
-                {this.props.token.token !== undefined ?
-                        <div>
-                            <Link to='/home'>Home | </Link>
-                            <Link to='/login' onClick={this.handleLogout}>logout</Link> 
-                            <Redirect to='/home'/>
+         {/* TEST PATH  */}
+         <Route path='/test' component={() => 
+         <TEST
+         meal={this.props.meal}
+         postMeal={this.props.postMeal}
+         fetchMeals={this.props.fetchMeals}
+         deleteMeal={this.props.deleteMeal}
+         handleDeleteMeals={this.handleDeleteMeals}
+         />}/>
 
-                        </div>  
-                    : 
-                        <Link to='/login'>Home | </Link>
-                }
-                    
-                </div>
-                <Switch>
-                    <Route path='/login' component={() => <Login/>}/>
-                    <Route path='/register'component={() => <Register/>}/>
-                    <Route path='/home' component={this.props.token.token !== undefined ? () => 
-                    <Home
-                    meal={this.props.meal}
-                    /> : null}/>
+         
+         <Redirect to='/login'/>
+         
 
-                    {/* TEST PATH  */}
-                    <Route path='/test' component={() => 
-                    <TEST
-                    meal={this.props.meal}
-                    postMeal={this.props.postMeal}
-                    fetchMeals={this.props.fetchMeals}
-                    deleteMeal={this.props.deleteMeal}
-                    handleDeleteMeals={this.handleDeleteMeals}
-                    />}/>
-
-                    
-                    <Redirect to='/login'/>
-                    
-
-                </Switch>
-            </div>
+     </Switch></>
         )
         
     }
