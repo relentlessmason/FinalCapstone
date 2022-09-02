@@ -19,18 +19,22 @@ import {
 import { Control, LocalForm, Errors } from "react-redux-form";
 import axios from "axios";
 import { baseUrl } from "../Shared/baseUrl";
+import { fetchUser, postMealAccount } from "../Redux/actionCreators";
 
 class TESTING extends Component {
   constructor(props) {
     super(props);
 
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRefresh = this.handleRefresh.bind(this);
     this.handleDeleteMeals = props.handleDeleteMeals.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(values) {
-    this.props.postMeal(
+
+  async handleSubmit(values) {
+   
+
+    await this.props.postMeal(
       values.mealName,
       values.categoryId,
       values.timeOfDayId,
@@ -38,24 +42,22 @@ class TESTING extends Component {
       values.recipe,
       values.ingredients
     );
+    this.props.handleMealAccount();
   }
 
   handleRefresh() {
     this.props.fetchMeals();
-    window.location.reload();
   }
 
   render() {
     return (
       <>
-        <h2 className="pt-4 pb-4">Hello this is our practice page</h2>
+        <h2 className="pt-4 pb-4">Add a new Meal below</h2>
 
-        {/* <RenderMeals 
-      meal={props.meal.meal} /> */}
-
-        {/* we can use this form to practice input */}
-
-        <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+        <LocalForm onSubmit={(values) => 
+          this.handleSubmit(values)
+          }
+          >
           <Row className="form-group">
             <Label htmlFor="mealName" md={2}>
               Meal Name
@@ -152,6 +154,9 @@ class TESTING extends Component {
               <Button
                 onClick={() => {
                   // this.props.memoizedCallback();
+
+                  postMealAccount(1, 2);
+
                   this.handleRefresh();
                 }}
                 type="submit"
@@ -168,10 +173,20 @@ class TESTING extends Component {
 }
 
 const TEST = (props) => {
-  // useEffect(() => {
-  //   props.postMeal();
+  const findLastMealId = () => {
+    let max = 0;
+    props.meal.meal.map((m) => {
+      if (m.id > max) {
+        max = m.id;
+      }
+    });
+    return max + 1;
+  };
 
-  // }, [props.meal.meal, props.postMeal]);
+  function handlePostMealAccount() {
+    //THIS WORKS, but it's not great
+    props.postMealAccount(findLastMealId(), props.user.id);
+  }
 
   const memoizedCallback = useCallback(() => {
     props.fetchMeals();
@@ -179,13 +194,26 @@ const TEST = (props) => {
 
   return (
     <>
+      USER INFORMATION TEST
+      <br />
+      {props.user.id}
+      <br />
+      {props.user.username}
       <RenderMeals
         meal={props.meal.meal}
         deleteMeal={props.deleteMeal}
         handleDeleteMeals={props.handleDeleteMeals}
+        fetchMealAccount={props.fetchMealAccount}
+        postMealAccount={props.postMealAccount}
+        fetchMeals={props.fetchMeals}
       />
-
       <TESTING
+        handleMealAccount={handlePostMealAccount}
+        userId={props.user.id}
+        token={props.token}
+        user={props.user}
+        fetchMealAccount={props.fetchMealAccount}
+        postMealAccount={props.postMealAccount}
         meal={props.meal.meal}
         postMeal={props.postMeal}
         fetchMeals={props.fetchMeals}
@@ -198,10 +226,14 @@ const TEST = (props) => {
 
 export default TEST;
 
-function RenderMeals({ meal, deleteMeal, handleDeleteMeals }) {
+function RenderMeals({
+  meal,
+  fetchMeals
+}) {
+  
   const handleDeleteButton = async (id) => {
     await axios.delete(baseUrl + "/meals/" + id);
-    window.location.reload();
+    await fetchMeals();
   };
 
   return (
@@ -216,8 +248,6 @@ function RenderMeals({ meal, deleteMeal, handleDeleteMeals }) {
                   <br />'{m.description}'
                 </CardTitle>
                 <CardBody>
-                  <CardText className="text-center">ID: {m.id}</CardText>
-
                   <CardText className="text-center">
                     Recipe: <br /> {m.recipe}
                   </CardText>
@@ -231,22 +261,20 @@ function RenderMeals({ meal, deleteMeal, handleDeleteMeals }) {
                   <Button
                     className="m-3"
                     onClick={() => {
-                      // let i = parseInt(m.id)
-                      // console.log("Hello " + i);
-                      // handleDeleteMeals(Number(i));
-                      // console.log("Goodbye " + i);
-
                       handleDeleteButton(m.id);
-                      console.log(handleDeleteButton);
                     }}
                   >
                     Delete
                   </Button>
 
-                  <Button onClick={()=>{
-                    // HANDLE EDIT HERE
-                    //similar to catcard focus?
-                  }}>Edit</Button>
+                  <Button
+                    onClick={() => {
+                      // HANDLE EDIT HERE
+                      //similar to catcard focus?
+                    }}
+                  >
+                    Edit
+                  </Button>
                 </div>
               </Card>
             </div>

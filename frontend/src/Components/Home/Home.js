@@ -1,10 +1,15 @@
 import {Link} from 'react-router-dom'
 
 function Home(props) {
+
     return(
-        <div>
-            You must be authorized to see this page.
-        </div>
+    <>
+    ID:
+    {"  "+props.user.id}
+    <br/>
+    USERNAME: 
+    {"  "+props.user.username}
+    </>
     )
 }
 

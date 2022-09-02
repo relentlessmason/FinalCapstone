@@ -58,6 +58,7 @@ class Main extends Component {
 
     render(){
         return(
+<<<<<<< HEAD
             <div className='container'>
                 {this.props.token.token !== undefined ?
                         <div>
@@ -95,13 +96,31 @@ class Main extends Component {
                     fetchMealAccount={this.props.fetchMealAccount}
                     postMealAccount={this.props.postMealAccount}
                     />}/>
+=======
+         <> <Switch>
+         <Route path='/login' component={() => <Login/>}/>
+         <Route path='/register'component={() => <Register/>}/>
+         <Route path='/home' component={this.props.token.token !== undefined ? () => 
+         <Home
+         meal={this.props.meal}
+         /> : null}/>
 
-                    
-                    <Redirect to='/login'/>
-                    
+         {/* TEST PATH  */}
+         <Route path='/test' component={() => 
+         <TEST
+         meal={this.props.meal}
+         postMeal={this.props.postMeal}
+         fetchMeals={this.props.fetchMeals}
+         deleteMeal={this.props.deleteMeal}
+         handleDeleteMeals={this.handleDeleteMeals}
+         />}/>
 
-                </Switch>
-            </div>
+         
+         <Redirect to='/login'/>
+         
+>>>>>>> 4c3ffc8d66c924a2ffe6609a5faddc59b89d80be
+
+     </Switch></>
         )
         
     }

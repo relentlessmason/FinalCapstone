@@ -33,10 +33,12 @@ class Register extends Component{
 
     render(){
         return(
-            <div>
-                <h1>Create Account</h1>
+            <div className='register_entity'>
+                <h1 className='register_header'>Create Account</h1>
+                <div className='spacer'></div>
                 <label class="sr-only">Username</label>
                 <input
+                    className='register_input'
                     type="text"
                     id="username"
                     name="username"
@@ -46,8 +48,10 @@ class Register extends Component{
                     onChange={this.handleInputChange}
                     required
                 />
+                <div className='spacer'></div>
                 <label class="sr-only">Password</label>
                 <input
+                    className='register_input'
                     type="password"
                     id="password"
                     name="password"
@@ -57,7 +61,9 @@ class Register extends Component{
                     onChange={this.handleInputChange}
                     required
                 />
+                <div className='spacer'></div>
                 <input
+                    className='register_input'
                     type="password"
                     id="password-confirm"
                     name="confirmPassword"
@@ -67,8 +73,9 @@ class Register extends Component{
                     onChange={this.handleInputChange}
                     required
                 />
+                <div className='spacer'></div>
                 <Link to="/login">Have an account?</Link>
-                <button type="submit" onClick={this.handleSubmit}>Sign in</button>
+                <button type="submit" onClick={this.handleSubmit} className="submit">Sign in</button>
             </div>
         )
     }
