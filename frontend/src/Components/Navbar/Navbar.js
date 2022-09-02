@@ -15,7 +15,7 @@ export default function Navbar(){
     const showSidebar = () => setSidebar(!sidebar)
     return(
         <>
-        <IconContext.Provider value={{color: '#330036'}}>
+        <IconContext.Provider value={{color: '#D10081'}}>
         <div className="navbar">
             <Link to="#" className="navbar_menu_bars" >
                 <FaIcons.FaBars onClick={showSidebar}/>

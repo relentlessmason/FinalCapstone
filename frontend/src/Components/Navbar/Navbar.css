@@ -43,7 +43,7 @@
 
 .nav-text a {
     text-decoration: none;
-    color: #330036;
+    color: #D10081;
     font-size: 18px;
     width: 95%;
     height: 100%;
@@ -54,7 +54,8 @@
 }
 
 .nav-text a:hover{
-    background-color: #330036;
+  background-color: #330036;
+    color: #FEDEFF;
 }
 
 .nav_menu_items{
