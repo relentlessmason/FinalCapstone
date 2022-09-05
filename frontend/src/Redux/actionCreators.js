@@ -188,23 +188,39 @@ return fetch(url, {
 .catch(error => {console.log('Post Meal Account ',error.message)})
 }
 
-export const fetchMealAccount = () => (dispatch) => {    
-  return fetch(baseUrl + '/mealaccounts/')
-  .then(response => {
-      if (response.ok) {
-        return response;
-      } else {
-        var error = new Error('Error ' + response.status + ': ' + response.statusText);
-        error.response = response;
-        throw error;
-      }
-    },
-    error => {
-          var errmess = new Error(error.message);
-          throw errmess;
-    })
-  .then(response => response.json())
-  .then(mealAccount => dispatch(postAccounts(mealAccount)));
+export const fetchMealAccount = () => async (dispatch) => {    
+
+  const response = await fetch(baseUrl + '/mealaccounts/', {
+
+    method: 'GET', 
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    }
+
+  });
+
+  const mealAccount = await response.json();
+
+  return dispatch(postAccounts(mealAccount));
+
+
+  // return fetch(baseUrl + '/mealaccounts/')
+  // .then(response => {
+  //     if (response.ok) {
+  //       return response;
+  //     } else {
+  //       var error = new Error('Error ' + response.status + ': ' + response.statusText);
+  //       error.response = response;
+  //       throw error;
+  //     }
+  //   },
+  //   error => {
+  //         var errmess = new Error(error.message);
+  //         throw errmess;
+  //   })
+  // .then(response => response.json())
+  // .then(mealAccount => dispatch(postAccounts(mealAccount)));
 };
 
 export const postAccounts = (mealAccount) => ({

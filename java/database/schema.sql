@@ -3,6 +3,11 @@ BEGIN TRANSACTION;
 DROP TABLE IF EXISTS  meal_account, users, meal;
 DROP SEQUENCE IF EXISTS seq_user_id, seq_meal_id, seq_meal_account_id;
 
+--DROP TABLE IF EXISTS  users, meal;
+--
+--DROP SEQUENCE IF EXISTS seq_meal_id;
+
+
 CREATE SEQUENCE seq_user_id
   INCREMENT BY 1
   NO MAXVALUE
