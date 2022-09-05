@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { NavbarData } from './NavbarData';
 import './Navbar.css';
 import { IconContext } from "react-icons";
+import { baseUrl } from "../../Shared/baseUrl";
 
 
 
@@ -31,7 +32,8 @@ export default function Navbar(){
                 {NavbarData.map((item, index) => {
                     return(
                         <li key={index} className={item.cName}>
-                            <Link to={item.path}>
+                            <Link routerLinkActive="active"
+                                to= {item.path}>
                                 {item.icon}
                                 <span>{item.title}</span>
                             </Link>

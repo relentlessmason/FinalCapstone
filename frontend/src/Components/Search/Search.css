@@ -1,0 +1,40 @@
+section {
+    display: flexbox;
+    justify-self: center;
+    margin-left: 33%;
+    margin-top: 8%;
+    height: fit-content;
+    text-align: center;
+    width: 33%;
+    padding: 0px;
+    padding-top: 20px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #6F5E5C;
+    border-radius: 5px;
+  
+    color: #330036;
+    background-color: #FEDEFF;
+   
+}
+
+.search_input{
+    width: 98%;
+}
+
+
+.search_header {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    padding-top: 10px;
+    padding-bottom: 30px;
+  }
+
+/* .visually-hidden {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+} */

@@ -8,6 +8,13 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {actions} from 'react-redux-form';
 import TEST from '../TEST'
+import Header from '../Header/Header'
+import Search from '../Search/Search'
+import AddRecipe from '../AddRecipe/AddRecipe'
+import Favorites from '../Favorites/Favorites'
+import Calendar from '../Calendar/Calendar'
+import Pantry from '../Pantry/Pantry'
+import GroceryList from '../GroceryList/GroceryList'
 
 const mapStateToProps = state => {
     return {
@@ -70,6 +77,7 @@ class Main extends Component {
                     : 
                         <Link to='/login'>Home | </Link>
                 }
+                
                 <Switch>
                     <Route path='/login' component={() => <Login/>}/>
                     <Route path='/register'component={() => <Register/>}/>
@@ -79,7 +87,12 @@ class Main extends Component {
                     user={this.props.user}
                     /> : null}/>
 
-
+                    <Route path='/search' component={() => <Search />}/>
+                    <Route path='/add-recipe' component={() => <AddRecipe />}/>
+                    <Route path='/favorites' component={() => <Favorites />}/>
+                    <Route path='/calendar' component={() => <Calendar />}/>
+                    <Route path='/grocery-list' component={() => <GroceryList />}/>
+                    <Route path='/pantry' component={() => <Pantry />}/>
 
                     {/* TEST PATH  */}
                     <Route path='/test' component={() => 

@@ -75,7 +75,7 @@ class Register extends Component{
                 />
                 <div className='spacer'></div>
                 <Link to="/login">Have an account?</Link>
-                <button type="submit" onClick={this.handleSubmit} className="submit">Sign in</button>
+                <button type="submit" onClick={this.handleSubmit} className="submit">Sign up</button>
             </div>
         )
     }

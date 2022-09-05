@@ -13,7 +13,7 @@ import * as AiIcons from 'react-icons/ai/';
 export const NavbarData = [
     {
         title: 'Home',
-        path: '/',
+        path: '/home',
         icon: <SiIcons.SiJusteat />,
         cName: 'nav-text'
     },
@@ -31,7 +31,7 @@ export const NavbarData = [
     },
     {
         title: 'Favorites',
-        path: '/favorite',
+        path: '/favorites',
         icon: <AiIcons.AiOutlineHeart />,
         cName: 'nav-text'
     },
@@ -55,8 +55,13 @@ export const NavbarData = [
     },
     {
         title: 'LogOut',
-        path: '/logout',
+        path: '/login',
         icon: <MdIcons.MdOutlineLogout />,
+        cName: 'nav-text'
+    },
+    {
+        title: 'Test',
+        path: '/test',
         cName: 'nav-text'
     }
 ]
