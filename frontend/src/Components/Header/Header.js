@@ -11,7 +11,7 @@ export default function Header(){
 
         <div className='header_container'>
         <Navbar />
-            <h1 className='header_title'>meal please!</h1>
+            <h1 className='header_title'><img src='.\final-capstone\frontend\public\onigiri_MP.png' className="headerImg"></img>Meal, Please!</h1>
         {/* {this.props.token.token !== undefined ?
                 <div>
                     <Link to='/home'>Home | </Link>

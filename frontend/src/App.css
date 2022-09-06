@@ -222,7 +222,21 @@ body {
   right: 15px;
 }
 
-.recipeImg {
-  display: flex;
-  
+.RecipeImgDiv {
+  display: inline-flexbox;
+  align-self: left;
+  margin-left: 20px;
+}
+
+form {
+  box-sizing: border-box;
+}
+
+.headerImg {
+  max-width: 50px;
+}
+
+.RecipeInputHead {
+  margin-left: 20px;
+  display: inline-flexbox;
 }
