@@ -5,7 +5,7 @@ export default function Footer(){
     return(
         <div className="footer">
         <footer>
-            <p>@copy; </p>
+        <span classname="footerText">I am a foot.</span>
         </footer>
         </div>
     )

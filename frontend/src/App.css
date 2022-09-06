@@ -220,6 +220,7 @@ body {
 
 .recipeFormHeaderDiv { /* modifies the area on add-recipe next to onigiri image*/
   font-family: 'Arial Narrow Bold', sans-serif;
+  color: #6F5E5C;
   background-color: #FEDEFF;
   border-radius: 10px;
   display: flex;
@@ -229,6 +230,7 @@ body {
   padding: 10px;
   text-align: left;
 }
+
 .recipeFormHeaderDiv input { /* adjusts the format of form boxes in add-recipe */
   width: 300px;
   margin-left: 25px;
@@ -245,4 +247,19 @@ body {
 .wrapper{ /* The box in which the top two divs sit in for add-recipe */
   width: 840px;
   overflow: hidden;
+}
+
+.ingredients {
+  background-color: #FEDEFF;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 260px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 580px;
+  padding: 10px 10px;
+}
+.spacer {
+  margin-top: 2rem;
 }

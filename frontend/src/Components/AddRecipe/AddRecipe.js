@@ -39,9 +39,15 @@ export default function AddRecipe(){
             </div>
 
         <div className="ingredients">
-
-            
+<span> ingredient 1</span>
+<span> ingredient 2</span>
+<span> ingredient 3</span>
+<span> ingredient 4</span>
+<span> ingredient 5</span>
+<span> ingredient 6</span>
+<span> ingredient 7</span>
         </div>
+        <div className="spacer"> .</div>
         </form>
 
     )
