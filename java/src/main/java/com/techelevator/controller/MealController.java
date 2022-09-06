@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-//@PreAuthorize("permitAll")
+//@PreAuthorize("hasRole('USER')")
 public class MealController {
 
     private MealDao mealDao;
@@ -38,6 +38,7 @@ public class MealController {
         return mealAccountDao.findAllAccounts();
     }
 
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @GetMapping(path = "meals/")
     public Meal[] findAllAccounts(){
         return mealDao.findAllMeals();

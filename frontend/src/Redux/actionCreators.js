@@ -1,5 +1,8 @@
 import * as ActionTypes from "./actionTypes";
 import { baseUrl } from "../Shared/baseUrl";
+import axios from "axios";
+
+
 
 //ADD TOKEN/USERS
 export const addToken = (token) => ({
@@ -15,6 +18,7 @@ export const addUser = (user) => ({
 export const deleteUser = () => ({
   type: ActionTypes.DELETE_USER,
 });
+
 
 
 // export const fetchUser = (id) => (dispatch) => {    
@@ -64,8 +68,12 @@ export const deleteMeals = (id) => async (dispatch) => {
 }
 
 
- export  let  postMeal = 
- (mealName, categoryId, timeOfDayId, description, recipe, ingredients)  =>
+//think of this as a constuctor we're filling in, and it passes the data to an endpoint
+//that we have mapped out on the backend
+
+//SINGULAR ACTION CREATOR/TYPE//
+export  let  postMeal =
+ (mealName, categoryId, timeOfDayId, description, recipe, ingredients, auth) =>
   (dispatch) => {
     const newMeal = {
       mealName: mealName,
@@ -80,12 +88,15 @@ export const deleteMeals = (id) => async (dispatch) => {
       method: "POST",
       body: JSON.stringify(newMeal),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer `+auth
+
       },
       credentials: "same-origin"
     })
       .then(
         (response) => {
+          console.log(response)
           if (response.ok) {
             return response;
           } 
@@ -108,17 +119,17 @@ export const deleteMeals = (id) => async (dispatch) => {
   });
 
   
-
+//PLURAL ACTION CREATOR/TYPE //
 export const fetchMeals = (auth) => async (dispatch) => {
-  let auth= localStorage.getItem('token')
 
   const response = await fetch(baseUrl + "/meals/", {
     method: "GET",
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': "Bearer " + auth
-    }
+      'Authorization': `Bearer `+auth
+    },
+    credentials: "same-origin"
   });
   const meal = await response.json();
   return dispatch(addMeals(meal));
@@ -159,7 +170,7 @@ const newMealAccount = {
   userId: userId
 }
 
-const url = baseUrl+'/mealaccount/'+parseInt(newMealAccount.mealId)+"/"+parseInt(newMealAccount.userId);
+const url = baseUrl+'/mealaccount/'+parseInt(mealId)+"/"+parseInt(userId);
 
 
 return fetch(url, {
@@ -196,7 +207,8 @@ export const fetchMealAccount = () => async (dispatch) => {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json'
-    }
+    },
+    credentials: "same-origin"
 
   });
 

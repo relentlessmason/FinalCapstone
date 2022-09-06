@@ -32,9 +32,9 @@ const mapDispatchToProps = (dispatch) => ({
     // MEALS
     fetchMeals: ()=>{dispatch(fetchMeals())},
     deleteMeals: ()=> {dispatch(deleteMeals())},
-    postMeal: (mealName, categoryId, timeOfDayId, description, recipe, ingredients) =>dispatch(postMeal(mealName, categoryId, timeOfDayId, description, recipe, ingredients)),
+    postMeal: ()=> (mealName, categoryId, timeOfDayId, description, recipe, ingredients) =>dispatch(postMeal(mealName, categoryId, timeOfDayId, description, recipe, ingredients)),
 
-    //MEAL ACCOUNTS
+    // MEAL ACCOUNTS
     fetchMealAccount: ()=>{dispatch(fetchMealAccount())},
     postMealAccount: (mealId, userId) => dispatch(postMealAccount(mealId, userId)),
     
@@ -54,23 +54,39 @@ class Main extends Component {
         this.props.deleteMeals(parseInt(id))
     }
 
+   
+
     
 
     componentDidMount(){
-        this.props.fetchMeals();
+        
+        this.props.fetchMeals(this.props.token.token);
         this.props.fetchMealAccount();
     }
+
+    
 
   
 
     render(){
+
+        // const authAxios = axios.create({
+        //     baseUrl: baseUrl,
+        //     headers:{
+        //         Authorization : `Bearer ${this.props.token.token}`
+        //     }
+        //     })
+
         return(
             <div className='container'>
+               
+               
                 {this.props.token.token !== undefined ?
                         <div>
                             <Link to='/home'>Home | </Link>
                             <Link to='/login' onClick={this.handleLogout}>logout</Link> 
-                            <Link to='/test'>| test</Link> 
+                            <Link to='/test' 
+                            >| test</Link> 
                             <Redirect to='/home'/>
 
                         </div>  

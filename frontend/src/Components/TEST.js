@@ -18,8 +18,11 @@ import {
 } from "reactstrap";
 import { Control, LocalForm, Errors } from "react-redux-form";
 import axios from "axios";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+
 import { baseUrl } from "../Shared/baseUrl";
-import { fetchUser, postMealAccount } from "../Redux/actionCreators";
+import { fetchUser, postMealAccount, postMeal } from "../Redux/actionCreators";
 
 class TESTING extends Component {
   constructor(props) {
@@ -30,23 +33,33 @@ class TESTING extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+   handleSubmit(values) {
 
-  async handleSubmit(values) {
-   
+    // this.props.fetchMeals(this.props.token);
 
-    await this.props.postMeal(
+    this.props.postMeal(
       values.mealName,
       values.categoryId,
       values.timeOfDayId,
       values.description,
       values.recipe,
-      values.ingredients
+      values.ingredients,
+      this.props.token
     );
-    this.props.handleMealAccount();
+
+    // this.props.postMealAccount(
+      
+    // )
+
+    alert(values)
+     this.props.handlePostMealAccount();
+
+    // this.props.fetchMeals(this.props.token);
   }
 
   handleRefresh() {
-    this.props.fetchMeals();
+    // this.props.fetchMeals(this.props.token);
+    // this.props.handlePostMealAccount();
   }
 
   render() {
@@ -54,10 +67,7 @@ class TESTING extends Component {
       <>
         <h2 className="pt-4 pb-4">Add a new Meal below</h2>
 
-        <LocalForm onSubmit={(values) => 
-          this.handleSubmit(values)
-          }
-          >
+        <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
           <Row className="form-group">
             <Label htmlFor="mealName" md={2}>
               Meal Name
@@ -155,9 +165,11 @@ class TESTING extends Component {
                 onClick={() => {
                   // this.props.memoizedCallback();
 
-                  postMealAccount(1, 2);
+                  // postMealAccount(1, 2);
 
-                  this.handleRefresh();
+                  // this.props.fetchMeals(this.props.token);
+
+                  // this.handleRefresh();
                 }}
                 type="submit"
                 color="primary"
@@ -173,24 +185,34 @@ class TESTING extends Component {
 }
 
 const TEST = (props) => {
-  const findLastMealId = () => {
-    let max = 0;
-    props.meal.meal.map((m) => {
-      if (m.id > max) {
-        max = m.id;
-      }
-    });
-    return max + 1;
-  };
 
   function handlePostMealAccount() {
-    //THIS WORKS, but it's not great
+
+    props.fetchMeals(props.token);
+  
+    const findLastMealId = () => {
+      let max = 0;
+      props.meal.meal.map((m) => {
+        if (m.id > max) {
+          max = m.id;
+        }
+      });
+      return max + 1;
+    };
+
+    // alert(props.token);
+
+    // props.fetchMealAccount();
+    // props.fetchMeals(props.token);
+
+    // props.fetchMeals(props.token);
+
     props.postMealAccount(findLastMealId(), props.user.id);
   }
 
-  const memoizedCallback = useCallback(() => {
-    props.fetchMeals();
-  }, []);
+  // const memoizedCallback = useCallback(() => {
+  //   props.fetchMeals();
+  // }, []);
 
   return (
     <>
@@ -199,6 +221,7 @@ const TEST = (props) => {
       {props.user.id}
       <br />
       {props.user.username}
+
       <RenderMeals
         meal={props.meal.meal}
         deleteMeal={props.deleteMeal}
@@ -206,9 +229,10 @@ const TEST = (props) => {
         fetchMealAccount={props.fetchMealAccount}
         postMealAccount={props.postMealAccount}
         fetchMeals={props.fetchMeals}
+        token={props.token}
       />
       <TESTING
-        handleMealAccount={handlePostMealAccount}
+        handlePostMealAccount={handlePostMealAccount}
         userId={props.user.id}
         token={props.token}
         user={props.user}
@@ -217,7 +241,6 @@ const TEST = (props) => {
         meal={props.meal.meal}
         postMeal={props.postMeal}
         fetchMeals={props.fetchMeals}
-        memoizedCallback={memoizedCallback}
         handleDeleteMeals={props.handleDeleteMeals}
       />
     </>
@@ -226,15 +249,55 @@ const TEST = (props) => {
 
 export default TEST;
 
-function RenderMeals({
-  meal,
-  fetchMeals
-}) {
-  
+function RenderMeals({ meal, fetchMeals, token }) {
+
+
+
   const handleDeleteButton = async (id) => {
     await axios.delete(baseUrl + "/meals/" + id);
-    await fetchMeals();
+    // await fetchMeals();
   };
+
+  // const meal = (auth) => async (dispatch) => {
+  //   // let auth= localStorage.getItem('token')
+  //   // const token = localStorage.getItem('token')
+
+  //   const response = await fetch(baseUrl + "/meals/", {
+  //     method: "GET",
+  //     headers: {
+  //       Accept: 'application/json',
+  //       'Content-Type': 'application/json',
+  //       'Authorization': `Bearer ${auth}`
+  //     }
+  //   });
+  //   const meal = await response.json();
+  //   return meal;
+  // };
+
+  // const config = {
+  //   headers:{
+  //     "Content-Type" : "application/json",
+  //     "Authorization" : `Bearer ${token}`
+  //   }
+  // }
+
+  // let axiosmeal=() =>{
+  //   axios.get(baseUrl+"/meals/",config)
+  //   .then(res=>res.json())
+
+  // }
+
+  // useEffect(()=>{
+  //   const fetchMeals = async () =>{
+  //     try{
+  //       const response = await axios.get('/meals/');
+  //       setAxiosMeals(response.data);
+
+  //     }catch(err){
+
+  //     }
+  //   }
+  // },[])
 
   return (
     <>
@@ -260,9 +323,9 @@ function RenderMeals({
                 <div>
                   <Button
                     className="m-3"
-                    onClick={() => {
-                      handleDeleteButton(m.id);
-                    }}
+                    // onClick={() => {
+                    //   handleDeleteButton(m.id);
+                    // }}
                   >
                     Delete
                   </Button>

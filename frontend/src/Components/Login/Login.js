@@ -2,7 +2,7 @@ import { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { addToken, addUser } from "../../Redux/actionCreators";
+import { fetchMeals, addToken, addUser } from "../../Redux/actionCreators";
 import { baseUrl } from "../../Shared/baseUrl";
 import axios from "axios";
 
@@ -30,8 +30,14 @@ class Login extends Component {
 
     const userWithToken = await axios.post(baseUrl + "/login", data);
 
+    this.props.dispatch(fetchMeals(userWithToken.data.token));
+
     await this.props.dispatch(addToken(userWithToken.data.token));
     await this.props.dispatch(addUser(userWithToken.data.user));
+
+     
+
+   
   };
 
   handleInputChange = (event) => {
