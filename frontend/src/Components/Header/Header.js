@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, Redirect } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 
 
@@ -11,18 +12,7 @@ export default function Header(){
 
         <div className='header_container'>
         <Navbar />
-            <h1 className='header_title'><img src='.\final-capstone\frontend\public\onigiri_MP.png' className="headerImg"></img>Meal, Please!</h1>
-        {/* {this.props.token.token !== undefined ?
-                <div>
-                    <Link to='/home'>Home | </Link>
-                    <Link to='/login' onClick={this.handleLogout}>logout</Link> 
-                    <Redirect to='/home'/>
-
-                </div>  
-            : 
-                <Link to='/login'>Home | </Link>
-        } */}
-            
+            <h1 className='header_title'>meal please!</h1>
         </div>
        
     </div>

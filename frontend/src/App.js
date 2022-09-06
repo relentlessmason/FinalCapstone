@@ -4,6 +4,7 @@ import {BrowserRouter} from 'react-router-dom'
 import {ConfigureStore} from './Redux/configureStore'
 import Navbar from './Components/Navbar/Navbar';
 import Header from './Components/Header/Header';
+import Footer from './Components/Footer/Footer';
 
 const store = ConfigureStore();
 
@@ -17,7 +18,7 @@ function App() {
         
         <Header />
         <Main/>
-        
+        <Footer />
         </div>
 
       </BrowserRouter>

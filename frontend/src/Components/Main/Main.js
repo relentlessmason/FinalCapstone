@@ -15,6 +15,7 @@ import Favorites from '../Favorites/Favorites'
 import Calendar from '../Calendar/Calendar'
 import Pantry from '../Pantry/Pantry'
 import GroceryList from '../GroceryList/GroceryList'
+import Footer from '../Footer/Footer'
 
 const mapStateToProps = state => {
     return {
@@ -128,7 +129,7 @@ class Main extends Component {
 
      
      </Switch>
-     
+     <Footer />
      </div>
         )
         

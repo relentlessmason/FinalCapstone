@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import * as FaIcons from 'react-icons/fa/';
 import * as GrIcons from 'react-icons/gr/';
 import * as IoIcons from 'react-icons/io/';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { NavbarData } from './NavbarData';
 import './Navbar.css';
 import { IconContext } from "react-icons";
@@ -37,6 +37,7 @@ export default function Navbar(){
                                 {item.icon}
                                 <span>{item.title}</span>
                             </Link>
+                            <Redirect to='/home'/>
                         </li>
                     )
                 })}
