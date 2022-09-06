@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
     deleteUser: () => { dispatch(deleteUser())},
 
     // MEALS
-    fetchMeals: ()=>{dispatch(fetchMeals(localStorage.getItem('token')))},
+    fetchMeals: ()=>{dispatch(fetchMeals())},
     deleteMeals: ()=> {dispatch(deleteMeals())},
     postMeal: ()=> (mealName, categoryId, timeOfDayId, description, recipe, ingredients) =>dispatch(postMeal(mealName, categoryId, timeOfDayId, description, recipe, ingredients)),
 
@@ -62,7 +62,7 @@ class Main extends Component {
 
     componentDidMount(){
         
-        this.props.fetchMeals(this.props.token.token);
+        this.props.fetchMeals();
         this.props.fetchMealAccount();
     }
 

@@ -73,8 +73,8 @@ export const deleteMeals = (id) => async (dispatch) => {
 
 //SINGULAR ACTION CREATOR/TYPE//
 export  let  postMeal =
- (mealName, categoryId, timeOfDayId, description, recipe, ingredients, auth) =>
-  (dispatch) => {
+ (mealName, categoryId, timeOfDayId, description, recipe, ingredients) =>
+  async (dispatch) => {
     const newMeal = {
       mealName: mealName,
       categoryId: categoryId,
@@ -84,16 +84,21 @@ export  let  postMeal =
       ingredients: ingredients
     };
 
-    return fetch(baseUrl + "/meals/", {
+    
+    
+
+    const response = await fetch(baseUrl + "/meals/", {
       method: "POST",
       body: JSON.stringify(newMeal),
       headers: {
+        Accept: 'application/json',
         'Content-Type': 'application/json',
         'Authorization': `Bearer `+localStorage.getItem('token')
 
       },
       credentials: "same-origin"
     })
+    
       .then(
         (response) => {
           console.log(response)
@@ -106,23 +111,21 @@ export  let  postMeal =
           throw errmess;
         }
       )
-      .then((response) => response.json())
-      .then((meal) => dispatch(addMeal(meal)))
-      .catch((error) => {
-        console.log("Post Meal ", error.message);
-      });
+      const meal = await response.json();
+      
+      return dispatch(addMeal(meal));
   };
 
-  export let addMeal =  (meal) => ({
+  export let addMeal  = (meal) => ({
     type: ActionTypes.ADD_MEAL,
     payload: meal
   });
 
   
 //PLURAL ACTION CREATOR/TYPE //
-export const fetchMeals = (auth) => async (dispatch) => {
+export const fetchMeals = () => async (dispatch) => {
   console.log('fetch meals');
-  console.log('auth', auth);
+  
   const response = await fetch(baseUrl + "/meals/", {
     method: "GET",
     headers: {
@@ -132,7 +135,7 @@ export const fetchMeals = (auth) => async (dispatch) => {
     },
     credentials: "same-origin"
   });
-  const meal = await response.json();
+  const meal = await response.json()
   return dispatch(addMeals(meal));
 };
 
@@ -164,7 +167,7 @@ export const addMealAccount = (mealAccount) => ({
   payload: mealAccount
 });
 
-export let postMealAccount = (mealId, userId) => (dispatch)=> {
+export let postMealAccount = (mealId, userId) => async (dispatch)=> {
 
 const newMealAccount = {
   mealId: mealId,
@@ -173,18 +176,20 @@ const newMealAccount = {
 
 const url = baseUrl+'/mealaccount/'+parseInt(mealId)+"/"+parseInt(userId);
 
-
-return fetch(url, {
+const response = await fetch(url, {
   method: 'POST',
   body: JSON.stringify(newMealAccount),
   headers: {
-    'Content-Type': 'application/json'
+    Accept: 'application/json',
+  'Content-Type': 'application/json',
+  'Authorization': `Bearer `+localStorage.getItem('token'),
+
   },
   credentials: "same-origin"
 })
 .then(response => {
   if (response.ok) {
-    return response;
+    return response
   } else {
     var error = new Error('Error ' + response.status + ': ' + response.statusText);
     error.response = response;
@@ -195,10 +200,11 @@ return fetch(url, {
       var errmess = new Error(error.message);
       throw errmess;
 })
-.then(response => response.json())
-.then(mealAccount => dispatch(addMealAccount(mealAccount)))
-.catch(error => {console.log('Post Meal Account ',error.message)})
-}
+
+const mealAccount = response
+return dispatch(addMealAccount(mealAccount));
+
+};
 
 export const fetchMealAccount = () => async (dispatch) => {    
 
@@ -213,7 +219,7 @@ export const fetchMealAccount = () => async (dispatch) => {
 
   });
 
-  const mealAccount = await response.json();
+  const mealAccount = await response.json()
 
   return dispatch(postAccounts(mealAccount));
 

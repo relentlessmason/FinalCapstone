@@ -38,7 +38,7 @@ class Login extends Component {
     
     console.log(userToken);
 
-    this.props.dispatch(fetchMeals(userWithToken.data.token));
+    this.props.dispatch(fetchMeals());
 
     await this.props.dispatch(addToken(userToken));
     await this.props.dispatch(addUser(userWithToken.data.user));

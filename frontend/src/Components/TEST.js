@@ -1,66 +1,115 @@
-import React, { Component, useEffect, useState, useCallback } from "react";
+import React, { Component } from "react";
 import {
   Card,
-  CardImg,
   CardText,
   CardBody,
   CardTitle,
-  Breadcrumb,
-  BreadcrumbItem,
-  Modal,
-  ModalBody,
-  ModalHeader,
   Button,
   Row,
   Label,
   Col,
   CardHeader,
 } from "reactstrap";
-import { Control, LocalForm, Errors } from "react-redux-form";
+import { Control, LocalForm } from "react-redux-form";
 import axios from "axios";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 
 import { baseUrl } from "../Shared/baseUrl";
-import { fetchUser, postMealAccount, postMeal } from "../Redux/actionCreators";
 
 class TESTING extends Component {
   constructor(props) {
     super(props);
 
-    this.handleRefresh = this.handleRefresh.bind(this);
     this.handleDeleteMeals = props.handleDeleteMeals.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  //  handlePostMealAccount() {
+
+  //   this.props.fetchMeals(localStorage.getItem('token'));
+  
+  //   const findLastMealId = () => {
+  //     let max = 0;
+  //     this.props.meal.map((m) => {
+  //       if (m.id > max) {
+  //         max = m.id;
+  //       }
+  //     });
+  //     return max + 1;
+  //   };
+
+  //   this.props.postMealAccount(findLastMealId(), this.props.user.id);
+  // }
+
+  
    handleSubmit(values) {
 
+    this.props.fetchMeals()
+   
+    const findLastMealId = () => {
+      let max = 0;
+      this.props.meal.map((m) => {
+        if (m.id > max) {
+          max = m.id;
+        }
+      });
+      return max + 1;
+    };
+
+    const headers = {
+      "Content-Type" : "application/json"
+    }
+
+    const data = {
+      mealName: values.mealName,
+      categoryId : values.categoryId,
+      timeOfDayId:values.timeOfDayId,
+      description:values.description,
+      recipe:values.recipe,
+      ingredients:values.ingredients
+    }
+
+    axios.post(baseUrl+"/meals/", data,{
+      headers: headers
+    })
+    
+    this.props.fetchMeals()
+
+    alert("New Meal Id" + findLastMealId())
+    
+    this.props.postMealAccount(findLastMealId(), this.props.user.id);
+
+    
+    // const mealAccount = {
+    //   mealId: findLastMealId,
+    //   userId: this.props.user.id
+    // }
+
+    //I CANT FIGURE OUT HOW TO PASS THE DATA TO THE URL
+
+    // const url = baseUrl+'/mealaccount/'+{mealAccount.mealId}+'/'+parseInt(this.props.user.id);
+
+    // axios.post(url,mealAccount,{
+    //   headers: headers
+    // })
+    
+    // this.props.postMeal(
+    //   values.mealName,
+    //   values.categoryId,
+    //   values.timeOfDayId,
+    //   values.description,
+    //   values.recipe,
+    //   values.ingredients
+    // );
+
+    // 
+
+    // this.handlePostMealAccount();
+
     // this.props.fetchMeals(this.props.token);
-    console.log(this.props.token);
-    this.props.postMeal(
-      values.mealName,
-      values.categoryId,
-      values.timeOfDayId,
-      values.description,
-      values.recipe,
-      values.ingredients,
-      this.props.token
-    );
 
-    // this.props.postMealAccount(
-      
-    // )
-
-    alert(values)
-     this.props.handlePostMealAccount();
-
-    // this.props.fetchMeals(this.props.token);
+      // await this.handlePostMealAccount();
   }
 
-  handleRefresh() {
-    // this.props.fetchMeals(this.props.token);
-    // this.props.handlePostMealAccount();
-  }
 
   render() {
     return (
@@ -163,13 +212,9 @@ class TESTING extends Component {
             <Col md={{ size: 10, offset: 2 }}>
               <Button
                 onClick={() => {
-                  // this.props.memoizedCallback();
-
-                  // postMealAccount(1, 2);
-
-                  // this.props.fetchMeals(this.props.token);
-
-                  // this.handleRefresh();
+                 
+                  this.props.fetchMeals();
+                
                 }}
                 type="submit"
                 color="primary"
@@ -186,34 +231,7 @@ class TESTING extends Component {
 
 const TEST = (props) => {
 
-  function handlePostMealAccount() {
-
-    props.fetchMeals(props.token);
   
-    const findLastMealId = () => {
-      let max = 0;
-      props.meal.meal.map((m) => {
-        if (m.id > max) {
-          max = m.id;
-        }
-      });
-      return max + 1;
-    };
-
-    // alert(props.token);
-
-    // props.fetchMealAccount();
-    // props.fetchMeals(props.token);
-
-    // props.fetchMeals(props.token);
-
-    props.postMealAccount(findLastMealId(), props.user.id);
-  }
-
-  // const memoizedCallback = useCallback(() => {
-  //   props.fetchMeals();
-  // }, []);
-
   return (
     <>
       USER INFORMATION TEST
@@ -228,11 +246,11 @@ const TEST = (props) => {
         handleDeleteMeals={props.handleDeleteMeals}
         fetchMealAccount={props.fetchMealAccount}
         postMealAccount={props.postMealAccount}
+        postMeal={props.postMeal}
         fetchMeals={props.fetchMeals}
         token={props.token}
       />
       <TESTING
-        handlePostMealAccount={handlePostMealAccount}
         userId={props.user.id}
         token={props.token}
         user={props.user}
@@ -251,53 +269,10 @@ export default TEST;
 
 function RenderMeals({ meal, fetchMeals, token }) {
 
-
-
   const handleDeleteButton = async (id) => {
     await axios.delete(baseUrl + "/meals/" + id);
     // await fetchMeals();
   };
-
-  // const meal = (auth) => async (dispatch) => {
-  //   // let auth= localStorage.getItem('token')
-  //   // const token = localStorage.getItem('token')
-
-  //   const response = await fetch(baseUrl + "/meals/", {
-  //     method: "GET",
-  //     headers: {
-  //       Accept: 'application/json',
-  //       'Content-Type': 'application/json',
-  //       'Authorization': `Bearer ${auth}`
-  //     }
-  //   });
-  //   const meal = await response.json();
-  //   return meal;
-  // };
-
-  // const config = {
-  //   headers:{
-  //     "Content-Type" : "application/json",
-  //     "Authorization" : `Bearer ${token}`
-  //   }
-  // }
-
-  // let axiosmeal=() =>{
-  //   axios.get(baseUrl+"/meals/",config)
-  //   .then(res=>res.json())
-
-  // }
-
-  // useEffect(()=>{
-  //   const fetchMeals = async () =>{
-  //     try{
-  //       const response = await axios.get('/meals/');
-  //       setAxiosMeals(response.data);
-
-  //     }catch(err){
-
-  //     }
-  //   }
-  // },[])
 
   return (
     <>
