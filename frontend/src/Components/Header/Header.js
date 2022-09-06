@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
+import logo from './onigiri_MP.png'
 
 
 
@@ -12,6 +13,7 @@ export default function Header(){
 
         <div className='header_container'>
         <Navbar />
+        <img src={logo} alt="meal please!"/>
             <h1 className='header_title'>meal please!</h1>
         </div>
        
