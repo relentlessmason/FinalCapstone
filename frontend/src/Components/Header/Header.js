@@ -13,8 +13,10 @@ export default function Header(){
 
         <div className='header_container'>
         <Navbar />
-        <img src={logo} alt="meal please!"/>
-            <h1 className='header_title'>meal please!</h1>
+        <img src={logo} alt="meal please!" className="logoImg"/>
+            <h1 className='header_title'>
+                Meal, Please!
+                </h1>
         </div>
        
     </div>

@@ -93,10 +93,16 @@ body {
   padding-top: 15px;
   padding-left: 30%;
   padding-right: 30%;
+
   text-justify: center;
   text-align: center;
   align-items: center;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.logoImg { /* literally the logo*/
+  max-width: 100px;
+  max-height: 100px;
 }
 
 
@@ -185,7 +191,6 @@ body {
   margin-top: -1px;
 }
 
-
 .submit:hover{
   padding: 15px 60px 15px 20px;
 }
@@ -196,21 +201,48 @@ body {
   right: 15px;
 }
 
-.RecipeImgDiv {
-  display: inline-flexbox;
-  align-self: left;
-  margin-left: 20px;
+/* SUBMIT BUTTON END */
+
+.recipeImg { /*specifically edits onigiri placeholder */
+  width: 150px;
+  height: 150px;
 }
 
-form {
-  box-sizing: border-box;
+.RecipeImgDiv {  /* the block that the onigiri sits in on add-recipe */
+  display: flex;
+  background-color: #FEDEFF;
+  float: left;
+  margin-left: 260px;
+  border-radius: 10px;
+  width: 150px;
+  align-items: center;
 }
 
-.headerImg {
-  max-width: 50px;
+.recipeFormHeaderDiv { /* modifies the area on add-recipe next to onigiri image*/
+  font-family: 'Arial Narrow Bold', sans-serif;
+  background-color: #FEDEFF;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  float: right;
+  width: 400px;
+  padding: 10px;
+  text-align: left;
+}
+.recipeFormHeaderDiv input { /* adjusts the format of form boxes in add-recipe */
+  width: 300px;
+  margin-left: 25px;
+  margin-top: 15px;
 }
 
-.RecipeInputHead {
-  margin-left: 20px;
-  display: inline-flexbox;
+.recipeFormHeaderDiv textarea { /* adjusts formatting of the textbox at the bottom of recipe header in add-recipe */
+  width: 300px;
+  height: 100px;
+  margin-left: 25px;
+  margin-bottom: 0;
+}
+
+.wrapper{ /* The box in which the top two divs sit in for add-recipe */
+  width: 840px;
+  overflow: hidden;
 }

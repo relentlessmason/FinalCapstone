@@ -1,32 +1,47 @@
 import React from "react";
+import placeholder from "./Plain_onigiri.png";
 
 export default function AddRecipe(){
     return(
         
         <form>
-    <div className="RecipeImgDiv">
-        <p><img src= "../public/logo192.png" 
-        placeholder="placeholder" width='100px' className='recipeImg' /></p></div>
-<div className="RecipeInputHead">
-        <p><input type="text" 
+        <div className="wrapper">
+        <div className="RecipeImgDiv">
+        <p><img src= {placeholder} //generic image
+        className='recipeImg' /></p></div>
+
+        <div className="recipeFormHeaderDiv">
+        
+        <p><strong>Recipe Name</strong> <br />
+        <input type="text" 
         name="Recipe Name" 
         placeholder='Recipe Name' /></p>
         
-        <p><input type="text" 
+        <p><strong>T. O. D.</strong> <br />
+        <input type="text" 
         name="Time of Day" 
         placeholder='Time of Day / Type of Meal' /></p>
         
-        <p><input type="text" 
+        <p><strong>Categories</strong> <br />
+        <input type="text" 
         name="Category" 
         placeholder='Category' /></p>
         
-        <p><textarea
+        <p><strong>Tell us about it!</strong> <br />
+        <textarea
         name="Description" 
         placeholder='Brief Description' /></p>
         
 
-        <button>Submit</button></div>
+        <button className="submit">
+            Submit</button>
+            </div>
+            </div>
 
+        <div className="ingredients">
+
+            
+        </div>
         </form>
 
     )
