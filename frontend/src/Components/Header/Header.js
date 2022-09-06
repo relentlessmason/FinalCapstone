@@ -5,18 +5,17 @@ import logo from './onigiri_MP.png'
 
 
 
-export default function Header(){
+export default function Header(props){
+    
     return(
         <div className='container_x'>
 
            
 
         <div className='header_container'>
-        <Navbar />
+        <Navbar handleLogout={props.handleLogout}/>
         <img src={logo} alt="meal please!" className="logoImg"/>
-            <h1 className='header_title'>
-                Meal, Please!
-                </h1>
+            <h1 className='header_title'>meal please!</h1>
         </div>
        
     </div>

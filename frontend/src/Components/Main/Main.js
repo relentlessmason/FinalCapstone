@@ -81,7 +81,7 @@ class Main extends Component {
 
         return(
             <div className='container'>
-               
+               <Header handleLogout={this.handleLogout}/>
                
                 {this.props.token.token !== undefined ?
                         <div>

@@ -1,19 +1,27 @@
 import React, {useState} from "react";
-import * as FaIcons from 'react-icons/fa/';
-import * as GrIcons from 'react-icons/gr/';
-import * as IoIcons from 'react-icons/io/';
 import { Link, Redirect } from "react-router-dom";
 import { NavbarData } from './NavbarData';
 import './Navbar.css';
 import { IconContext } from "react-icons";
 import { baseUrl } from "../../Shared/baseUrl";
+import * as FaIcons from 'react-icons/fa/';
+import * as GrIcons from 'react-icons/gr/';
+import * as RiIcons from 'react-icons/ri/';
+import * as VscIcons from 'react-icons/vsc/';
+import * as MdIcons from 'react-icons/md/';
+import * as BsIcons from 'react-icons/bs/';
+import * as SiIcons from 'react-icons/si/';
+import * as IoIcons from 'react-icons/io/';
+import * as AiIcons from 'react-icons/ai/';
+import Main from "../Main/Main";
 
 
 
-export default function Navbar(){
+export default function Navbar(props){
     const [sidebar, setSidebar] = useState(false)
 
     const showSidebar = () => setSidebar(!sidebar)
+
     return(
         <>
         <IconContext.Provider value={{color: '#D10081'}}>
@@ -29,7 +37,9 @@ export default function Navbar(){
                         <GrIcons.GrClose />
                     </Link>
                 </li>
-                {NavbarData.map((item, index) => {
+
+                {/* Pretty sure we don't need this anymore but not 100% yet */}
+                {/* {NavbarData.map((item, index) => {
                     return(
                         <li key={index} className={item.cName}>
                             <Link routerLinkActive="active"
@@ -40,7 +50,74 @@ export default function Navbar(){
                             <Redirect to='/home'/>
                         </li>
                     )
-                })}
+                })} */}
+                
+                <li className='nav-text'>
+                    <Link 
+                        to='/home'>
+                        <SiIcons.SiJusteat />
+                        <span>Home</span>
+                    </Link>
+                </li>
+                <li className='nav-text'>
+                    <Link 
+                        to='/search'>
+                        <RiIcons.RiSearchLine />
+                        <span>Search</span>
+                    </Link>
+                </li>
+                <li className='nav-text'>
+                    <Link 
+                        to='/add-recipe'>
+                        <VscIcons.VscAdd />
+                        <span>Add Recipe</span>
+                    </Link>
+                </li>
+                <li className='nav-text'>
+                    <Link 
+                        to='/favorites'>
+                        <AiIcons.AiOutlineHeart />
+                        <span>Favorites</span>
+                    </Link>
+                </li>
+                <li className='nav-text'>
+                    <Link 
+                        to='/calendar'>
+                        <BsIcons.BsCalendar3 />
+                        <span>Calendar</span>
+                    </Link>
+                </li>
+                 <li className='nav-text'>
+                    <Link 
+                        to='/grocery-list'>
+                        <BsIcons.BsFillBasket2Fill />
+                        <span>Grocery List</span>
+                    </Link>
+                </li>
+                 <li className='nav-text'>
+                    <Link 
+                        to='/pantry'>
+                        <FaIcons.FaCarrot />
+                        <span>Pantry</span>
+                    </Link>
+                </li>
+                <li className="nav-text">
+                    <Link 
+                        to='/login'
+                        onClick={() => {
+
+                            props.handleLogout()
+                        }}>
+                        <MdIcons.MdOutlineLogout />
+                        <span>Log Out</span>
+                    </Link>
+                </li>
+                <li className='nav-text'>
+                    <Link 
+                        to='/test'>
+                        <span>Test</span>
+                    </Link>
+                </li>
             </ul>
         </nav>
         </IconContext.Provider>
