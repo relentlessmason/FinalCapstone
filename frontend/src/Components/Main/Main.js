@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch) => ({
     deleteUser: () => { dispatch(deleteUser())},
 
     // MEALS
-    fetchMeals: ()=>{dispatch(fetchMeals())},
+    fetchMeals: ()=>{dispatch(fetchMeals(localStorage.getItem('token')))},
     deleteMeals: ()=> {dispatch(deleteMeals())},
     postMeal: ()=> (mealName, categoryId, timeOfDayId, description, recipe, ingredients) =>dispatch(postMeal(mealName, categoryId, timeOfDayId, description, recipe, ingredients)),
 
@@ -48,6 +48,7 @@ class Main extends Component {
     handleLogout = () => {
         this.props.addToken("")
         this.props.deleteUser()
+        localStorage.removeItem('token')
     }
 
     handleDeleteMeals=(id)=>{

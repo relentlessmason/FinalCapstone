@@ -29,10 +29,17 @@ class Login extends Component {
     };
 
     const userWithToken = await axios.post(baseUrl + "/login", data);
+    const userToken = userWithToken.data.token
+
+    localStorage.setItem('token', userToken)
+
+    axios.defaults.headers.common['Authorization'] = userToken;
+    
+    console.log(userToken);
 
     this.props.dispatch(fetchMeals(userWithToken.data.token));
 
-    await this.props.dispatch(addToken(userWithToken.data.token));
+    await this.props.dispatch(addToken(userToken));
     await this.props.dispatch(addUser(userWithToken.data.user));
 
      

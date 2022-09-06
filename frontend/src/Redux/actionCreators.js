@@ -89,7 +89,7 @@ export  let  postMeal =
       body: JSON.stringify(newMeal),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer `+auth
+        'Authorization': `Bearer `+localStorage.getItem('token')
 
       },
       credentials: "same-origin"
@@ -121,13 +121,14 @@ export  let  postMeal =
   
 //PLURAL ACTION CREATOR/TYPE //
 export const fetchMeals = (auth) => async (dispatch) => {
-
+  console.log('fetch meals');
+  console.log('auth', auth);
   const response = await fetch(baseUrl + "/meals/", {
     method: "GET",
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': `Bearer `+auth
+      'Authorization': `Bearer `+localStorage.getItem('token')
     },
     credentials: "same-origin"
   });

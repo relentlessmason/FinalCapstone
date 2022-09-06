@@ -36,7 +36,7 @@ class TESTING extends Component {
    handleSubmit(values) {
 
     // this.props.fetchMeals(this.props.token);
-
+    console.log(this.props.token);
     this.props.postMeal(
       values.mealName,
       values.categoryId,
