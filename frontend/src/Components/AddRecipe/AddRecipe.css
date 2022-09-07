@@ -1,0 +1,127 @@
+.recipeFormHeaderDiv { /* modifies the area on add-recipe next to onigiri image*/
+    font-family: 'Arial Narrow Bold', sans-serif;
+    color: #6F5E5C;
+    background-color: #FEDEFF;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    float: right;
+    width: 400px;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .recipeFormHeaderDiv input { /* adjusts the format of form boxes*/
+    width: 300px;
+    margin-left: 25px;
+    margin-top: 15px;
+  }
+  
+  .recipeFormHeaderDiv textarea { /* adjusts formatting of the textbox at the bottom*/
+    width: 300px;
+    height: 100px;
+    margin-left: 25px;
+    margin-bottom: 0;
+  }
+  
+  .wrapper{ /* container for the three divs at the top */
+    width: 930px;
+    overflow: hidden;
+  }
+
+  .leftWrapper { /* contains the image and the ingredients buttons*/
+    border-radius: 10px;
+    margin-left: 260px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    float: left;
+  }
+
+  .recipeImg { /*specifically edits img placeholder size */
+    width: 125px;
+    height: 115px;
+    background-color: #fff;
+    border-radius: 10px;
+  }
+  
+  .RecipeImgDiv {  /* the div that the image sits in*/
+    display: flex;
+    background-color: #FEDEFF;
+    border-radius: 10px;
+    width: 250px;
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .ingredients { /* ingredients box that sits under image*/
+    background-color: #FEDEFF;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    padding: 10px 10px;
+  }
+
+
+  /* SUBMIT BUTTON */
+
+.submitAR {
+    padding: 15px 20px;
+    background: #D10081;
+    border:0;
+    border-radius: 5px;
+    color: #fff;
+    text-transform: uppercase;
+    font-family: helvetica;
+    font-size: 12px;
+    letter-spacing: 3px;
+    position: relative;
+    transition:         all .4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    cursor: pointer;
+    display: block;
+    margin: 20px auto;
+  }
+  
+  .submitAR::after,
+  .submitAR::before{
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    transform: translateY(-50%);
+      opacity: 0;
+    transition:         all .4s cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+  
+  .submitAR::after{
+      width: 30px;
+      height: 1px;
+      background: white;
+      transform: translateX(-3px);
+      margin-top: 0px;
+  }
+  
+  .submitAR::before{
+      content: "";
+      transform: rotate(-135deg) translateX(50%);
+      width: 11px;
+      height: 11px;
+      background: transparent;
+      border-left: 1px solid white;
+      border-bottom: 1px solid white;
+    margin-top: -1px;
+  }
+  
+  .submitAR:hover{
+    padding: 15px 60px 15px 20px;
+  }
+  
+  .submitAR:hover::after,
+  .submitAR:hover::before{
+    opacity: 1;
+    right: 15px;
+  }
+  
+  /* SUBMIT BUTTON END */
