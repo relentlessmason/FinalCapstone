@@ -18,11 +18,9 @@ function App() {
         
 
         <Main/>
-<<<<<<< HEAD
-=======
+
         <Footer />
         <div className="spacer"> .</div>
->>>>>>> 0898d11aa7bea77fdbca5b5e553f60691871b4fd
         </div>
 
       </BrowserRouter>
