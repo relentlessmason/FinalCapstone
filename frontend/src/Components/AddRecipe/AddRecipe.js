@@ -40,10 +40,15 @@ export default function AddRecipe(){
         name="Recipe Name" 
         placeholder='Recipe Name' /></p>
         
-        <p><strong>T. O. D.</strong> <br />
-        <input type="text" 
-        name="Time of Day" 
-        placeholder='Time of Day / Type of Meal' /></p>
+        <label>T. O. D. <br />
+
+        <select value="TimeOfDay">
+        <option value="Breakfast">Breakfast</option>
+        <option value="Lunch">Lunch</option>
+        <option value="Snack">Snack</option>
+        <option value="Dinner">Dinner</option>
+        </select>
+        </label>
         
         <p><strong>Categories</strong> <br />
         <input type="text" 
