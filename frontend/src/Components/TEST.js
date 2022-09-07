@@ -310,10 +310,30 @@ const TEST = (props) => {
 export default TEST;
 
 function RenderMeals({ meal, fetchMeals, token }) {
+
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ` + localStorage.getItem("token"),
+  };
+
   const handleDeleteButton = async (id) => {
     await axios.delete(baseUrl + "/meals/" + id);
     await fetchMeals();
   };
+
+  const newMeal = {
+    mealName: "",
+      categoryId: "",
+      timeOfDayId: "",
+      description: "",
+      recipe: "",
+      ingredients: "",
+  }
+
+  const handleEditButton = async (id) =>{
+    await axios.put(baseUrl+'/meal/'+id, newMeal, headers);
+    await fetchMeals();
+  }
 
   return (
     <>
@@ -350,6 +370,8 @@ function RenderMeals({ meal, fetchMeals, token }) {
                     onClick={() => {
                       // HANDLE EDIT HERE
                       //similar to catcard focus?
+                      handleEditButton(m.id);
+                      
                     }}
                   >
                     Edit

@@ -103,6 +103,26 @@ public class JdbcMealDao implements MealDao{
         return jdbcTemplate.update(sql, id) == 1;
     }
 
+    @Override
+    public void updateMeal(Long mealId, Meal meal) {
+        String sql = "UPDATE meal " +
+                "SET meal_name = ?, " +
+                "category_id = ?, " +
+                "time_of_day_id = ?, " +
+                "description = ?, " +
+                "recipe = ?, " +
+                "ingredients = ? " +
+                "WHERE meal_id=?;";
+        jdbcTemplate.update(sql,
+                meal.getMealName(),
+                meal.getCategoryId(),
+                meal.getTimeOfDayId(),
+                meal.getDescription(),
+                meal.getRecipe(),
+                meal.getIngredients(),
+                mealId);
+    }
+
     private Meal mapToRowMeal(SqlRowSet m) {
         Meal meal = new Meal();
         meal.setId(m.getLong("meal_id"));

@@ -29,15 +29,7 @@ public class MealController {
         this.userDao=userDao;
     }
 
-    @GetMapping(path="user/{id}")
-    public List<User> findAllUsers(@PathVariable Long id){
-        return userDao.findAllTEST(id);
-    }
-
-    @GetMapping(path="mealaccounts/")
-    public MealAccount[] findAllMealAccounts(){
-        return mealAccountDao.findAllAccounts();
-    }
+    //CURRENTLY IN USE//
 
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @GetMapping(path = "meals/")
@@ -51,12 +43,6 @@ public class MealController {
         return mealDao.getMealById(id);
     }
 
-
-    @GetMapping(path = "mealaccount/{id}")
-    public MealAccount findAccountById(@PathVariable Long id){
-        return mealAccountDao.getAccountById(id);
-    }
-
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "meals/{id}")
     public void addMeal(@Valid @RequestBody Meal meal, @PathVariable Long id){
@@ -64,12 +50,48 @@ public class MealController {
         mealAccountDao.addMealAccount(mealId,id);
     };
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping(path = "meals/{id}")
+    public void delete(@PathVariable Long id) {
+        mealAccountDao.deleteMealAccount(id);
+        mealDao.deleteMeal(id);
+    }
+
+    @PutMapping(path="/meal/{id}")
+    public void updateMeal(@Valid @RequestBody Meal meal, @PathVariable Long id){
+        mealDao.updateMeal(id, meal);
+    }
+
+
+    // NOT CURRENTLY USED !! //
+
+    @GetMapping(path="user/{id}")
+    public List<User> findAllUsers(@PathVariable Long id){
+        return userDao.findAllTEST(id);
+    }
+
+    @GetMapping(path = "mealaccount/{id}")
+    public MealAccount findAccountById(@PathVariable Long id){
+        return mealAccountDao.getAccountById(id);
+    }
+
+    @GetMapping(path="mealaccounts/")
+    public MealAccount[] findAllMealAccounts(){
+        return mealAccountDao.findAllAccounts();
+    }
+
     @GetMapping(path="meal/")
     public Long findMealIdByMealName(@RequestParam(value="mealName") String mealName){
         return mealDao.findIdByMealName(mealName);
     }
 
-//    @ResponseStatus(HttpStatus.CREATED)
+    //    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    @DeleteMapping(path = "mealaccount/{id}")
+//    public void deleteMealAccount(@PathVariable Long id) {
+//        mealAccountDao.deleteMealAccount(id);
+//    }
+
+    //    @ResponseStatus(HttpStatus.CREATED)
 //    @PostMapping(path = "mealaccount/")
 //    public void addMealAccount(@RequestParam(value = "mealId") Long mealId,
 //                                @RequestParam(value = "userId") Long userId){
@@ -82,20 +104,6 @@ public class MealController {
 //                               @PathVariable("userId") Long userId){
 //        mealAccountDao.addMealAccount(mealId, userId);
 //    };
-
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping(path = "meals/{id}")
-    public void delete(@PathVariable Long id) {
-        mealAccountDao.deleteMealAccount(id);
-        mealDao.deleteMeal(id);
-    }
-
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    @DeleteMapping(path = "mealaccount/{id}")
-//    public void deleteMealAccount(@PathVariable Long id) {
-//        mealAccountDao.deleteMealAccount(id);
-//    }
-
 
 
 }

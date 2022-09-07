@@ -10,7 +10,7 @@ import {
   getWeek,
   addWeeks,
   subWeeks
-} from "date-fns";
+} from 'date-fns';
 
 const QuickLook = ({ showDetailsHandle }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
