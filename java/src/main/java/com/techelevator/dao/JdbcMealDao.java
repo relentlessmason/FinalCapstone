@@ -37,7 +37,7 @@ public class JdbcMealDao implements MealDao{
 
     @Override
     public Meal getMealById(Long mealId) {
-        String sql = "SELECT * FROM meal WHERE meal_id = ?";
+        String sql = "SELECT * FROM meal WHERE meal_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, mealId);
         if (results.next()) {
             return mapToRowMeal(results);
@@ -70,12 +70,13 @@ public class JdbcMealDao implements MealDao{
 
     @Override
     public Long findIdByMealName(String mealName) {
-        return jdbcTemplate.queryForObject("SELECT meal_id FROM meal WHERE meal_name LIKE ? ", Long.class, mealName);
+        return jdbcTemplate.queryForObject
+                ("SELECT meal_id FROM meal WHERE meal_name LIKE ?;", Long.class, mealName);
 
     }
 
     @Override
-    public void addMeal(Meal meal) {
+    public Long addMeal(Meal meal) {
         String SQL = "INSERT INTO meal" +
                 " (meal_name, " +
                 "category_id, " +
@@ -83,20 +84,21 @@ public class JdbcMealDao implements MealDao{
                 "description, " +
                 "recipe, " +
                 "ingredients) " +
-                "VALUES (?, ?, ?, ?, ?, ?);";
+                "VALUES (?, ?, ?, ?, ?, ?)" +
+                " RETURNING meal_id;";
 
-        jdbcTemplate.update(SQL,
+        Long mealId= jdbcTemplate.queryForObject(SQL, Long.class,
                 meal.getMealName(),
                 meal.getCategoryId(),
                 meal.getTimeOfDayId(),
                 meal.getDescription(),
                 meal.getRecipe(),
                 meal.getIngredients());
-
+        return mealId;
     }
 
     @Override
-    public boolean deleteMeal(int id) {
+    public boolean deleteMeal(Long id) {
         String sql = "DELETE from meal where meal_id = ?;";
         return jdbcTemplate.update(sql, id) == 1;
     }

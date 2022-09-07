@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -44,16 +45,29 @@ public class MealController {
         return mealDao.findAllMeals();
     }
 
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @GetMapping(path = "meal/{id}")
+    public Meal findMealById(@PathVariable Long id){
+        return mealDao.getMealById(id);
+    }
+
+
     @GetMapping(path = "mealaccount/{id}")
     public MealAccount findAccountById(@PathVariable Long id){
         return mealAccountDao.getAccountById(id);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(path = "meals/")
-    public void addMeal(@Valid @RequestBody Meal meal){
-        mealDao.addMeal(meal);
+    @PostMapping(path = "meals/{id}")
+    public void addMeal(@Valid @RequestBody Meal meal, @PathVariable Long id){
+        Long mealId =  mealDao.addMeal(meal);
+        mealAccountDao.addMealAccount(mealId,id);
     };
+
+    @GetMapping(path="meal/")
+    public Long findMealIdByMealName(@RequestParam(value="mealName") String mealName){
+        return mealDao.findIdByMealName(mealName);
+    }
 
 //    @ResponseStatus(HttpStatus.CREATED)
 //    @PostMapping(path = "mealaccount/")
@@ -62,18 +76,27 @@ public class MealController {
 //        mealAccountDao.addMealAccount(mealId, userId);
 //    };
 
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(path = "mealaccount/{mealId}/{userId}")
-    public void addMealAccount(@PathVariable("mealId") Long mealId,
-                               @PathVariable("userId") Long userId){
-        mealAccountDao.addMealAccount(mealId, userId);
-    };
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @PostMapping(path = "mealaccount/{mealId}/{userId}")
+//    public void addMealAccount(@PathVariable("mealId") Long mealId,
+//                               @PathVariable("userId") Long userId){
+//        mealAccountDao.addMealAccount(mealId, userId);
+//    };
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping(path = "meals/{id}")
-    public void delete(@PathVariable int id) {
+    public void delete(@PathVariable Long id) {
+        mealAccountDao.deleteMealAccount(id);
         mealDao.deleteMeal(id);
     }
+
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    @DeleteMapping(path = "mealaccount/{id}")
+//    public void deleteMealAccount(@PathVariable Long id) {
+//        mealAccountDao.deleteMealAccount(id);
+//    }
+
+
 
 }
 

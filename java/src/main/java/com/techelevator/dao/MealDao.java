@@ -16,8 +16,8 @@ public interface MealDao {
 
     Long findIdByMealName(String username);
 
-    void addMeal(Meal meal);
+    Long addMeal(Meal meal);
 
-    boolean deleteMeal(int id);
+    boolean deleteMeal(Long id);
 
 }

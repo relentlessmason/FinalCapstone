@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import {
   Card,
   CardText,
@@ -26,7 +26,7 @@ class TESTING extends Component {
   //  handlePostMealAccount() {
 
   //   this.props.fetchMeals(localStorage.getItem('token'));
-  
+
   //   const findLastMealId = () => {
   //     let max = 0;
   //     this.props.meal.map((m) => {
@@ -40,11 +40,9 @@ class TESTING extends Component {
   //   this.props.postMealAccount(findLastMealId(), this.props.user.id);
   // }
 
-  
-   handleSubmit(values) {
+  async handlePostMealAccount() {
+    await this.props.fetchMeals();
 
-    this.props.fetchMeals()
-   
     const findLastMealId = () => {
       let max = 0;
       this.props.meal.map((m) => {
@@ -52,33 +50,79 @@ class TESTING extends Component {
           max = m.id;
         }
       });
-      return max + 1;
+      return max;
     };
 
+    alert("New Meal Id" + findLastMealId());
+
+    this.props.postMealAccount(findLastMealId(), this.props.user.id);
+  }
+
+  async handleSubmit(values) {
+   await this.props.fetchMeals()
+
     const headers = {
-      "Content-Type" : "application/json"
-    }
+      "Content-Type": "application/json",
+      Authorization: `Bearer ` + localStorage.getItem("token"),
+    };
 
     const data = {
       mealName: values.mealName,
-      categoryId : values.categoryId,
-      timeOfDayId:values.timeOfDayId,
-      description:values.description,
-      recipe:values.recipe,
-      ingredients:values.ingredients
-    }
+      categoryId: values.categoryId,
+      timeOfDayId: values.timeOfDayId,
+      description: values.description,
+      recipe: values.recipe,
+      ingredients: values.ingredients,
+    };
 
-    axios.post(baseUrl+"/meals/", data,{
-      headers: headers
-    })
-    
-    this.props.fetchMeals()
+   await axios.post(baseUrl + "/meals/" + this.props.user.id, data, {
+      headers: headers,
+    });
 
-    alert("New Meal Id" + findLastMealId())
-    
-    this.props.postMealAccount(findLastMealId(), this.props.user.id);
+    //  axios.get(baseUrl+"/meals/",{
+    //     headers: headers
+    //   })
 
-    
+   await this.props.fetchMeals();
+
+    // setTimeout(()=>{
+
+    //   this.props.fetchMeals();
+
+    //   const findLastMealId = () => {
+    //     let max = 0;
+    //     this.props.meal.map((m) => {
+    //       if (m.id > max) {
+    //         max = m.id;
+    //       }
+    //     });
+    //     return max;
+    //   };
+
+    //   alert("New Meal Id" + findLastMealId())
+
+    //   // this.props.postMealAccount(findLastMealId(), this.props.user.id);
+
+    // },2000)
+
+    // const params = new URLSearchParams([['mealName',values.mealName]]);
+
+    // const mealById=()=>{
+
+    //    axios.get(baseUrl+'/meal/?mealName='+values.mealName, {params});
+
+    // }
+
+    // mealById(values.mealName);
+
+    // alert("Find meal By Id " + mealById(values.mealName))
+
+    // this.props.fetchMeals()
+
+    // alert("New Meal Id" + findLastMealId())
+
+    // this.props.postMealAccount(findLastMealId(), this.props.user.id);
+
     // const mealAccount = {
     //   mealId: findLastMealId,
     //   userId: this.props.user.id
@@ -91,7 +135,7 @@ class TESTING extends Component {
     // axios.post(url,mealAccount,{
     //   headers: headers
     // })
-    
+
     // this.props.postMeal(
     //   values.mealName,
     //   values.categoryId,
@@ -101,15 +145,18 @@ class TESTING extends Component {
     //   values.ingredients
     // );
 
-    // 
+    //
 
     // this.handlePostMealAccount();
 
     // this.props.fetchMeals(this.props.token);
 
-      // await this.handlePostMealAccount();
-  }
+    // await this.handlePostMealAccount();
 
+    // this.handlePostMealAccount();
+
+    // setTimeout(this.handlePostMealAccount(),2000)
+  }
 
   render() {
     return (
@@ -212,9 +259,7 @@ class TESTING extends Component {
             <Col md={{ size: 10, offset: 2 }}>
               <Button
                 onClick={() => {
-                 
                   this.props.fetchMeals();
-                
                 }}
                 type="submit"
                 color="primary"
@@ -230,8 +275,6 @@ class TESTING extends Component {
 }
 
 const TEST = (props) => {
-
-  
   return (
     <>
       USER INFORMATION TEST
@@ -239,7 +282,6 @@ const TEST = (props) => {
       {props.user.id}
       <br />
       {props.user.username}
-
       <RenderMeals
         meal={props.meal.meal}
         deleteMeal={props.deleteMeal}
@@ -268,10 +310,9 @@ const TEST = (props) => {
 export default TEST;
 
 function RenderMeals({ meal, fetchMeals, token }) {
-
   const handleDeleteButton = async (id) => {
     await axios.delete(baseUrl + "/meals/" + id);
-    // await fetchMeals();
+    await fetchMeals();
   };
 
   return (
@@ -298,9 +339,9 @@ function RenderMeals({ meal, fetchMeals, token }) {
                 <div>
                   <Button
                     className="m-3"
-                    // onClick={() => {
-                    //   handleDeleteButton(m.id);
-                    // }}
+                    onClick={() => {
+                      handleDeleteButton(m.id);
+                    }}
                   >
                     Delete
                   </Button>

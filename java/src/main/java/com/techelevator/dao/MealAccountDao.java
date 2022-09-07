@@ -11,4 +11,6 @@ public interface MealAccountDao {
     void addMealAccount(Long mealId, Long userId);
 
     MealAccount getAccountById(Long userId);
+
+    boolean deleteMealAccount(Long id);
 }

@@ -56,6 +56,12 @@ public class JdbcMealAccount implements MealAccountDao{
         }
     }
 
+    @Override
+    public boolean deleteMealAccount(Long id) {
+        String sql = "DELETE from meal_account where meal_id = ?;";
+        return jdbcTemplate.update(sql, id) == 1;
+    }
+
 
     private MealAccount mapToRowMealAccount(SqlRowSet results) {
         MealAccount mealAccounts = new MealAccount();
