@@ -1,14 +1,37 @@
 import React from "react";
 import placeholder from "./Plain_onigiri.png";
+import './AddRecipe.css';
 
 export default function AddRecipe(){
     return(
         
-        <form>
-        <div className="wrapper">
+<form>
+    
+    <div className="wrapper">
+
+    <div className="leftWrapper">
+        
         <div className="RecipeImgDiv">
-        <p><img src= {placeholder} //generic image
-        className='recipeImg' /></p></div>
+        
+            <p><img src= {placeholder} //generic image
+            className='recipeImg' /></p>
+            
+        </div>
+<br />
+        <div className="ingredients">
+
+            <span> ingredient 1</span>
+            <span> ingredient 2</span>
+            <span> ingredient 3</span>
+            <span> ingredient 4</span>
+            <span> ingredient 5</span>
+            <span> ingredient 6</span>
+            <span> ingredient 7</span>
+            <p>*insert add ingredient button here*</p>
+
+        </div>
+
+    </div>
 
         <div className="recipeFormHeaderDiv">
         
@@ -33,15 +56,17 @@ export default function AddRecipe(){
         placeholder='Brief Description' /></p>
         
 
-        <button className="submit">
-            Submit</button>
-            </div>
-            </div>
-
-        <div className="ingredients">
-
+        <button className="submitAR">
+            Submit
+            </button>
             
         </div>
+
+ </div>
+
+        
+
+        
         </form>
 
     )
