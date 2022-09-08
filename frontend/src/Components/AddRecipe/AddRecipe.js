@@ -19,15 +19,15 @@ export default function AddRecipe(){
         </div>
 <br />
         <div className="ingredients">
-
-            <span> ingredient 1</span>
-            <span> ingredient 2</span>
-            <span> ingredient 3</span>
-            <span> ingredient 4</span>
-            <span> ingredient 5</span>
-            <span> ingredient 6</span>
-            <span> ingredient 7</span>
-            <p>*insert add ingredient button here*</p>
+            <h4>Don't forget the ingredients!</h4>
+            <input type="text" name="ingredient" placeholder="Ingredient 1"/>
+            <input type="text" name="ingredient" placeholder="Ingredient 2"/>
+            <input type="text" name="ingredient" placeholder="Ingredient 3"/>
+            <input type="text" name="ingredient" placeholder="Ingredient 4"/>
+            <input type="text" name="ingredient" placeholder="Ingredient 5"/>
+            <input type="text" name="ingredient" placeholder="Ingredient 6"/>
+            <input type="text" name="ingredient" placeholder="Ingredient 7"/>
+            <button className="submitAR" type="button">Add Ingredient</button>
 
         </div>
 
@@ -35,30 +35,29 @@ export default function AddRecipe(){
 
         <div className="recipeFormHeaderDiv">
         
-        <p><strong>Recipe Name</strong> <br />
+        <label>Recipe Name</label>
         <input type="text" 
         name="Recipe Name" 
-        placeholder='Recipe Name' /></p>
+        placeholder='Recipe Name' />
         
-        <label>T. O. D. <br />
+        <label>T. O. D.</label>
 
-        <select value="TimeOfDay">
+        <select value="TimeOfDay" className="TimeOfDay">
         <option value="Breakfast">Breakfast</option>
         <option value="Lunch">Lunch</option>
         <option value="Snack">Snack</option>
         <option value="Dinner">Dinner</option>
         </select>
-        </label>
         
-        <p><strong>Categories</strong> <br />
+        <label>Categories</label>
         <input type="text" 
         name="Category" 
-        placeholder='Category' /></p>
+        placeholder='Category' />
         
-        <p><strong>Tell us about it!</strong> <br />
+        <label>Tell us about it!</label>
         <textarea
         name="Description" 
-        placeholder='Brief Description' /></p>
+        placeholder='Brief Description' />
         
 
         <button className="submitAR">

@@ -1,6 +1,9 @@
 .recipeFormHeaderDiv { /* modifies the area on add-recipe next to onigiri image*/
     font-family: 'Arial Narrow Bold', sans-serif;
-    color: #6F5E5C;
+    font-weight: bolder;
+    font-size: larger;
+    text-shadow: 2px 2px 7px #6F5E5C;
+    color: #000;
     background-color: #FEDEFF;
     border-radius: 10px;
     display: flex;
@@ -15,6 +18,15 @@
     width: 300px;
     margin-left: 25px;
     margin-top: 15px;
+    margin-bottom: 10px;
+  }
+
+  .TimeOfDay {
+    width: 300px;
+    color: #6F5E5C;
+    margin-left: 25px;
+    margin-top: 15px;
+    margin-bottom: 10px;
   }
   
   .recipeFormHeaderDiv textarea { /* adjusts formatting of the textbox at the bottom*/
@@ -22,11 +34,11 @@
     height: 100px;
     margin-left: 25px;
     margin-bottom: 0;
+    margin-top: 15px;
   }
   
   .wrapper{ /* container for the three divs at the top */
     width: 930px;
-    overflow: hidden;
   }
 
   .leftWrapper { /* contains the image and the ingredients buttons*/
@@ -41,8 +53,13 @@
   .recipeImg { /*specifically edits img placeholder size */
     width: 125px;
     height: 115px;
-    background-color: #fff;
+    /* background-color: #fff; */
     border-radius: 10px;
+  }
+
+  .h4{
+    justify-content: center;
+    align-content: center;
   }
   
   .RecipeImgDiv {  /* the div that the image sits in*/
@@ -61,9 +78,40 @@
     display: flex;
     flex-direction: column;
     width: 250px;
+    max-height: 335px;
     padding: 10px 10px;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
 
+  .ingredients input { /* adjusts the format of form boxes*/
+    width: 150px;
+    margin-left: 25px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+
+/* Scrollbar!!! */
+  ::-webkit-scrollbar{
+    width: 20px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(#D10081, #330036);
+    border-radius: 10px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+  }
+  /* Scrollbar End!!! */
 
   /* SUBMIT BUTTON */
 
