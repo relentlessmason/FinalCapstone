@@ -3,8 +3,7 @@ import placeholder from "./Plain_onigiri.png";
 import "./AddRecipe.css";
 import { Control, LocalForm } from "react-redux-form";
 import { Label, Button, Row, Col } from "reactstrap";
-import axios from "axios";
-import { baseUrl } from "../../Shared/baseUrl";
+
 
 function resetForm() {
   const form = document.getElementById("form");
@@ -13,37 +12,35 @@ function resetForm() {
   //   selectBoxes.selectedIndex = 4;
 }
 
-async function handleSubmit(values, { user, fetchMeals }) {
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ` + localStorage.getItem("token"),
-  };
+async function handleSubmit(values, { user, fetchMeals, postMeal }) {
 
-  const data = {
-    mealName: values.mealName,
-    categoryId: values.categoryId,
-    timeOfDayId: values.timeOfDayId,
-    description: values.description,
-    recipe: values.recipe,
-    ingredients: values.ingredients,
-  };
-
-  await axios.post(baseUrl + "/meals/" + user, data, {
-    headers: headers,
-  });
+  postMeal(
+    values.mealName,
+    values.categoryId,
+    values.timeOfDayId,
+    values.description,
+    values.recipe,
+    values.ingredients,
+    user
+  );
 
   resetForm();
+
+  //not sure if this is even working atm
   await fetchMeals();
 }
 
 export default function AddRecipe(props) {
   let user = props.user.id;
   let fetchMeals = props.fetchMeals;
+  let postMeal = props.postMeal;
 
   return (
     <LocalForm
       id="form"
-      onSubmit={(values) => handleSubmit(values, { user, fetchMeals })}
+      onSubmit={(values) =>
+        handleSubmit(values, { user, fetchMeals, postMeal })
+      }
     >
       <div className="wrapperAR">
         <div className="leftWrapper">

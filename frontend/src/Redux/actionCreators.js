@@ -1,8 +1,12 @@
 import * as ActionTypes from "./actionTypes";
 import { baseUrl } from "../Shared/baseUrl";
 import axios from "axios";
+import { useEffect } from "react";
 
-
+const headers = {
+  "Content-Type": "application/json",
+  Authorization: `Bearer ` + localStorage.getItem("token"),
+};
 
 //ADD TOKEN/USERS
 export const addToken = (token) => ({
@@ -19,9 +23,7 @@ export const deleteUser = () => ({
   type: ActionTypes.DELETE_USER,
 });
 
-
-
-// export const fetchUser = (id) => (dispatch) => {    
+// export const fetchUser = (id) => (dispatch) => {
 //   return fetch(baseUrl + '/user/'+id)
 //   .then(response => {
 //       if (response.ok) {
@@ -40,40 +42,35 @@ export const deleteUser = () => ({
 //   .then(users => dispatch(addUser(users)));
 // };
 
-
 //END TOKEN/USERS
-
 
 //***MEALS***//
 
-
-
 export const deleteMeal = () => ({
-  type: ActionTypes.DELETE_MEAL
+  type: ActionTypes.DELETE_MEAL,
 });
 
 export const deleteMeals = (id) => async (dispatch) => {
-  let auth= localStorage.getItem('token')
+  try {
+    const mealToDelete = await axios.delete(baseUrl + "/meals/" + id, {
+      headers: headers,
+    });
+    return await dispatch(deleteMeal(mealToDelete.data));
+  } catch (err) {
+    console.log(err.message);
+  }
+};
 
-  const response = await fetch(baseUrl + "/meals/" + id, {
-    method: "DELETE",
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer " + auth
-    }
-  });
-  const meal = await response.json();
-  return dispatch(deleteMeal(meal));
-}
-
-
-//think of this as a constuctor we're filling in, and it passes the data to an endpoint
-//that we have mapped out on the backend
-
-//SINGULAR ACTION CREATOR/TYPE//
-export  let  postMeal =
- (mealName, categoryId, timeOfDayId, description, recipe, ingredients) =>
+export const postMeal =
+  (
+    mealName,
+    categoryId,
+    timeOfDayId,
+    description,
+    recipe,
+    ingredients,
+    userId
+  ) =>
   async (dispatch) => {
     const newMeal = {
       mealName: mealName,
@@ -81,69 +78,56 @@ export  let  postMeal =
       timeOfDayId: timeOfDayId,
       description: description,
       recipe: recipe,
-      ingredients: ingredients
+      ingredients: ingredients,
     };
-
-    
-    
-
-    const response = await fetch(baseUrl + "/meals/", {
-      method: "POST",
-      body: JSON.stringify(newMeal),
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer `+localStorage.getItem('token')
-
-      },
-      credentials: "same-origin"
-    })
-    
-      .then(
-        (response) => {
-          console.log(response)
-          if (response.ok) {
-            return response;
-          } 
-        },
-        (error) => {
-          var errmess = new Error(error.message);
-          throw errmess;
-        }
-      )
-      const meal = await response.json();
-      
-      return dispatch(addMeal(meal));
+    try {
+      const response = await axios.post(baseUrl + "/meals/" + userId, newMeal, {
+        headers: headers,
+      });
+      return dispatch(addMeal(response.data));
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
-  export let addMeal  = (meal) => ({
-    type: ActionTypes.ADD_MEAL,
-    payload: meal
-  });
+export let addMeal = (meal) => ({
+  type: ActionTypes.ADD_MEAL,
+  payload: meal,
+});
 
-  
+//OLD FETCH API BS
 //PLURAL ACTION CREATOR/TYPE //
+// export const fetchMeals = () => async (dispatch) => {
+//   console.log('fetch meals');
+
+//   const response = await fetch(baseUrl + "/meals/", {
+//     method: "GET",
+//     headers: {
+//       Accept: 'application/json',
+//       'Content-Type': 'application/json',
+//       'Authorization': `Bearer `+localStorage.getItem('token')
+//     },
+//     credentials: "same-origin"
+//   });
+//   const meal = await response.json()
+//   return dispatch(addMeals(meal));
+// };
+
 export const fetchMeals = () => async (dispatch) => {
-  console.log('fetch meals');
-  
-  const response = await fetch(baseUrl + "/meals/", {
-    method: "GET",
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer `+localStorage.getItem('token')
-    },
-    credentials: "same-origin"
-  });
-  const meal = await response.json()
-  return dispatch(addMeals(meal));
+  try {
+    const response = await axios.get(baseUrl + "/meals/", {
+      headers: headers,
+    });
+    return dispatch(addMeals(response.data));
+  } catch (err) {
+    console.log(err.message);
+  }
 };
 
 export const addMeals = (meal) => ({
   type: ActionTypes.ADD_MEALS,
-  payload: meal
+  payload: meal,
 });
-
 
 //TODO ADD TO ACTION TYPES
 // export const mealsLoading = () => ({
@@ -158,71 +142,66 @@ export const addMeals = (meal) => ({
 
 //***END MEALS***//
 
-
-
 // ***MEAL ACCOUNTS ***
 
 export const addMealAccount = (mealAccount) => ({
   type: ActionTypes.ADD_MEAL_ACCOUNT,
-  payload: mealAccount
+  payload: mealAccount,
 });
 
-export let postMealAccount = (mealId, userId) => async (dispatch)=> {
+export let postMealAccount = (mealId, userId) => async (dispatch) => {
+  const newMealAccount = {
+    mealId: mealId,
+    userId: userId,
+  };
 
-const newMealAccount = {
-  mealId: mealId,
-  userId: userId
-}
+  const url =
+    baseUrl + "/mealaccount/" + parseInt(mealId) + "/" + parseInt(userId);
 
-const url = baseUrl+'/mealaccount/'+parseInt(mealId)+"/"+parseInt(userId);
-
-const response = await fetch(url, {
-  method: 'POST',
-  body: JSON.stringify(newMealAccount),
-  headers: {
-    Accept: 'application/json',
-  'Content-Type': 'application/json',
-  'Authorization': `Bearer `+localStorage.getItem('token'),
-
-  },
-  credentials: "same-origin"
-})
-.then(response => {
-  if (response.ok) {
-    return response
-  } else {
-    var error = new Error('Error ' + response.status + ': ' + response.statusText);
-    error.response = response;
-    throw error;
-  }
-},
-(error) => {
+  const response = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify(newMealAccount),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ` + localStorage.getItem("token"),
+    },
+    credentials: "same-origin",
+  }).then(
+    (response) => {
+      if (response.ok) {
+        return response;
+      } else {
+        var error = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
+        error.response = response;
+        throw error;
+      }
+    },
+    (error) => {
       var errmess = new Error(error.message);
       throw errmess;
-})
+    }
+  );
 
-const mealAccount = response
-return dispatch(addMealAccount(mealAccount));
-
+  const mealAccount = response;
+  return dispatch(addMealAccount(mealAccount));
 };
 
-export const fetchMealAccount = () => async (dispatch) => {    
-
-  const response = await fetch(baseUrl + '/mealaccounts/', {
-
-    method: 'GET', 
+export const fetchMealAccount = () => async (dispatch) => {
+  const response = await fetch(baseUrl + "/mealaccounts/", {
+    method: "GET",
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
+      Accept: "application/json",
+      "Content-Type": "application/json",
     },
-    credentials: "same-origin"
-
+    credentials: "same-origin",
   });
 
-  const mealAccount = await response.json()
+  const mealAccount = await response.json();
 
   return dispatch(postAccounts(mealAccount));
-
 
   // return fetch(baseUrl + '/mealaccounts/')
   // .then(response => {
@@ -244,8 +223,7 @@ export const fetchMealAccount = () => async (dispatch) => {
 
 export const postAccounts = (mealAccount) => ({
   type: ActionTypes.ADD_MEAL_ACCOUNTS,
-  payload: mealAccount
+  payload: mealAccount,
 });
-
 
 // *** END MEAL ACCOUNTS***

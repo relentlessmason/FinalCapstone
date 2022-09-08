@@ -47,22 +47,29 @@ const mapDispatchToProps = (dispatch) => ({
   fetchMeals: () => {
     dispatch(fetchMeals());
   },
-  deleteMeals: () => {
-    dispatch(deleteMeals());
+  deleteMeals: (id) => {
+    dispatch(deleteMeals(id));
   },
-  postMeal:
-    () =>
-    (mealName, categoryId, timeOfDayId, description, recipe, ingredients) =>
-      dispatch(
-        postMeal(
-          mealName,
-          categoryId,
-          timeOfDayId,
-          description,
-          recipe,
-          ingredients
-        )
-      ),
+  postMeal: (
+    mealName,
+    categoryId,
+    timeOfDayId,
+    description,
+    recipe,
+    ingredients,
+    userId
+  ) =>
+    dispatch(
+      postMeal(
+        mealName,
+        categoryId,
+        timeOfDayId,
+        description,
+        recipe,
+        ingredients,
+        userId
+      )
+    ),
 
   // MEAL ACCOUNTS
   fetchMealAccount: () => {
@@ -93,13 +100,7 @@ class Main extends Component {
   }
 
   render() {
-    // const authAxios = axios.create({
-    //     baseUrl: baseUrl,
-    //     headers:{
-    //         Authorization : `Bearer ${this.props.token.token}`
-    //     }
-    //     })
-
+ 
     return (
       <div className="container">
         <Header handleLogout={this.handleLogout} />
@@ -132,11 +133,13 @@ class Main extends Component {
           <Route path="/search" component={() => <Search />} />
           <Route
             path="/add-recipe"
-            component={() => 
-            <AddRecipe 
-            user={this.props.user}
-            fetchMeals={this.props.fetchMeals}
-            />}
+            component={() => (
+              <AddRecipe
+                user={this.props.user}
+                fetchMeals={this.props.fetchMeals}
+                postMeal={this.props.postMeal}
+              />
+            )}
           />
           <Route path="/favorites" component={() => <Favorites />} />
           <Route path="/calendar" component={() => <Calendar />} />
@@ -154,7 +157,7 @@ class Main extends Component {
                 meal={this.props.meal}
                 postMeal={this.props.postMeal}
                 fetchMeals={this.props.fetchMeals}
-                deleteMeal={this.props.deleteMeal}
+                deleteMeals={this.props.deleteMeals}
                 handleDeleteMeals={this.handleDeleteMeals}
                 token={this.props.token.token}
                 user={this.props.user}
