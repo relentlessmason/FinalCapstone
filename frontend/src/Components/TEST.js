@@ -313,7 +313,7 @@ function RenderMeals({ meal, fetchMeals, token }) {
 
   const headers = {
     "Content-Type": "application/json",
-    Authorization: `Bearer ` + localStorage.getItem("token"),
+    Authorization: `Bearer ` + localStorage.getItem('token'),
   };
 
   const handleDeleteButton = async (id) => {
@@ -335,8 +335,16 @@ function RenderMeals({ meal, fetchMeals, token }) {
     await fetchMeals();
   }
 
+  const mealz = async () =>{
+   const meal =  await axios.get(baseUrl+'/meals/1', headers);
+   mealz();
+   return meal;
+  }
+
   return (
     <>
+
+
       {meal.map((m) => {
         return (
           <div className="row">
@@ -367,8 +375,8 @@ function RenderMeals({ meal, fetchMeals, token }) {
                   </Button>
 
                   <Button
+                  className="m-3"
                     onClick={() => {
-                      // HANDLE EDIT HERE
                       //similar to catcard focus?
                       handleEditButton(m.id);
                       

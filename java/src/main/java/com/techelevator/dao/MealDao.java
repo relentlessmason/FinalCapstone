@@ -8,6 +8,8 @@ public interface MealDao {
 
     Meal[] findAllMeals();
 
+    Meal[] findAllMealsByUserId(Long id);
+
     Meal getMealById(Long userId);
 
     Meal findByIngredient(String username);

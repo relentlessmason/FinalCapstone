@@ -36,9 +36,8 @@ class Login extends Component {
 
     axios.defaults.headers.common['Authorization'] = userToken;
     
-    console.log(userToken);
 
-    this.props.dispatch(fetchMeals());
+    // this.props.dispatch(fetchMeals());
 
     await this.props.dispatch(addToken(userToken));
     await this.props.dispatch(addUser(userWithToken.data.user));

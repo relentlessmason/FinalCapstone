@@ -38,6 +38,12 @@ public class MealController {
     }
 
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @GetMapping(path = "meals/{id}")
+    public Meal[] findAllMealsById(@PathVariable Long id){
+        return mealDao.findAllMealsByUserId(id);
+    }
+
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @GetMapping(path = "meal/{id}")
     public Meal findMealById(@PathVariable Long id){
         return mealDao.getMealById(id);

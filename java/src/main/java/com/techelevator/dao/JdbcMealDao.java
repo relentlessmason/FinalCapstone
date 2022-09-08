@@ -36,6 +36,22 @@ public class JdbcMealDao implements MealDao{
     }
 
     @Override
+    public Meal[] findAllMealsByUserId(Long id) {
+        List<Meal> meals = new ArrayList<>();
+        String sql = "SELECT * FROM meal m " +
+                "JOIN meal_account ma ON ma.meal_id=m.meal_id " +
+                "WHERE ma.user_id = ?;";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+        while(results.next()) {
+            Meal meal = mapToRowMeal(results);
+            meals.add(meal);
+        }
+
+        return meals.toArray(new Meal[0]);
+    }
+
+    @Override
     public Meal getMealById(Long mealId) {
         String sql = "SELECT * FROM meal WHERE meal_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, mealId);
