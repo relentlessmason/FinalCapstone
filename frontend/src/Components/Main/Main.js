@@ -84,7 +84,7 @@ class Main extends Component {
                <Header handleLogout={this.handleLogout}/>
                
                 {this.props.token.token !== undefined ?
-                        <div>
+                        <div classname="navigator">
                             <Link to='/home'>Home | </Link>
                             <Link to='/login' onClick={this.handleLogout}>logout</Link> 
                             <Link to='/test' 

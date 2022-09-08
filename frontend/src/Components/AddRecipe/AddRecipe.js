@@ -7,7 +7,7 @@ export default function AddRecipe(){
         
 <form>
     
-    <div className="wrapper">
+    <div className="wrapperAR">
 
     <div className="leftWrapper">
         
@@ -69,7 +69,7 @@ export default function AddRecipe(){
  </div>
 
 <br />
-
+<div className="wrapperAR">
 <div className="recipeInstructions">
     <h4><strong>We Need Directions...</strong></h4>
     First:
@@ -85,7 +85,7 @@ export default function AddRecipe(){
     And then...
     <textarea name="recipeInstructions" placeholder="Step Six" />
     <button className="submitAR" type="button">Add Steps</button>
-</div>
+</div></div>
         
 <div className="spacer"> .</div>
         </form>
