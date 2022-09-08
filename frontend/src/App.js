@@ -20,7 +20,6 @@ function App() {
         <Main/>
 
         <Footer />
-        <div className="spacer"> .</div>
         </div>
 
       </BrowserRouter>

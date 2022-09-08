@@ -1,9 +1,11 @@
-.recipeFormHeaderDiv { /* modifies the area on add-recipe next to onigiri image*/
-    font-family: 'Arial Narrow Bold', sans-serif;
-    font-weight: bolder;
+body {
+  font-family: 'Arial Narrow Bold', sans-serif;
+    font-weight: bold;
     font-size: larger;
-    text-shadow: 2px 2px 7px #6F5E5C;
-    color: #000;
+    /* text-shadow: 2px 2px 7px #6F5E5C; */
+    color: #393939;
+}
+.recipeFormHeaderDiv { /* modifies the area on add-recipe next to onigiri image*/
     background-color: #FEDEFF;
     border-radius: 10px;
     display: flex;
@@ -17,15 +19,15 @@
   .recipeFormHeaderDiv input { /* adjusts the format of form boxes*/
     width: 300px;
     margin-left: 25px;
-    margin-top: 15px;
+    margin-top: 10px;
     margin-bottom: 10px;
   }
 
-  .TimeOfDay {
+  .TimeOfDay { /* specifically edits the time of day segment */
     width: 300px;
     color: #6F5E5C;
     margin-left: 25px;
-    margin-top: 15px;
+    margin-top: 10px;
     margin-bottom: 10px;
   }
   
@@ -56,11 +58,6 @@
     /* background-color: #fff; */
     border-radius: 10px;
   }
-
-  .h4{
-    justify-content: center;
-    align-content: center;
-  }
   
   .RecipeImgDiv {  /* the div that the image sits in*/
     display: flex;
@@ -78,7 +75,7 @@
     display: flex;
     flex-direction: column;
     width: 250px;
-    max-height: 335px;
+    max-height: 315px;
     padding: 10px 10px;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -89,6 +86,29 @@
     margin-left: 25px;
     margin-top: 5px;
     margin-bottom: 10px;
+  }
+
+  .recipeInstructions {
+    width: 670px;
+    background-color: #FEDEFF;
+    display: flex;
+    float: left;
+    flex-direction: column;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-left: 260px;
+    margin-bottom: 50px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+
+  }
+  .recipeInstructions textarea { /* adjusts formatting of the textboxes for recipe instructions*/
+    width: 600px;
+    height: 75px;
+    margin-left: 25px;
+    margin-bottom: 0;
+    margin-top: 15px;
   }
 
 /* Scrollbar!!! */
@@ -173,3 +193,7 @@
   }
   
   /* SUBMIT BUTTON END */
+
+  .spacer {
+    margin-top: 2.5rem;
+  }

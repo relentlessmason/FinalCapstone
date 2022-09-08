@@ -19,7 +19,7 @@ export default function AddRecipe(){
         </div>
 <br />
         <div className="ingredients">
-            <h4>Don't forget the ingredients!</h4>
+            <h4><strong>Don't forget the ingredients!</strong></h4>
             <input type="text" name="ingredient" placeholder="Ingredient 1"/>
             <input type="text" name="ingredient" placeholder="Ingredient 2"/>
             <input type="text" name="ingredient" placeholder="Ingredient 3"/>
@@ -27,7 +27,7 @@ export default function AddRecipe(){
             <input type="text" name="ingredient" placeholder="Ingredient 5"/>
             <input type="text" name="ingredient" placeholder="Ingredient 6"/>
             <input type="text" name="ingredient" placeholder="Ingredient 7"/>
-            <button className="submitAR" type="button">Add Ingredient</button>
+            <button className="submitAR" type="button">Add Another</button>
 
         </div>
 
@@ -68,9 +68,26 @@ export default function AddRecipe(){
 
  </div>
 
-        
+<br />
 
+<div className="recipeInstructions">
+    <h4><strong>We Need Directions...</strong></h4>
+    First:
+    <textarea name="recipeInstructions" placeholder="Step One" />
+    And then...
+    <textarea name="recipeInstructions" placeholder="Step Two" />
+    And then...
+    <textarea name="recipeInstructions" placeholder="Step Three" />
+    And then...
+    <textarea name="recipeInstructions" placeholder="Step Four" />
+    And then...
+    <textarea name="recipeInstructions" placeholder="Step Five" />
+    And then...
+    <textarea name="recipeInstructions" placeholder="Step Six" />
+    <button className="submitAR" type="button">Add Steps</button>
+</div>
         
+<div className="spacer"> .</div>
         </form>
 
     )
