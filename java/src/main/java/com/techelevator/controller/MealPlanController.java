@@ -1,0 +1,46 @@
+package com.techelevator.controller;
+
+import com.techelevator.dao.MealPlanDao;
+import com.techelevator.model.Meal;
+import com.techelevator.model.MealPlan;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
+@RestController
+@CrossOrigin
+@PreAuthorize("hasAnyRole('USER','ADMIN')")
+public class MealPlanController {
+
+    MealPlanDao mealPlanDao;
+
+    public MealPlanController(MealPlanDao mealPlanDao) {
+        this.mealPlanDao = mealPlanDao;
+    }
+
+    @GetMapping(path = "mealplans/")
+    public MealPlan[] findAllMealPlans(){
+        return mealPlanDao.findAllMealPlans();
+    }
+
+    @GetMapping(path = "mealplans/{id}")
+    public MealPlan[] findAllMealPlansByUserId(@PathVariable Long id){
+        return mealPlanDao.findMealPlanByUserId(id);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(path = "mealplan/")
+    public void addMealPlan(@Valid @RequestBody MealPlan mealPlan){
+        mealPlanDao.addMealPlan(mealPlan);
+    };
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping(path = "mealplan/{id}")
+    public void delete(@PathVariable Long id) {
+        mealPlanDao.deleteMealPlan(id);
+    }
+
+
+}
