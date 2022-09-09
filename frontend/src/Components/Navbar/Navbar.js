@@ -114,6 +114,9 @@ export default function Navbar(props){
                 </li>
                 <li className='nav-text'>
                     <Link 
+                        onClick={()=>{
+                            props.fetchMealsByUser(props.userId)
+                        }}
                         to='/test'>
                         <span>Test</span>
                     </Link>

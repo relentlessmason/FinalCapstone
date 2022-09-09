@@ -41,7 +41,7 @@ class TESTING extends Component {
   // }
 
   async handlePostMealAccount() {
-    await this.props.fetchMeals();
+    await this.props.fetchMealsByUser(this.props.user.id);
 
     const findLastMealId = () => {
       let max = 0;
@@ -59,7 +59,7 @@ class TESTING extends Component {
   }
 
   async handleSubmit(values) {
-    await this.props.fetchMeals();
+    await this.props.fetchMealsByUser(this.props.user.id);
 
     const headers = {
       "Content-Type": "application/json",
@@ -83,7 +83,7 @@ class TESTING extends Component {
     //     headers: headers
     //   })
 
-    await this.props.fetchMeals();
+    await this.props.fetchMealsByUser(this.props.user.id);
 
     // setTimeout(()=>{
 
@@ -259,7 +259,7 @@ class TESTING extends Component {
             <Col md={{ size: 10, offset: 2 }}>
               <Button
                 onClick={() => {
-                  this.props.fetchMeals();
+                  this.props.fetchMealsByUser(this.props.user.id);
                 }}
                 type="submit"
                 color="primary"
@@ -275,6 +275,7 @@ class TESTING extends Component {
 }
 
 const TEST = (props) => {
+
   return (
     <>
       USER INFORMATION TEST
@@ -289,7 +290,7 @@ const TEST = (props) => {
         fetchMealAccount={props.fetchMealAccount}
         postMealAccount={props.postMealAccount}
         postMeal={props.postMeal}
-        fetchMeals={props.fetchMeals}
+        fetchMealsByUser={props.fetchMealsByUser}
         token={props.token}
       />
       <TESTING
@@ -300,7 +301,7 @@ const TEST = (props) => {
         postMealAccount={props.postMealAccount}
         meal={props.meal.meal}
         postMeal={props.postMeal}
-        fetchMeals={props.fetchMeals}
+        fetchMealsByUser={props.fetchMealsByUser}
         handleDeleteMeals={props.handleDeleteMeals}
       />
     </>
@@ -309,41 +310,41 @@ const TEST = (props) => {
 
 export default TEST;
 
-function RenderMeals({ meal, fetchMeals, token, deleteMeals }) {
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ` + localStorage.getItem("token"),
-  };
+function RenderMeals({ meal, fetchMealsByUser, token, deleteMeals }) {
+  // const headers = {
+  //   "Content-Type": "application/json",
+  //   Authorization: `Bearer ` + localStorage.getItem("token"),
+  // };
 
-  const handleDeleteButton = async (id) => {
-    await axios.delete(baseUrl + "/meals/" + id);
-    await fetchMeals();
-  };
+  // const handleDeleteButton = async (id) => {
+  //   await axios.delete(baseUrl + "/meals/" + id);
+  //   await fetchMeals();
+  // };
 
-  const newMeal = {
-    mealName: "",
-    categoryId: "",
-    timeOfDayId: "",
-    description: "",
-    recipe: "",
-    ingredients: "",
-  };
+  // const newMeal = {
+  //   mealName: "",
+  //   categoryId: "",
+  //   timeOfDayId: "",
+  //   description: "",
+  //   recipe: "",
+  //   ingredients: "",
+  // };
 
-  const handleEditButton = async (id) => {
-    await axios.put(baseUrl + "/meal/" + id, newMeal, headers);
-    await fetchMeals();
-  };
+  // const handleEditButton = async (id) => {
+  //   await axios.put(baseUrl + "/meal/" + id, newMeal, headers);
+  //   await fetchMealsByUser(id);
+  // };
 
-  async function handleDelete(id) {
-    await deleteMeals(id);
-    await fetchMeals();
-  }
+  // async function handleDelete(id) {
+  //   await deleteMeals(id);
+  //   await fetchMealsByUser(id);
+  // }
 
-  const mealz = async () => {
-    const meal = await axios.get(baseUrl + "/meals/1", headers);
-    mealz();
-    return meal;
-  };
+  // const mealz = async () => {
+  //   const meal = await axios.get(baseUrl + "/meals/1", headers);
+  //   mealz();
+  //   return meal;
+  // };
 
   return (
     <>
@@ -371,8 +372,8 @@ function RenderMeals({ meal, fetchMeals, token, deleteMeals }) {
                     className="m-3"
                     onClick={() => {
                       // handleDeleteButton(m.id);
-                      handleDelete(m.id);
-                      fetchMeals();
+                      // handleDelete(m.id);
+                      // fetchMeals();
                     }}
                   >
                     Delete
@@ -382,7 +383,7 @@ function RenderMeals({ meal, fetchMeals, token, deleteMeals }) {
                     className="m-3"
                     onClick={() => {
                       //similar to catcard focus?
-                      handleEditButton(m.id);
+                      // handleEditButton(m.id);
                     }}
                   >
                     Edit

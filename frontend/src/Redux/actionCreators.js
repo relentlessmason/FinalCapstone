@@ -113,9 +113,24 @@ export let addMeal = (meal) => ({
 //   return dispatch(addMeals(meal));
 // };
 
-export const fetchMeals = () => async (dispatch) => {
+//fetches ALL meals regardless of who's logged in
+//we might be able to use this for displaying searchable meals that exist in the system?
+//would need a new object though
+// export const fetchMeals = () => async (dispatch) => {
+//   try {
+//     const response = await axios.get(baseUrl + "/meals/", {
+//       headers: headers,
+//     });
+//     return dispatch(addMeals(response.data));
+//   } catch (err) {
+//     console.log(err.message);
+//   }
+// };
+
+//this fetches meals of only the logged in users
+export const fetchMealsByUser = (id) => async (dispatch) => {
   try {
-    const response = await axios.get(baseUrl + "/meals/", {
+    const response = await axios.get(baseUrl + "/meals/"+id, {
       headers: headers,
     });
     return dispatch(addMeals(response.data));
@@ -128,6 +143,8 @@ export const addMeals = (meal) => ({
   type: ActionTypes.ADD_MEALS,
   payload: meal,
 });
+
+
 
 //TODO ADD TO ACTION TYPES
 // export const mealsLoading = () => ({

@@ -12,7 +12,7 @@ function resetForm() {
   //   selectBoxes.selectedIndex = 4;
 }
 
-async function handleSubmit(values, { user, fetchMeals, postMeal }) {
+async function handleSubmit(values, { user, postMeal }) {
 
   postMeal(
     values.mealName,
@@ -25,21 +25,17 @@ async function handleSubmit(values, { user, fetchMeals, postMeal }) {
   );
 
   resetForm();
-
-  //not sure if this is even working atm
-  await fetchMeals();
 }
 
 export default function AddRecipe(props) {
   let user = props.user.id;
-  let fetchMeals = props.fetchMeals;
   let postMeal = props.postMeal;
 
   return (
     <LocalForm
       id="form"
       onSubmit={(values) =>
-        handleSubmit(values, { user, fetchMeals, postMeal })
+        handleSubmit(values, { user, postMeal })
       }
     >
       <div className="wrapperAR">

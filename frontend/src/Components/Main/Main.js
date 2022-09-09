@@ -8,7 +8,7 @@ import {
   postMealAccount,
   postMeal,
   deleteMeals,
-  fetchMeals,
+  fetchMealsByUser,
   addToken,
   deleteUser,
 } from "../../Redux/actionCreators";
@@ -24,7 +24,6 @@ import Calendar from "../Calendar/Calendar";
 import Pantry from "../Pantry/Pantry";
 import GroceryList from "../GroceryList/GroceryList";
 import Footer from "../Footer/Footer";
-import { useEffect } from "react";
 
 const mapStateToProps = (state) => {
   return {
@@ -44,9 +43,13 @@ const mapDispatchToProps = (dispatch) => ({
   },
 
   // MEALS
-  fetchMeals: () => {
-    dispatch(fetchMeals());
+  // fetchMeals: () => {
+  //   dispatch(fetchMeals());
+  // },
+  fetchMealsByUser: (id)=>{
+    dispatch(fetchMealsByUser(id));
   },
+
   deleteMeals: (id) => {
     dispatch(deleteMeals(id));
   },
@@ -95,15 +98,19 @@ class Main extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchMeals();
+    // this.props.fetchMeals();
     this.props.fetchMealAccount();
+    this.props.fetchMealsByUser(this.props.user.id);
   }
 
   render() {
  
     return (
       <div className="container">
-        <Header handleLogout={this.handleLogout} />
+        <Header 
+        userId={this.props.user.id}
+        fetchMealsByUser={this.props.fetchMealsByUser}
+        handleLogout={this.handleLogout} />
 
         {this.props.token.token !== undefined ? (
           <div classname="navigator">
@@ -111,7 +118,6 @@ class Main extends Component {
             <Link to="/login" onClick={this.handleLogout}>
               logout
             </Link>
-            <Link to="/test">| test</Link>
             <Redirect to="/home" />
           </div>
         ) : (
@@ -136,7 +142,7 @@ class Main extends Component {
             component={() => (
               <AddRecipe
                 user={this.props.user}
-                fetchMeals={this.props.fetchMeals}
+                fetchMealsByUser={this.props.fetchMealsByUser}
                 postMeal={this.props.postMeal}
               />
             )}
@@ -151,12 +157,10 @@ class Main extends Component {
             path="/test"
             component={() => (
               <TEST
-                onClick={() => {
-                  this.fetchMeals();
-                }}
+                
                 meal={this.props.meal}
                 postMeal={this.props.postMeal}
-                fetchMeals={this.props.fetchMeals}
+                fetchMealsByUser={this.props.fetchMealsByUser}
                 deleteMeals={this.props.deleteMeals}
                 handleDeleteMeals={this.handleDeleteMeals}
                 token={this.props.token.token}
