@@ -24,6 +24,7 @@ import Calendar from "../Calendar/Calendar";
 import Pantry from "../Pantry/Pantry";
 import GroceryList from "../GroceryList/GroceryList";
 import Footer from "../Footer/Footer";
+import Recipes from "../Recipes/Recipes";
 
 const mapStateToProps = (state) => {
   return {
@@ -147,6 +148,7 @@ class Main extends Component {
               />
             )}
           />
+          <Route path="/recipes" component={() => <Recipes />} />
           <Route path="/favorites" component={() => <Favorites />} />
           <Route path="/calendar" component={() => <Calendar />} />
           <Route path="/grocery-list" component={() => <GroceryList />} />

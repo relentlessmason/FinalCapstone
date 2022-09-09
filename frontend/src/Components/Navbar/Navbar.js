@@ -13,6 +13,7 @@ import * as BsIcons from 'react-icons/bs/';
 import * as SiIcons from 'react-icons/si/';
 import * as IoIcons from 'react-icons/io/';
 import * as AiIcons from 'react-icons/ai/';
+import * as GiIcons from 'react-icons/gi/';
 import Main from "../Main/Main";
 
 
@@ -86,6 +87,13 @@ export default function Navbar(props){
                         <BsIcons.BsCalendar3 />
                         <span>Calendar</span>
                     </Link>
+                </li>
+                <li className="nav-text">
+                    <Link
+                        to='/recipes'>
+                            <GiIcons.GiRiceCooker />
+                            <span>Recipes</span>
+                        </Link>
                 </li>
                  <li className='nav-text'>
                     <Link 
