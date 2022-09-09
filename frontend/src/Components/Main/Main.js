@@ -165,6 +165,7 @@ class Main extends Component {
             path="/recipes"
             component={() => (
               <Recipes
+              postMealPlan={this.props.postMealPlan}
                 user={this.props.user}
                 fetchMealsByUser={this.props.fetchMealsByUser}
                 meal={this.props.meal}
