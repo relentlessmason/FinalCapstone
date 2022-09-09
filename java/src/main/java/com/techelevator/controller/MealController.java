@@ -2,6 +2,7 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.MealAccountDao;
 import com.techelevator.dao.MealDao;
+import com.techelevator.dao.MealIngredientsDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.model.Meal;
 import com.techelevator.model.MealAccount;
@@ -22,11 +23,13 @@ public class MealController {
     private MealDao mealDao;
     private MealAccountDao mealAccountDao;
     private UserDao userDao;
+    private MealIngredientsDao mealIngredientsDao;
 
-    public MealController(MealDao mealDao, MealAccountDao mealAccountDao, UserDao userDao) {
+    public MealController(MealDao mealDao, MealAccountDao mealAccountDao, UserDao userDao, MealIngredientsDao mealIngredientsDao) {
         this.mealDao = mealDao;
         this.mealAccountDao = mealAccountDao;
         this.userDao=userDao;
+        this.mealIngredientsDao =mealIngredientsDao;
     }
 
     //CURRENTLY IN USE//
@@ -70,6 +73,8 @@ public class MealController {
 
 
     // NOT CURRENTLY USED !! //
+
+
 
     @GetMapping(path="user/{id}")
     public List<User> findAllUsers(@PathVariable Long id){

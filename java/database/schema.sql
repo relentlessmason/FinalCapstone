@@ -58,7 +58,26 @@ CREATE TABLE meal_account (
 	CONSTRAINT FK_meal_account_meal FOREIGN KEY (meal_id) REFERENCES meal (meal_id)
 );
 
+
+
 --INSERT INTO meal_account (user_id) VALUES (1);
+
+--ingredients table
+
+CREATE SEQUENCE seq_meal_accounts_id
+  INCREMENT BY 1
+  NO MAXVALUE
+  START WITH 301
+  CACHE 1;
+
+CREATE TABLE meal_ingredients (
+	ingredients_id int NULL DEFAULT nextval('seq_meal_accounts_id'),
+	meal_id int NOT NULL,
+	ingredients_name varchar(50) NOT NULL,
+	qty int NOT NULL,
+	CONSTRAINT PK_meal_ingredients PRIMARY KEY (ingredients_id, meal_id),
+	CONSTRAINT FK_meal_ingredients_meal FOREIGN KEY (meal_id) REFERENCES meal (meal_id)
+);
 
 
 --INSERT INTO meal ( meal_name, category_id, time_of_day_id, description, recipe, ingredients) VALUES ( 'Chicken Curry', 1, 1, 'Classic dish from India. Sometimes spicy', 'In a small mixing bowl whisk together all of the spices in the spice blend, set aside.
