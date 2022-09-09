@@ -105,6 +105,7 @@ const QuickLook = ({ showDetailsHandle }) => {
             }}
           >
             <span className="number">{formattedDate}</span>
+           
             <span className="bg">{formattedDate}</span>
           </div>
         );

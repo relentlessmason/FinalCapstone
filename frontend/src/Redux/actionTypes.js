@@ -6,3 +6,5 @@ export const ADD_MEAL = 'ADD_MEAL';
 export const DELETE_MEAL = 'DELETE_MEAL';
 export const ADD_MEAL_ACCOUNT = 'ADD_MEAL_ACCOUNT';
 export const ADD_MEAL_ACCOUNTS = 'ADD_MEAL_ACCOUNTS';
+export const ADD_MEAL_PLAN = 'ADD_MEAL_PLAN';
+export const ADD_MEAL_PLANS = 'ADD_MEAL_PLANS';

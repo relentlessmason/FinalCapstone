@@ -90,6 +90,10 @@ export default function Navbar(props){
                 </li>
                 <li className="nav-text">
                     <Link
+                    onClick={()=>{
+                        props.fetchMealsByUser(props.userId)
+                        props.fetchMealPlansByUserId(props.userId)
+                    }}
                         to='/recipes'>
                             <GiIcons.GiRiceCooker />
                             <span>Recipes</span>
@@ -124,6 +128,7 @@ export default function Navbar(props){
                     <Link 
                         onClick={()=>{
                             props.fetchMealsByUser(props.userId)
+                            props.fetchMealPlansByUserId(props.userId)
                         }}
                         to='/test'>
                         <span>Test</span>
