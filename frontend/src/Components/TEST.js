@@ -283,7 +283,15 @@ const TEST = (props) => {
       {props.user.id}
       <br />
       {props.user.username}
-      <RenderMeals
+
+      <RenderMealPlans
+      fetchMealPlansByUserId={props.fetchMealPlansByUserId}
+      postMealPlan={props.postMealPlan}
+      mealPlan={props.mealPlan.mealPlan}
+      />
+
+
+      {/* <RenderMeals
         meal={props.meal.meal}
         deleteMeals={props.deleteMeals}
         handleDeleteMeals={props.handleDeleteMeals}
@@ -292,7 +300,9 @@ const TEST = (props) => {
         postMeal={props.postMeal}
         fetchMealsByUser={props.fetchMealsByUser}
         token={props.token}
-      />
+      /> */}
+
+
       <TESTING
         userId={props.user.id}
         token={props.token}
@@ -309,6 +319,28 @@ const TEST = (props) => {
 };
 
 export default TEST;
+
+function RenderMealPlans({fetchMealPlansByUserId, postMealPlan, mealPlan}){
+  
+  return(
+    <>
+  {mealPlan.map((m)=>{
+    return(
+      
+      <div>
+        {m.id}
+        <br/>
+        {m.dayOfWeek}
+        <br/>
+        {m.mealId}
+      </div>
+    )
+  })}
+   </>
+  )
+}
+
+
 
 function RenderMeals({ meal, fetchMealsByUser, token, deleteMeals }) {
   // const headers = {

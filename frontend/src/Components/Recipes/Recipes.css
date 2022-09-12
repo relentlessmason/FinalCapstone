@@ -1,0 +1,11 @@
+.var_header{
+    margin-top: 25px;
+}
+
+#card-text{
+    display: block;
+  width: 250px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

@@ -6,6 +6,7 @@ import { Meal } from './meal'
 import logger from 'redux-logger';
 import {createForms} from 'react-redux-form';
 import {MealAccount} from './mealAccount';
+import { MealPlan } from './mealPlan'
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -13,7 +14,8 @@ export const ConfigureStore = () => {
             token: Token,
             user: User,
             meal: Meal,
-            mealAccount: MealAccount
+            mealAccount: MealAccount,
+            mealPlan: MealPlan
             
         }),
         applyMiddleware(thunk, logger)

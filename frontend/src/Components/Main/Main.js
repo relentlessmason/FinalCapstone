@@ -11,6 +11,8 @@ import {
   fetchMealsByUser,
   addToken,
   deleteUser,
+  fetchMealPlansByUserId,
+  postMealPlan,
 } from "../../Redux/actionCreators";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -24,6 +26,7 @@ import Calendar from "../Calendar/Calendar";
 import Pantry from "../Pantry/Pantry";
 import GroceryList from "../GroceryList/GroceryList";
 import Footer from "../Footer/Footer";
+import Recipes from "../Recipes/Recipes";
 
 const mapStateToProps = (state) => {
   return {
@@ -31,6 +34,7 @@ const mapStateToProps = (state) => {
     user: state.user,
     meal: state.meal,
     mealAccount: state.mealAccount,
+    mealPlan: state.mealPlan,
   };
 };
 
@@ -46,7 +50,7 @@ const mapDispatchToProps = (dispatch) => ({
   // fetchMeals: () => {
   //   dispatch(fetchMeals());
   // },
-  fetchMealsByUser: (id)=>{
+  fetchMealsByUser: (id) => {
     dispatch(fetchMealsByUser(id));
   },
 
@@ -73,6 +77,13 @@ const mapDispatchToProps = (dispatch) => ({
         userId
       )
     ),
+
+  fetchMealPlansByUserId: (id) => {
+    dispatch(fetchMealPlansByUserId(id));
+  },
+
+  postMealPlan: (mealId, dayOfWeek) =>
+    dispatch(postMealPlan(mealId, dayOfWeek)),
 
   // MEAL ACCOUNTS
   fetchMealAccount: () => {
@@ -101,16 +112,18 @@ class Main extends Component {
     // this.props.fetchMeals();
     this.props.fetchMealAccount();
     this.props.fetchMealsByUser(this.props.user.id);
+    this.props.fetchMealPlansByUserId(this.props.user.id);
   }
 
   render() {
- 
     return (
       <div className="container">
-        <Header 
-        userId={this.props.user.id}
-        fetchMealsByUser={this.props.fetchMealsByUser}
-        handleLogout={this.handleLogout} />
+        <Header
+          userId={this.props.user.id}
+          fetchMealsByUser={this.props.fetchMealsByUser}
+          handleLogout={this.handleLogout}
+          fetchMealPlansByUserId={this.props.fetchMealPlansByUserId}
+        />
 
         {this.props.token.token !== undefined ? (
           <div classname="navigator">
@@ -144,6 +157,19 @@ class Main extends Component {
                 user={this.props.user}
                 fetchMealsByUser={this.props.fetchMealsByUser}
                 postMeal={this.props.postMeal}
+                postMealPlan={this.props.postMealPlan}
+              />
+            )}
+          />
+          <Route
+            path="/recipes"
+            component={() => (
+              <Recipes
+              postMealPlan={this.props.postMealPlan}
+                user={this.props.user}
+                fetchMealsByUser={this.props.fetchMealsByUser}
+                meal={this.props.meal}
+                deleteMeals={this.props.deleteMeals}
               />
             )}
           />
@@ -157,7 +183,9 @@ class Main extends Component {
             path="/test"
             component={() => (
               <TEST
-                
+                mealPlan={this.props.mealPlan}
+                fetchMealPlansByUserId={this.props.fetchMealPlansByUserId}
+                postMealPlan={this.props.postMealPlan}
                 meal={this.props.meal}
                 postMeal={this.props.postMeal}
                 fetchMealsByUser={this.props.fetchMealsByUser}

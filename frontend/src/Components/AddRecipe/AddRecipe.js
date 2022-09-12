@@ -12,7 +12,7 @@ function resetForm() {
   //   selectBoxes.selectedIndex = 4;
 }
 
-async function handleSubmit(values, { user, postMeal }) {
+async function handleSubmit(values, { user, postMeal, props }) {
 
   postMeal(
     values.mealName,
@@ -23,6 +23,8 @@ async function handleSubmit(values, { user, postMeal }) {
     values.ingredients,
     user
   );
+
+
 
   resetForm();
 }
@@ -35,7 +37,7 @@ export default function AddRecipe(props) {
     <LocalForm
       id="form"
       onSubmit={(values) =>
-        handleSubmit(values, { user, postMeal })
+        handleSubmit(values, { user, postMeal, props})
       }
     >
       <div className="wrapperAR">

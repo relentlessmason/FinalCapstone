@@ -13,6 +13,7 @@ import * as BsIcons from 'react-icons/bs/';
 import * as SiIcons from 'react-icons/si/';
 import * as IoIcons from 'react-icons/io/';
 import * as AiIcons from 'react-icons/ai/';
+import * as GiIcons from 'react-icons/gi/';
 import Main from "../Main/Main";
 
 
@@ -87,6 +88,17 @@ export default function Navbar(props){
                         <span>Calendar</span>
                     </Link>
                 </li>
+                <li className="nav-text">
+                    <Link
+                    onClick={()=>{
+                        props.fetchMealsByUser(props.userId)
+                        props.fetchMealPlansByUserId(props.userId)
+                    }}
+                        to='/recipes'>
+                            <GiIcons.GiRiceCooker />
+                            <span>Recipes</span>
+                        </Link>
+                </li>
                  <li className='nav-text'>
                     <Link 
                         to='/grocery-list'>
@@ -116,6 +128,7 @@ export default function Navbar(props){
                     <Link 
                         onClick={()=>{
                             props.fetchMealsByUser(props.userId)
+                            props.fetchMealPlansByUserId(props.userId)
                         }}
                         to='/test'>
                         <span>Test</span>

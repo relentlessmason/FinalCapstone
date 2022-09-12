@@ -159,6 +159,59 @@ export const addMeals = (meal) => ({
 
 //***END MEALS***//
 
+
+//MEAL PLANS//
+
+//this fetches all the meal plans based on user id
+export const fetchMealPlansByUserId = (id) => async (dispatch) => {
+  try {
+    const mealPlan = await axios.get(baseUrl + "/mealplans/"+id, {
+      headers: headers,
+    });
+    return dispatch(addMealPlans(mealPlan.data));
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+export const addMealPlans = (mealPlan) => ({
+  type: ActionTypes.ADD_MEAL_PLANS,
+  payload: mealPlan,
+});
+
+
+//this adds a meal plan to our meal plans
+
+export const postMealPlan =
+  (
+    mealId,
+    dayOfWeek
+  ) =>
+  async (dispatch) => {
+    const newMealPlan = {
+      mealId: mealId,
+      dayOfWeek: dayOfWeek
+    };
+    try {
+      const mealPlan = await axios.post(baseUrl + "/mealplan/", newMealPlan, {
+        headers: headers,
+      });
+      return dispatch(addMealPlan(mealPlan.data));
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+export let addMealPlan = (mealPlan) => ({
+  type: ActionTypes.ADD_MEAL_PLAN,
+  payload: mealPlan,
+});
+
+
+//END MEAL PLANS//
+
+
+
 // ***MEAL ACCOUNTS ***
 
 export const addMealAccount = (mealAccount) => ({
