@@ -18,8 +18,8 @@ export default function Header(props){
         userId={props.userId}
         fetchMealsByUser={props.fetchMealsByUser}
         handleLogout={props.handleLogout}/>
-        <img src={logo} alt="meal please!" className="logoImg"/>
-            <h1 className='header_title'>meal please!</h1>
+        
+            <h1 className='header_title'><img src={logo} alt="meal please!" className="logoImg"/>meal please!</h1>
         </div>
        
     </div>

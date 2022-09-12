@@ -6,4 +6,9 @@
     background-color: #fedeff;
     box-shadow: 0px 0px 5px #330036;
     text-align: center;
+    
+}
+
+.footerText{
+    color: #330036;
 }

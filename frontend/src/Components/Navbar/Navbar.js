@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import { Link, Redirect } from "react-router-dom";
-import { NavbarData } from './NavbarData';
 import './Navbar.css';
 import { IconContext } from "react-icons";
 import { baseUrl } from "../../Shared/baseUrl";
@@ -121,7 +120,7 @@ export default function Navbar(props){
                             props.handleLogout()
                         }}>
                         <MdIcons.MdOutlineLogout />
-                        <span>Log Out</span>
+                        <span>Log In/Out</span>
                     </Link>
                 </li>
                 <li className='nav-text'>
