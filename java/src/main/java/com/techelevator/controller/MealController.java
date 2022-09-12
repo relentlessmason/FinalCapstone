@@ -7,6 +7,7 @@ import com.techelevator.dao.UserDao;
 import com.techelevator.model.Meal;
 import com.techelevator.model.MealAccount;
 import com.techelevator.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,7 @@ public class MealController {
     private UserDao userDao;
     private MealIngredientsDao mealIngredientsDao;
 
+    @Autowired
     public MealController(MealDao mealDao, MealAccountDao mealAccountDao, UserDao userDao, MealIngredientsDao mealIngredientsDao) {
         this.mealDao = mealDao;
         this.mealAccountDao = mealAccountDao;
@@ -58,6 +60,8 @@ public class MealController {
         Long mealId =  mealDao.addMeal(meal);
         mealAccountDao.addMealAccount(mealId,id);
     };
+
+
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping(path = "meals/{id}")

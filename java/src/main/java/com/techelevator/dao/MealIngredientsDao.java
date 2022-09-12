@@ -1,19 +1,24 @@
 package com.techelevator.dao;
+
+
 import com.techelevator.model.MealIngredients;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-
+import java.util.List;
 
 
 public interface MealIngredientsDao  {
-    MealIngredients[] findAllIngredients();
 
 
+    List<MealIngredients> findAllIngredients();
 
+    MealIngredients getIngredientsById(Long ingredientId);
+
+    MealIngredients findByIngredients(String ingredients);
+
+    long addIngredient(Long mealId, String ingredientName, int qty);
+
+    boolean deleteIngredient(int ingredient_id);
+
+    MealIngredients mapToRowMealIngredients(SqlRowSet mI);
 }

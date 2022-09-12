@@ -9,6 +9,8 @@ public class MealIngredients {
     private String ingredients_name;
     private static int qty;
 
+    public MealIngredients() { }
+
     public MealIngredients(Long mealId, Long ingredientsId, String ingredients_name, int qty) {
         this.mealId = mealId;
         this.ingredientsId = ingredientsId;
@@ -16,9 +18,7 @@ public class MealIngredients {
         this.qty = qty;
     }
 
-    public MealIngredients() {
 
-    }
 
 
     @Override

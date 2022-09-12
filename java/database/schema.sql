@@ -51,9 +51,11 @@ CREATE SEQUENCE seq_meal_account_id
   CACHE 1;
 
 CREATE TABLE meal_account (
-	meal_id int NULL DEFAULT nextval('seq_meal_account_id'),
+	account_meal_id int NULL DEFAULT nextval('seq_meal_account_id'::regclass),
 	user_id int NOT NULL,
-	CONSTRAINT PK_meal_account PRIMARY KEY (meal_id, user_id),
+	meal_id int NOT NULL,
+
+	CONSTRAINT PK_meal_account PRIMARY KEY (account_meal_id,meal_id, user_id),
 	CONSTRAINT FK_meal_account_users FOREIGN KEY (user_id) REFERENCES users (user_id),
 	CONSTRAINT FK_meal_account_meal FOREIGN KEY (meal_id) REFERENCES meal (meal_id)
 );
@@ -64,19 +66,35 @@ CREATE TABLE meal_account (
 
 --ingredients table
 
-CREATE SEQUENCE seq_meal_accounts_id
+CREATE SEQUENCE seq_ingredients_id
   INCREMENT BY 1
   NO MAXVALUE
-  START WITH 301
+  START WITH 100
   CACHE 1;
 
 CREATE TABLE meal_ingredients (
-	ingredients_id int NULL DEFAULT nextval('seq_meal_accounts_id'),
+	ingredients_id int NULL DEFAULT nextval('seq_ingredients_id'::regclass),
 	meal_id int NOT NULL,
 	ingredients_name varchar(50) NOT NULL,
 	qty int NOT NULL,
 	CONSTRAINT PK_meal_ingredients PRIMARY KEY (ingredients_id, meal_id),
 	CONSTRAINT FK_meal_ingredients_meal FOREIGN KEY (meal_id) REFERENCES meal (meal_id)
+);
+
+CREATE SEQUENCE seq_pantry_id
+  INCREMENT BY 1
+  NO MAXVALUE
+  START WITH 100
+  CACHE 1;
+
+
+CREATE TABLE pantry (
+pantry_id int NULL DEFAULT nextval('seq_pantry_id'::regclass),
+user_id int,
+ingredients_name varchar(50) NOT NULL,
+qty int,
+CONSTRAINT PK_pantry PRIMARY KEY (pantry_id),
+CONSTRAINT FK_pantry_users FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
 
