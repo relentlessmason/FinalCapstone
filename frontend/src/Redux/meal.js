@@ -20,6 +20,10 @@ export const Meal = (
         meal: state.meal.filter((meal) => meal !== action.payload),
       };
 
+    case ActionTypes.UPDATE_MEAL:
+      return {
+        ...state, meal: action.payload};
+
     default:
       return state;
   }

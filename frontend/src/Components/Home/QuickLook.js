@@ -9,13 +9,43 @@ import {
   lastDayOfWeek,
   getWeek,
   addWeeks,
-  subWeeks
-} from 'date-fns';
+  subWeeks,
+} from "date-fns";
+import {
+  Card,
+  CardImg,
+  CardText,
+  CardSubtitle,
+  CardBody,
+  CardTitle,
+  Breadcrumb,
+  BreadcrumbItem,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  Button,
+  Row,
+  Label,
+  Col,
+} from "reactstrap";
 
-const QuickLook = ({ showDetailsHandle }) => {
+const QuickLook = ({
+  showDetailsHandle,
+  fetchMealsByUser,
+  fetchMealPlansByUserId,
+  mealPlan,
+}) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [currentWeek, setCurrentWeek] = useState(getWeek(currentMonth));
   const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const RenderMealPlans = () => {
+    {
+      mealPlan.map((m, i) => {
+        <div key={i}>{i}</div>;
+      });
+    }
+  };
 
   const changeMonthHandle = (btnType) => {
     if (btnType === "prev") {
@@ -104,8 +134,10 @@ const QuickLook = ({ showDetailsHandle }) => {
               onDateClickHandle(cloneDay, dayStr);
             }}
           >
+            {/* <RenderMealPlans /> */}
+
             <span className="number">{formattedDate}</span>
-           
+
             <span className="bg">{formattedDate}</span>
           </div>
         );
@@ -129,7 +161,7 @@ const QuickLook = ({ showDetailsHandle }) => {
             prev week
           </div>
         </div>
-        <div>{currentWeek}</div>
+        {/* <div>{currentWeek}</div> */}
         <div className="col col-end" onClick={() => changeWeekHandle("next")}>
           <div className="icon">next week</div>
         </div>
@@ -137,12 +169,25 @@ const QuickLook = ({ showDetailsHandle }) => {
     );
   };
   return (
-    <div className="calendar">
-      {renderHeader()}
-      {renderDays()}
-      {renderCells()}
-      {renderFooter()}
-    </div>
+    <>
+      <div className="calendar">
+        {/* {mealPlan.map((mp,i)=>{
+        return(
+          <>
+            <div key={i}>
+            {mp.dayOfWeek}
+            </div>
+            </>
+        )
+      })} */}
+
+        {renderHeader()}
+
+        {renderDays()}
+        {renderCells()}
+        {renderFooter()}
+      </div>
+    </>
   );
 };
 

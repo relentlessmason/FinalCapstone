@@ -1,7 +1,6 @@
 import * as ActionTypes from "./actionTypes";
 import { baseUrl } from "../Shared/baseUrl";
 import axios from "axios";
-import { useEffect } from "react";
 
 const headers = {
   "Content-Type": "application/json",
@@ -22,25 +21,6 @@ export const addUser = (user) => ({
 export const deleteUser = () => ({
   type: ActionTypes.DELETE_USER,
 });
-
-// export const fetchUser = (id) => (dispatch) => {
-//   return fetch(baseUrl + '/user/'+id)
-//   .then(response => {
-//       if (response.ok) {
-//         return response;
-//       } else {
-//         var error = new Error('Error ' + response.status + ': ' + response.statusText);
-//         error.response = response;
-//         throw error;
-//       }
-//     },
-//     error => {
-//           var errmess = new Error(error.message);
-//           throw errmess;
-//     })
-//   .then(response => response.json())
-//   .then(users => dispatch(addUser(users)));
-// };
 
 //END TOKEN/USERS
 
@@ -84,7 +64,7 @@ export const postMeal =
       const response = await axios.post(baseUrl + "/meals/" + userId, newMeal, {
         headers: headers,
       });
-      return dispatch(addMeal(response.data));
+      return await dispatch(addMeal(response.data));
     } catch (err) {
       console.log(err.message);
     }
@@ -94,6 +74,65 @@ export let addMeal = (meal) => ({
   type: ActionTypes.ADD_MEAL,
   payload: meal,
 });
+
+export const fetchMealsByUser = (id) => async (dispatch) => {
+  try {
+    const response = await axios.get(baseUrl + "/meals/"+id, {
+      headers: headers,
+    });
+    return await dispatch(addMeals(response.data));
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+export const addMeals = (meal) => ({
+  type: ActionTypes.ADD_MEALS,
+  payload: meal,
+});
+
+export const fetchMealByMealId = (id) => async (dispatch)=>{
+  try{
+    const meal = axios.get(baseUrl+"/meal/"+id, {
+      headers: headers,
+    });
+    return await dispatch(addMeals(meal.data));
+  } catch (err){
+    console.log(err.message)
+  }
+}
+
+export const updateMeal = (id, mealName, categoryId, timeOfDayId, description, recipe, ingredients) => async (dispatch) =>{
+  
+  const newMeal = {
+    mealName: mealName,
+    categoryId: categoryId,
+    timeOfDayId: timeOfDayId,
+    description: description,
+    recipe: recipe,
+    ingredients: ingredients
+  };
+  
+  let mealId = id;
+
+  try{
+    const updatedMeal = await axios.put(baseUrl+"/meal/"+id, newMeal,{
+      headers : headers,
+    });
+    return await dispatch(updateMeals(updatedMeal.data))
+    
+  }catch(err){
+    console.log(err.message)
+  }
+}
+
+export const updateMeals=(updatedMeal)=>({
+  type: ActionTypes.UPDATE_MEAL,
+  payload: updatedMeal
+})
+
+
+
 
 //OLD FETCH API BS
 //PLURAL ACTION CREATOR/TYPE //
@@ -128,21 +167,7 @@ export let addMeal = (meal) => ({
 // };
 
 //this fetches meals of only the logged in users
-export const fetchMealsByUser = (id) => async (dispatch) => {
-  try {
-    const response = await axios.get(baseUrl + "/meals/"+id, {
-      headers: headers,
-    });
-    return dispatch(addMeals(response.data));
-  } catch (err) {
-    console.log(err.message);
-  }
-};
 
-export const addMeals = (meal) => ({
-  type: ActionTypes.ADD_MEALS,
-  payload: meal,
-});
 
 
 
@@ -165,7 +190,7 @@ export const addMeals = (meal) => ({
 //this fetches all the meal plans based on user id
 export const fetchMealPlansByUserId = (id) => async (dispatch) => {
   try {
-    const mealPlan = await axios.get(baseUrl + "/mealplans/"+id, {
+    const mealPlan = await axios.get(baseUrl + '/mealplans/'+ id, {
       headers: headers,
     });
     return dispatch(addMealPlans(mealPlan.data));
@@ -206,6 +231,22 @@ export let addMealPlan = (mealPlan) => ({
   type: ActionTypes.ADD_MEAL_PLAN,
   payload: mealPlan,
 });
+
+export const deleteMealPlan = (id) => async (dispatch) =>{
+  try{
+    const mealPlanToDelete = await axios.delete(baseUrl+'/mealplan/'+id,{
+      headers: headers,
+    });
+    return await dispatch(deletePlan(mealPlanToDelete.data));
+  } catch(err){
+    console.log(err.message)
+  }
+};
+
+export const deletePlan = (mealPlan) =>({
+  type: ActionTypes.DELETE_MEAL_PLAN,
+  payload : mealPlan,
+})
 
 
 //END MEAL PLANS//

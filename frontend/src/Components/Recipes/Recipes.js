@@ -18,8 +18,7 @@ import {
   Col,
 } from "reactstrap";
 import { Control, LocalForm, Errors } from "react-redux-form";
-import IndividualRecipe from "./IndividualRecipe";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, withRouter } from "react-router-dom";
 
 function RenderRecipeCard({ meal, postMealPlan }) {
   const [clickedMealId, setClickedMealId] = useState(null);
@@ -32,38 +31,44 @@ function RenderRecipeCard({ meal, postMealPlan }) {
     <>
       {meal.map((m) => {
         return (
-          <div className="col-3 m-1 b-1">
+          <div className="col-4 mt-2">
             <Card
-            onClick={() => {
+              onClick={() => {
                 setClickedMealId(m.id);
               }}
               key={m.id}
               className="border-0"
             >
               <CardBody className="text-center ">
-                <CardTitle className="h3 mt-1 ml-2">{m.mealName}</CardTitle>
-                <CardText id="card-text" className="blockquote-footer">
+                <CardTitle className="h3 mt-1 ml-2 ">{m.mealName}</CardTitle>
+                <CardText id="card-text" className="text-muted">
+                  {/* {m.description.length <= 15
+                    ? m.description
+                    : `${m.description.slice(0, 15)}...`} */}
                   {m.description}
                 </CardText>
-                <CardSubtitle id="card-text" className="text-muted">
+                <CardSubtitle id="card-text" className="">
+                  {/* {m.recipe.length <= 25
+                    ? m.recipe
+                    : `${m.recipe.slice(0, 25)}...`} */}
                   {m.recipe}
                 </CardSubtitle>
               </CardBody>
+
               <Row className="row ">
                 <div className="col-sm-4 col-lg-6">
-                  <Button
+                  <Link
                     onClick={() => {
-                      //this will link us to the <IndividualRecipe/> component
-                      //we will pass the value of {m.id} into the path to pull up that page
+                      setClickedMealId(m.id);
                     }}
-                    className="submitAR"
+                    to={"/recipe/" + m.id}
+                    className="text-decoration-none"
                   >
-                    View Recipe
-                  </Button>
+                    <Button className="submitAR ">View Recipe</Button>
+                  </Link>
                 </div>
-                <div onClick={() => {}} className="col-sm-8 col-lg-6">
+                <div className="col-sm-8 col-lg-6">
                   <AddMealPlanModal
-                    
                     postMealPlan={postMealPlan}
                     clickedMealId={clickedMealId}
                   />
@@ -104,8 +109,7 @@ function AddMealPlanModal({ postMealPlan, clickedMealId }) {
         <ModalBody>
           <LocalForm onSubmit={(values) => handleSubmit(values)}>
             <Row className="form-group">
-              <Label htmlFor="mealPlan" md={2}>
-              </Label>
+              <Label htmlFor="mealPlan" md={2}></Label>
               <Col md={12}>
                 <Control.select
                   model=".dayOfWeek"
@@ -138,7 +142,7 @@ function AddMealPlanModal({ postMealPlan, clickedMealId }) {
               }}
               type="submit"
               value="submit"
-              className="mt-2 submitAR"              
+              className="mt-2 submitAR"
             >
               Submit
             </Button>
@@ -150,21 +154,20 @@ function AddMealPlanModal({ postMealPlan, clickedMealId }) {
 }
 
 const Recipes = (props) => {
-  let meal = props.meal.meal;
-
   return (
-    <>
-      <div className="container-lg">
-        <Link to="/add-recipe" className="text-decoration-none">
-          <Button className="submitAR">Click to add a new Recipe</Button>
-        </Link>
-        <br />
-        <div className="row my-5 align-items-center">
-          <RenderRecipeCard postMealPlan={props.postMealPlan} meal={meal} />
-        </div>
+    <div className="container-lg">
+      <Link to="/add-recipe" className="text-decoration-none">
+        <Button className="submitAR">Click to add a new Recipe</Button>
+      </Link>
+      <br />
+      <div className="row my-5 align-items-center">
+        <RenderRecipeCard
+          postMealPlan={props.postMealPlan}
+          meal={props.meal.meal}
+        />
       </div>
-    </>
+    </div>
   );
 };
 
-export default Recipes;
+export default withRouter(Recipes);

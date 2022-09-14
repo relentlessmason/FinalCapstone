@@ -3,7 +3,7 @@ import placeholder from "./Plain_onigiri.png";
 import "./AddRecipe.css";
 import { Control, LocalForm } from "react-redux-form";
 import { Label, Button, Row, Col } from "reactstrap";
-
+import { Link } from "react-router-dom";
 
 function resetForm() {
   const form = document.getElementById("form");
@@ -13,8 +13,7 @@ function resetForm() {
 }
 
 async function handleSubmit(values, { user, postMeal, props }) {
-
-  postMeal(
+  await postMeal(
     values.mealName,
     values.categoryId,
     values.timeOfDayId,
@@ -24,21 +23,19 @@ async function handleSubmit(values, { user, postMeal, props }) {
     user
   );
 
-
-
   resetForm();
 }
 
 export default function AddRecipe(props) {
   let user = props.user.id;
   let postMeal = props.postMeal;
+  let userId = props.userId;
+  let fetchMealsByUser = props.fetchMealsByUser;
 
   return (
     <LocalForm
       id="form"
-      onSubmit={(values) =>
-        handleSubmit(values, { user, postMeal, props})
-      }
+      onSubmit={(values) => handleSubmit(values, { user, postMeal, props })}
     >
       <div className="wrapperAR">
         <div className="leftWrapper">
@@ -147,9 +144,20 @@ export default function AddRecipe(props) {
             rows="4"
           />
 
-          <Button className="submitAR" type="submit">
-            Submit
-          </Button>
+          <div className="row text-center">
+            <Button className="submitAR col-6" type="submit">
+              Submit
+            </Button>
+            <Link
+              onClick={() => {
+                fetchMealsByUser(userId);
+              }}
+              className="col-6 text-decoration-none"
+              to="/recipes"
+            >
+              <Button className="submitAR">View Recipes</Button>
+            </Link>
+          </div>
         </div>
       </div>
 

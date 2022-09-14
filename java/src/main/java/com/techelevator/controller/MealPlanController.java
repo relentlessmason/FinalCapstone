@@ -3,6 +3,7 @@ package com.techelevator.controller;
 import com.techelevator.dao.MealPlanDao;
 import com.techelevator.model.Meal;
 import com.techelevator.model.MealPlan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ public class MealPlanController {
 
     MealPlanDao mealPlanDao;
 
+    @Autowired
     public MealPlanController(MealPlanDao mealPlanDao) {
         this.mealPlanDao = mealPlanDao;
     }

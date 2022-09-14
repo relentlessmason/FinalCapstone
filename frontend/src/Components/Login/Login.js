@@ -5,8 +5,7 @@ import { withRouter } from "react-router-dom";
 import { fetchMeals, addToken, addUser } from "../../Redux/actionCreators";
 import { baseUrl } from "../../Shared/baseUrl";
 import axios from "axios";
-import './Login.css'
-
+import "./Login.css";
 
 const mapDispatchToProps = (dispatch) => ({
   addToken: () => dispatch(addToken()),
@@ -30,21 +29,16 @@ class Login extends Component {
     };
 
     const userWithToken = await axios.post(baseUrl + "/login", data);
-    const userToken = userWithToken.data.token
+    const userToken = userWithToken.data.token;
 
-    localStorage.setItem('token', userToken)
+    localStorage.setItem("token", userToken);
 
-    axios.defaults.headers.common['Authorization'] = userToken;
-    
-
-    // this.props.dispatch(fetchMeals());
+    axios.defaults.headers.common["Authorization"] = userToken;
 
     await this.props.dispatch(addToken(userToken));
     await this.props.dispatch(addUser(userWithToken.data.user));
 
-     
-
-   
+    
   };
 
   handleInputChange = (event) => {
@@ -58,9 +52,12 @@ class Login extends Component {
     return (
       <div className="login_entity">
         <h1 className="login_header">Please Sign In</h1>
-        <div className='spacer'></div>
-        <label class="sr-only" className="login_username_label">Username</label>
-        <input className="login_username"
+        <div className="spacer"></div>
+        <label class="sr-only" className="login_username_label">
+          Username
+        </label>
+        <input
+          className="login_username"
           type="text"
           id="username"
           name="username"
@@ -70,9 +67,12 @@ class Login extends Component {
           onChange={this.handleInputChange}
           required
         />
-        <div className='spacer'></div>
-        <label class="sr-only" className="login_password_label">Password</label>
-        <input className="login_password"
+        <div className="spacer"></div>
+        <label class="sr-only" className="login_password_label">
+          Password
+        </label>
+        <input
+          className="login_password"
           type="password"
           id="password"
           name="password"
@@ -82,9 +82,13 @@ class Login extends Component {
           onChange={this.handleInputChange}
           required
         />
-        <div className='spacer'></div>
-        <Link to="/register" className="login_signup">Need an account?</Link>
-        <button type="submit" className="submit" onClick={this.handleLogin}>
+        <div className="spacer"></div>
+        <Link to="/register" className="login_signup">
+          Need an account?
+        </Link>
+        <button type="submit" className="submit" onClick={()=>{
+          this.handleLogin()
+        }}>
           Sign in
         </button>
       </div>
