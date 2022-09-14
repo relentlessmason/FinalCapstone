@@ -231,4 +231,8 @@
     flex-basis: calc(100% / 7);
     width: calc(100% / 7);
   }
+
+  .carousel{
+    margin-bottom: 2rem;
+  }
   

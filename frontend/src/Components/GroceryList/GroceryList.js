@@ -6,7 +6,7 @@ const GroceryList = () => {
 	// HINT: each "item" in our list names a name,
 	// a boolean to tell if its been completed, and a quantity
 	const [items, setItems] = useState([
-		{ itemName: '', quantity: 0, isSelected: false }
+		// { itemName: '', quantity: 0, isSelected: false }
 	]);
 
 	const [inputValue, setInputValue] = useState('');
@@ -23,7 +23,7 @@ const GroceryList = () => {
 
 		setItems(newItems);
 		setInputValue('');
-		calculateTotal();
+		//calculateTotal();
 	};
 
 	const handleQuantityIncrease = (index) => {
@@ -32,7 +32,7 @@ const GroceryList = () => {
 		newItems[index].quantity++;
 
 		setItems(newItems);
-		calculateTotal();
+		//calculateTotal();
 	};
 
 	const handleQuantityDecrease = (index) => {
@@ -41,7 +41,7 @@ const GroceryList = () => {
 		newItems[index].quantity--;
 
 		setItems(newItems);
-		calculateTotal();
+		//calculateTotal();
 	};
 
 	const toggleComplete = (index) => {
@@ -52,13 +52,13 @@ const GroceryList = () => {
 		setItems(newItems);
 	};
 
-	const calculateTotal = () => {
-		const totalItemCount = items.reduce((total, item) => {
-			return total + item.quantity;
-		}, 0);
+	// const calculateTotal = () => {
+	// 	const totalItemCount = items.reduce((total, item) => {
+	// 		return total + item.quantity;
+	// 	}, 0);
 
-		setTotalItemCount(totalItemCount);
-	};
+	// 	setTotalItemCount(totalItemCount);
+	// };
 
 	return (
 		<div className='app-background'>
@@ -96,7 +96,7 @@ const GroceryList = () => {
 						</div>
 					))}
 				</div>
-                <div className='total'>Total: {totalItemCount}</div>
+                {/* <div className='total'>Total: {totalItemCount}</div> */}
                 <button type="submit" className="submit">
           Print
         </button>
