@@ -58,7 +58,7 @@ export default function Navbar(props) {
             <li className="nav-text">
               <Link to="/home">
                 <SiIcons.SiJusteat />
-                <span>Home</span>
+                <span>home</span>
               </Link>
             </li>
             {/* <li className="nav-text">
@@ -70,13 +70,13 @@ export default function Navbar(props) {
             <li className="nav-text">
               <Link to="/recipes">
                 <GiIcons.GiRiceCooker />
-                <span>Recipes</span>
+                <span>recipes</span>
               </Link>
             </li>
             <li className="nav-text">
               <Link to="/add-recipe">
                 <VscIcons.VscAdd />
-                <span>Add Recipe</span>
+                <span>add recipe</span>
               </Link>
             </li>
             {/* <li className="nav-text">
@@ -94,13 +94,13 @@ export default function Navbar(props) {
             <li className="nav-text">
               <Link to="/grocery-list">
                 <BsIcons.BsFillBasket2Fill />
-                <span>Grocery List</span>
+                <span>grocery list</span>
               </Link>
             </li>
             <li className="nav-text">
               <Link to="/pantry">
                 <FaIcons.FaCarrot />
-                <span>Pantry</span>
+                <span>pantry</span>
               </Link>
             </li>
             <li className="nav-text">
@@ -111,7 +111,7 @@ export default function Navbar(props) {
                 }}
               >
                 <MdIcons.MdOutlineLogout />
-                <span>Log In/Out</span>
+                <span>log in/out</span>
               </Link>
             </li>
           </ul>

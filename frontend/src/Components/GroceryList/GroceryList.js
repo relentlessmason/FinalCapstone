@@ -65,7 +65,7 @@ const GroceryList = () => {
 			<div className='main-container'>
                 <h1>Shopping List</h1>
 				<div className='add-item-box'>
-					<input value={inputValue} onChange={(event) => setInputValue(event.target.value)} className='add-item-input' placeholder='Add an item...' />
+					<input value={inputValue} onChange={(event) => setInputValue(event.target.value)} className='add-item-input' placeholder='add an item...' />
 					<FaIcons.FaPlus onClick={() => handleAddButtonClick()} />
 				</div>
 				<div className='item-list'>

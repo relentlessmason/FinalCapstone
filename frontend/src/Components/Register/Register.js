@@ -34,29 +34,29 @@ class Register extends Component{
     render(){
         return(
             <div className='register_entity'>
-                <h1 className='register_header'>Create Account</h1>
+                <h1 className='register_header'>create account</h1>
                 <div className='spacer'></div>
-                <label class="sr-only">Username</label>
+                <label class="sr-only">username</label>
                 <input
                     className='register_input'
                     type="text"
                     id="username"
                     name="username"
                     class="form-control"
-                    placeholder="Username"
+                    placeholder="username"
                     v-model="user.username"
                     onChange={this.handleInputChange}
                     required
                 />
                 <div className='spacer'></div>
-                <label class="sr-only">Password</label>
+                <label class="sr-only">password</label>
                 <input
                     className='register_input'
                     type="password"
                     id="password"
                     name="password"
                     class="form-control"
-                    placeholder="Password"
+                    placeholder="password"
                     v-model="user.password"
                     onChange={this.handleInputChange}
                     required
@@ -68,13 +68,13 @@ class Register extends Component{
                     id="password-confirm"
                     name="confirmPassword"
                     class="form-control"
-                    placeholder="Confirm Password"
+                    placeholder="confirm password"
                     v-model="user.password"
                     onChange={this.handleInputChange}
                     required
                 />
                 <div className='spacer'></div>
-                <Link to="/login">Have an account?</Link>
+                <Link to="/login">have an account?</Link>
                 <button type="submit" onClick={this.handleSubmit} className="submit">Sign up</button>
             </div>
         )

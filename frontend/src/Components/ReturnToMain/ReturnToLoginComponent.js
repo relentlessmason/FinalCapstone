@@ -8,7 +8,7 @@ const ReturnToLoginComponent = () => {
       <Link
         to="/login"
         className="text-decoration-none">
-        <Button className="submitAR ">Return to Login</Button>
+        <Button className="submitAR ">return to login</Button>
       </Link>
     </>
   );

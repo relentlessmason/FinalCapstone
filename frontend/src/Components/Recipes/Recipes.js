@@ -54,14 +54,14 @@ function RenderRecipeCard({ meal, postMealPlan, fetchMealsByUser, user ,fetchMea
               className="border-0"
             >
               <CardBody className="text-center ">
-                <CardTitle className="h3 mt-1 ml-2 ">{m.mealName}</CardTitle>
-                <CardText id="card-text" className="text-muted">
+                <CardTitle className="h3 mt-1 ml-2 text-lowercase">{m.mealName}</CardTitle>
+                <CardText id="card-text" className="text-muted text-lowercase">
                   {/* {m.description.length <= 15
                     ? m.description
                     : `${m.description.slice(0, 15)}...`} */}
                   {m.description}
                 </CardText>
-                <CardSubtitle id="card-text" className="">
+                <CardSubtitle id="card-text" className="text-lowercase">
                   {/* {m.recipe.length <= 25
                     ? m.recipe
                     : `${m.recipe.slice(0, 25)}...`} */}

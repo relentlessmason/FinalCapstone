@@ -52,10 +52,10 @@ class Login extends Component {
   render() {
     return (
       <div className="login_entity">
-        <h1 className="login_header">Please Sign In</h1>
+        <h1 className="login_header">please sign in</h1>
         <div className="spacer"></div>
         <label class="sr-only" className="login_username_label">
-          Username
+          username
         </label>
         <input
           className="login_username"
@@ -63,14 +63,14 @@ class Login extends Component {
           id="username"
           name="username"
           class="form-control"
-          placeholder="Username"
+          placeholder="username"
           v-model="user.username"
           onChange={this.handleInputChange}
           required
         />
         <div className="spacer"></div>
         <label class="sr-only" className="login_password_label">
-          Password
+          password
         </label>
         <input
           className="login_password"
@@ -78,19 +78,19 @@ class Login extends Component {
           id="password"
           name="password"
           class="form-control"
-          placeholder="Password"
+          placeholder="password"
           v-model="user.password"
           onChange={this.handleInputChange}
           required
         />
         <div className="spacer"></div>
         <Link to="/register" className="login_signup">
-          Need an account?
+          need an account?
         </Link>
         <button type="submit" className="submit" onClick={()=>{
           this.handleLogin()
         }}>
-          Sign in
+          sign in
         </button>
       </div>
     );
