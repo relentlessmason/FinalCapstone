@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Component } from "react";
-import placeholder from "./Plain_onigiri.png";
+import placeholder from "./Bento.png";
 import "./AddRecipe.css";
 import { Control, LocalForm } from "react-redux-form";
 import { Label, Button, Row, Col } from "reactstrap";
@@ -109,6 +109,7 @@ export default function AddRecipe(props) {
             <option value="3">Snack</option>
             <option value="4">Dinner</option>
             <option value="5">Dessert</option>
+            <option value="6">Drinks</option>
           </Control.select>
 
           <Label htmlFor="categoryId">Categories</Label>
@@ -186,7 +187,6 @@ export default function AddRecipe(props) {
         </div>
       </div>
 
-      <div className="spacer"> .</div>
     </LocalForm>
   );
 }
