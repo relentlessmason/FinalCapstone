@@ -12,8 +12,12 @@ body {
     flex-direction: column;
     float: right;
     width: 400px;
+    height: 510px;
+    max-height: 510px;
     padding: 10px;
     text-align: left;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
   
   .recipeFormHeaderDiv input { /* adjusts the format of form boxes*/
@@ -40,12 +44,15 @@ body {
   }
   
   .wrapperAR{ /* container for the three divs at the top */
-    width: 930px;
+    width: 700px;
+    margin: auto;
+    max-height: 510px;
+    overflow-y: scroll;
   }
 
   .leftWrapper { /* contains the image and the ingredients buttons*/
     border-radius: 10px;
-    margin-left: 260px;
+    margin: 0 auto;
     width: 250px;
     display: flex;
     flex-direction: column;
@@ -53,8 +60,7 @@ body {
   }
 
   .recipeImg { /*specifically edits img placeholder size */
-    width: 125px;
-    height: 115px;
+    width: 170px;
     /* background-color: #fff; */
     border-radius: 10px;
   }
@@ -75,7 +81,8 @@ body {
     display: flex;
     flex-direction: column;
     width: 250px;
-    max-height: 315px;
+    height: 330px;
+    max-height: 330px;
     padding: 10px 10px;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -89,24 +96,22 @@ body {
   }
 
   .recipeInstructions { /* the div that the recipe steps sit in*/
-    width: 670px;
+    width: 680px;
     background-color: #FEDEFF;
     display: flex;
-    float: left;
     flex-direction: column;
     border-radius: 10px;
     margin-top: 20px;
-    margin-left: 260px;
     margin-bottom: 50px;
     padding-left: 10px;
     padding-top: 10px;
-    padding-bottom: 15px;
+    padding-bottom: 20px;
     overflow-y: scroll;
     overflow-x: hidden;
 
   }
   .recipeInstructions textarea { /* adjusts formatting of the textboxes for recipe instructions*/
-    width: 600px;
+    width: 590px;
     /* height: 75px; */
     margin-left: 25px;
     margin-bottom: 0;
@@ -197,7 +202,3 @@ body {
   }
   
   /* SUBMIT BUTTON END */
-
-  .spacer {
-    margin-top: 2.5rem;
-  }
