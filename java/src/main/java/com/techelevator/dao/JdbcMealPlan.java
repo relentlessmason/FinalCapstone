@@ -2,6 +2,7 @@ package com.techelevator.dao;
 
 import com.techelevator.model.Meal;
 import com.techelevator.model.MealPlan;
+import com.techelevator.model.MealPlanJoin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -33,18 +34,20 @@ public class JdbcMealPlan implements MealPlanDao{
     }
 
     @Override
-    public MealPlan[] findMealPlanByUserId(Long id) {
-        List<MealPlan> mealPlans = new ArrayList<>();
-        String SQL = "SELECT * FROM meal_plan mp " +
-                "JOIN meal m ON m.meal_id = mp.meal_id " +
-                "JOIN meal_account ma ON ma.meal_id = m.meal_id " +
-                "WHERE ma.user_id = ?;";
+    public MealPlanJoin[] findMealPlanByUserId(Long id) {
+        List<MealPlanJoin> mealPlans = new ArrayList<>();
+        String SQL = "select m.meal_name, m.meal_id, mp.day_of_week, tod.time_of_day_desc from meal_plan mp " +
+                "JOIN meal m ON m.meal_id=mp.meal_id " +
+                "JOIN meal_account ma ON ma.meal_id=m.meal_id " +
+                "JOIN time_of_day tod ON tod.time_of_day_id=m.time_of_day_id " +
+                "WHERE ma.user_id=? " +
+                "ORDER BY m.time_of_day_id;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(SQL, id);
         while(results.next()){
-            MealPlan mp = mapToRowMealPlan(results);
+            MealPlanJoin mp = mapToRowMealPlanJoin(results);
             mealPlans.add(mp);
         }
-        return mealPlans.toArray(new MealPlan[0]);
+        return mealPlans.toArray(new MealPlanJoin[0]);
     }
 
     @Override
@@ -70,6 +73,15 @@ public class JdbcMealPlan implements MealPlanDao{
         mp.setMealPlanId(m.getLong("meal_plan_id"));
         mp.setMealId(m.getLong("meal_id"));
         mp.setDayOfWeek(m.getString("day_of_week"));
+        return mp;
+    }
+
+    private MealPlanJoin mapToRowMealPlanJoin(SqlRowSet m) {
+        MealPlanJoin mp = new MealPlanJoin();
+        mp.setMealName(m.getString("meal_name"));
+        mp.setMealId(m.getLong("meal_id"));
+        mp.setDayOfWeek(m.getString("day_of_week"));
+        mp.setTimeOfDay(m.getString("time_of_day_desc"));
         return mp;
     }
 }

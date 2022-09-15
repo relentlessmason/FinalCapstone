@@ -31,7 +31,7 @@ import { Link, Redirect, withRouter } from "react-router-dom";
 //   );
 // }
 
-function RenderRecipeCard({ meal, postMealPlan, fetchMealsByUser }) {
+function RenderRecipeCard({ meal, postMealPlan, fetchMealsByUser, user ,fetchMealPlansByUserId }) {
   const [clickedMealId, setClickedMealId] = useState(null);
 
  
@@ -83,6 +83,8 @@ function RenderRecipeCard({ meal, postMealPlan, fetchMealsByUser }) {
                 </div>
                 <div className="col-sm-8 col-lg-6">
                   <AddMealPlanModal
+                  user={user}
+                  fetchMealPlansByUserId={fetchMealPlansByUserId}
                     postMealPlan={postMealPlan}
                     clickedMealId={clickedMealId}
                   />
@@ -96,8 +98,9 @@ function RenderRecipeCard({ meal, postMealPlan, fetchMealsByUser }) {
   );
 }
 
-function AddMealPlanModal({ postMealPlan, clickedMealId }) {
+function AddMealPlanModal({ postMealPlan, clickedMealId, fetchMealPlansByUserId, user }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   function toggleModal() {
     setIsModalOpen(!isModalOpen);
@@ -105,6 +108,7 @@ function AddMealPlanModal({ postMealPlan, clickedMealId }) {
 
   function handleSubmit(values) {
     postMealPlan(clickedMealId, values.dayOfWeek);
+    fetchMealPlansByUserId(user.id);
   }
 
   return (
@@ -168,14 +172,10 @@ function AddMealPlanModal({ postMealPlan, clickedMealId }) {
 }
 
 const Recipes = (props) => {
-  // const recipes = props.meal.map((m) => {
-  //   return (
-  //     <div key={m.id}>
-  //       <RenderMenu meal={m} />
-  //     </div>
-  //   );
-  // });
 
+  console.log(props.mealPlan)
+
+  
 
   return (
     <div className="container-lg">
@@ -185,10 +185,13 @@ const Recipes = (props) => {
       <br />
       <div className="row my-5 align-items-center">
         <RenderRecipeCard 
+        user={props.user}
+        fetchMealPlansByUserId={props.fetchMealPlansByUserId}
         fetchMealsByUser={props.fetchMealsByUser}
         postMealPlan={props.postMealPlan} 
         meal={props.meal} />
       </div>
+     
     </div>
   );
 };

@@ -38,7 +38,7 @@ const mapStateToProps = (state) => {
     user: state.user,
     meal: state.meal,
     mealAccount: state.mealAccount,
-    mealPlan: state.mealPlan,
+    mealPlan: state.mealPlan
   };
 };
 
@@ -137,18 +137,21 @@ class Main extends Component {
   componentDidMount() {
     // this.props.fetchMealAccount();
     this.props.fetchMealsByUser(this.props.user.id);
-    // this.props.fetchMealPlansByUserId(this.props.user.id);
+    this.props.fetchMealPlansByUserId(this.props.user.id);
   }
 
   render() {
     const MealComponent = () => {
       return (
         <Recipes
+          mealPlan={this.props.mealPlan}
+          // onemeal={this.props.mealPlan.meal.filter((meal) => meal.mealName == 'allison')[0]}
           postMealPlan={this.props.postMealPlan}
           user={this.props.user}
           fetchMealsByUser={this.props.fetchMealsByUser}
           meal={this.props.meal.meal}
           deleteMeals={this.props.deleteMeals}
+          fetchMealPlansByUserId={this.props.fetchMealPlansByUserId}
         />
       );
     };
@@ -195,6 +198,8 @@ class Main extends Component {
               this.props.token.token !== undefined
                 ? () => (
                     <Home
+                    deleteMealPlan={this.props.deleteMealPlan}
+                    mealPlan={this.props.mealPlan}
                       meal={this.props.meal}
                       user={this.props.user}
                       fetchMealsByUser={this.props.fetchMealsByUser}

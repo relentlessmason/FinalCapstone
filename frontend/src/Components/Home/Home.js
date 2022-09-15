@@ -34,7 +34,12 @@ function Home(props) {
       <br />
       {/* {showDetails && <Details data={data} />}    */}
 
-      <Carousel />
+      <Carousel
+      deleteMealPlan={props.deleteMealPlan}
+      fetchMealPlansByUserId={props.fetchMealPlansByUserId}
+      user={props.user}
+      mealPlan={props.mealPlan}
+      />
     </>
   );
 }

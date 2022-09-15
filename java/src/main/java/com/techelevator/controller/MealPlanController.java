@@ -3,6 +3,7 @@ package com.techelevator.controller;
 import com.techelevator.dao.MealPlanDao;
 import com.techelevator.model.Meal;
 import com.techelevator.model.MealPlan;
+import com.techelevator.model.MealPlanJoin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,7 +29,7 @@ public class MealPlanController {
     }
 
     @GetMapping(path = "mealplans/{id}")
-    public MealPlan[] findAllMealPlansByUserId(@PathVariable Long id){
+    public MealPlanJoin[] findAllMealPlansByUserId(@PathVariable Long id){
         return mealPlanDao.findMealPlanByUserId(id);
     }
 

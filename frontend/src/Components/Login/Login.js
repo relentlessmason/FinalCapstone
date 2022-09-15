@@ -2,7 +2,7 @@ import { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { fetchMealsByUser, addToken, addUser } from "../../Redux/actionCreators";
+import { fetchMealsByUser, fetchMealPlansByUserId, addToken, addUser } from "../../Redux/actionCreators";
 import { baseUrl } from "../../Shared/baseUrl";
 import axios from "axios";
 import "./Login.css";
@@ -38,6 +38,7 @@ class Login extends Component {
     await this.props.dispatch(addToken(userToken));
     await this.props.dispatch(addUser(userWithToken.data.user));
     await this.props.dispatch(fetchMealsByUser(userWithToken.data.user.id))
+    await this.props.dispatch(fetchMealPlansByUserId(userWithToken.data.user.id))
 
   };
 

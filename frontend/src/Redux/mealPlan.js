@@ -6,7 +6,7 @@ export const MealPlan = (
   },
   action
 ) => {
-  switch (action.type) {
+    switch (action.type) {
     case ActionTypes.ADD_MEAL_PLANS:
       return { ...state, mealPlan: action.payload };
 
@@ -14,15 +14,14 @@ export const MealPlan = (
       let m = action.payload;
       return { ...state, mealPlan: state.mealPlan.concat(m) };
 
-    // case ActionTypes.DELETE_MEAL_PLAN:
-    //   return {...state, id: null, dayOfWeek: ''}
-      // return state.filter((mealPlan) => mealPlan.id !== action.payload.id);
-
-      case ActionTypes.DELETE_MEAL_PLAN:
+    case ActionTypes.DELETE_MEAL_PLAN:
       return {
         ...state,
-        mealPlan: state.mealPlan.filter((mealPlan) => mealPlan !== action.payload),
-      };
+        mealPlan: state.mealPlan.filter((mealPlan) => parseInt(mealPlan.id) !== action.payload)};
+
+    case ActionTypes.UPDATE_MEAL_PLAN:
+      return {
+        ...state, mealPlan: state.mealPlan.filter((mealPlan) => mealPlan = action.payload)};
 
     default:
       return state;

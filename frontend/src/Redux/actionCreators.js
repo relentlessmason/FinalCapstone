@@ -269,13 +269,11 @@ export const fetchMealPlansByUserId = (id) => async (dispatch) => {
     const mealPlan = await axios.get(baseUrl + '/mealplans/'+ id, {
       headers: headers,
     });
-    return dispatch(addMealPlans(mealPlan.data));
+    return await dispatch(addMealPlans(mealPlan.data));
   } catch (err) {
     console.log(err.message);
   }
 };
-
-
 
 //this adds a meal plan to our meal plans
 
