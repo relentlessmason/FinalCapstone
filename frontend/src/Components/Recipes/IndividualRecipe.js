@@ -30,76 +30,84 @@ class IndividualRecipe extends Component {
       isModalOpen: false,
       isEditModalOpen: false,
     };
+    
   }
 
-  //   alert(this.props.match.params.id);
+  
 
   handleDelete = this.handleDelete.bind(this);
 
-  componentDidMount() {
-    let id = this.props.match.params.id;
+  // componentDidMount() {
+  //   let id = this.props.match.params.id;
 
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ` + localStorage.getItem("token"),
-    };
 
-    axios
-      .get("http://localhost:8081/meal/" + id, {
-        headers: headers,
-      })
-      .then((response) => {
-        this.setState({
-          meal: response.data,
-        });
-        console.log(response);
-      });
-  }
+  //   const headers = {
+  //     "Content-Type": "application/json",
+  //     Authorization: `Bearer ` + localStorage.getItem("token"),
+  //   };
+
+  //   axios
+  //     .get("http://localhost:8081/meal/" + id, {
+  //       headers: headers,
+  //     })
+  //     .then((response) => {
+  //       this.setState({
+  //         meal: response.data,
+  //       });
+  //       console.log(response);
+  //     });
+
+  // }
 
   handleDelete() {
-    this.props.deleteMealPlan(this.state.meal.id);
-    this.props.deleteMeals(this.state.meal.id);
-    this.props.fetchMealsByUser(this.props.userId);
+    this.props.deleteMealPlan(this.props.onemeal.id);
+    this.props.deleteMeals(this.props.onemeal.id);
+    
   }
 
   render() {
-    const post = this.state.meal ? (
+
+
+    console.log("One Meal "+this.props.onemeal.mealName)
+
+    
+    const post = this.props.onemeal ? (
       <>
         <div className="container">
           <div className="row  justify-content-center">
             <Card className="col-md-6 col-xl-4 col-sm-4">
               <CardHeader className="text-muted"></CardHeader>
-              <CardTitle className="h3">{this.state.meal.mealName}</CardTitle>
+              <CardTitle className="h3">{this.props.onemeal.mealName}</CardTitle>
 
               <CardBody className="text-center">
-                {this.state.meal.description}
-                <CardText>{this.state.meal.ingredients}</CardText>
+                {this.props.onemeal.description}
+                <CardText>{this.props.onemeal.ingredients}</CardText>
 
                 <CardText>
                   <br />
-                  {this.state.meal.recipe}
+                  {this.props.onemeal.recipe}
                 </CardText>
               </CardBody>
 
               <div className="row text-center ">
                 <RenderEditModal
-                  mealId={this.state.meal.id}
-                  meal={this.state.meal}
+                  mealId={this.props.onemeal.id}
+                  meal={this.props.onemeal}
                   updateMeal={this.props.updateMeal}
                   handleEditSubmit={this.handleEditSubmit}
                   fetchMealsByUser={this.props.fetchMealsByUser}
                   userId={this.props.userId}
-                  params={this.props.match.params.id}
+                  params={this.props.onemeal.id}
                 />
 
                 <RenderMealPlanModal
                   postMealPlan={this.props.postMealPlan}
-                  meal={this.state.meal}
+                  meal={this.props.onemeal}
                 />
                 <Link className="text-decoration-none col-4" to="/recipes">
                   <Button
                     onClick={(e) => {
-                      this.props.fetchMealsByUser(this.props.userId);
+                      // this.props.fetchMealsByUser(this.props.userId);
                     }}
                     className="submitAR "
                   >
@@ -115,7 +123,7 @@ class IndividualRecipe extends Component {
             className="col-2 text-decoration-none"
             onClick={() => {
               this.handleDelete();
-              this.props.fetchMealsByUser(this.props.userId);
+              // this.props.fetchMealsByUser(this.props.userId);
             }}
           >
             <Button className="submitAR bg-danger">Delete</Button>
@@ -126,7 +134,7 @@ class IndividualRecipe extends Component {
       <>
         <Button
           onClick={(e) => {
-            this.props.fetchMealsByUser(this.props.userId);
+            // this.props.fetchMealsByUser(this.props.userId);
             this.props.history.push("/recipes");
           }}
           className="submitAR"
@@ -156,8 +164,10 @@ function RenderEditModal({
     setIsEditModalOpen(!isEditModalOpen);
   }
 
-  function handleEditSubmit(values) {
-    updateMeal(
+  async function handleEditSubmit(values) {
+
+    //update isn't naturally reflecting state
+   await updateMeal(
       params,
       values.mealName,
       values.categoryId,
@@ -169,7 +179,8 @@ function RenderEditModal({
 
     toggleModal();
 
-    fetchMealsByUser(userId);
+    await fetchMealsByUser(userId);
+
   }
   return (
     <>
@@ -296,7 +307,7 @@ function RenderEditModal({
             </Row>
             <Button
               onClick={() => {
-                fetchMealsByUser(userId);
+                // fetchMealsByUser(userId);
               }}
               className="submitAR"
               type="submit"

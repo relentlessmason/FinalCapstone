@@ -17,12 +17,15 @@ export const Meal = (
     case ActionTypes.DELETE_MEAL:
       return {
         ...state,
-        meal: state.meal.filter((meal) => meal !== action.payload),
-      };
+        meal: state.meal.filter((meal) => parseInt(meal.id) !== action.payload)};
 
     case ActionTypes.UPDATE_MEAL:
       return {
-        ...state, meal: action.payload};
+        ...state, meal: state.meal.filter((meal) => meal = action.payload)};
+
+        // case ActionTypes.UPDATE_MEAL:
+        //   return {
+        //     ...state, meal: action.payload };
 
     default:
       return state;

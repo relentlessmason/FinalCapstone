@@ -26,16 +26,18 @@ export const deleteUser = () => ({
 
 //***MEALS***//
 
-export const deleteMeal = () => ({
+export const deleteMeal = (id) => ({
   type: ActionTypes.DELETE_MEAL,
+  payload: id
 });
 
 export const deleteMeals = (id) => async (dispatch) => {
-  try {
-    const mealToDelete = await axios.delete(baseUrl + "/meals/" + id, {
+  let newId = parseInt(id);
+  
+    try {
+   axios.delete(baseUrl + "/meals/" + newId, {
       headers: headers,
-    });
-    return await dispatch(deleteMeal(mealToDelete.data));
+    }).then((dispatch(deleteMeal(newId))));
   } catch (err) {
     console.log(err.message);
   }
@@ -51,7 +53,7 @@ export const postMeal =
     ingredients,
     userId
   ) =>
-  async (dispatch) => {
+  async (dispatch)  => {
     const newMeal = {
       mealName: mealName,
       categoryId: categoryId,
@@ -61,10 +63,9 @@ export const postMeal =
       ingredients: ingredients,
     };
     try {
-      const response = await axios.post(baseUrl + "/meals/" + userId, newMeal, {
+      axios.post(baseUrl + "/meals/" + userId, newMeal, {
         headers: headers,
-      });
-      return await dispatch(addMeal(response.data));
+      }).then(dispatch(addMeal(newMeal)));
     } catch (err) {
       console.log(err.message);
     }
@@ -79,12 +80,38 @@ export const fetchMealsByUser = (id) => async (dispatch) => {
   try {
     const response = await axios.get(baseUrl + "/meals/"+id, {
       headers: headers,
-    });
-    return await dispatch(addMeals(response.data));
+    })
+    return await (dispatch(addMeals(response.data)));
   } catch (err) {
     console.log(err.message);
   }
 };
+
+// export const fetchMealByMealId = (id) => async (dispatch) => {
+//   try {
+//     const response = await axios.get(baseUrl+'/meal/'+id, {
+//       headers: headers,
+//     });
+//     return await dispatch(response.data);
+//   } catch (err) {
+//     console.log(err.message);
+//   }
+// };
+
+// export const fetchMealsByUser = () => (dispatch) => {
+// return fetch(baseUrl+'/meals/',{
+//   headers: headers,
+//   credentials : 'same-origin'
+// }
+// )
+// .then(response=>{
+//   if(response.ok){
+//     return response;
+//   }
+// })
+// .then((response)=>response.json())
+// .then(meal => dispatch(addMeals(meal)))
+// };
 
 export const addMeals = (meal) => ({
   type: ActionTypes.ADD_MEALS,
@@ -95,16 +122,45 @@ export const fetchMealByMealId = (id) => async (dispatch)=>{
   try{
     const meal = axios.get(baseUrl+"/meal/"+id, {
       headers: headers,
-    });
-    return await dispatch(addMeals(meal.data));
+    }).then(dispatch(addMeals(meal.data)));    
   } catch (err){
     console.log(err.message)
   }
 }
 
+// export const postMeal =
+//   (
+//     mealName,
+//     categoryId,
+//     timeOfDayId,
+//     description,
+//     recipe,
+//     ingredients,
+//     userId
+//   ) =>
+//   async (dispatch)  => {
+//     const newMeal = {
+//       mealName: mealName,
+//       categoryId: categoryId,
+//       timeOfDayId: timeOfDayId,
+//       description: description,
+//       recipe: recipe,
+//       ingredients: ingredients,
+//     };
+//     try {
+//       axios.post(baseUrl + "/meals/" + userId, newMeal, {
+//         headers: headers,
+//       }).then(dispatch(addMeal(newMeal)));
+//     } catch (err) {
+//       console.log(err.message);
+//     }
+//   };
+
+
+
 export const updateMeal = (id, mealName, categoryId, timeOfDayId, description, recipe, ingredients) => async (dispatch) =>{
   
-  const newMeal = {
+  let newMeal ={
     mealName: mealName,
     categoryId: categoryId,
     timeOfDayId: timeOfDayId,
@@ -113,14 +169,12 @@ export const updateMeal = (id, mealName, categoryId, timeOfDayId, description, r
     ingredients: ingredients
   };
   
-  let mealId = id;
+  let mealId = parseInt(id);
 
   try{
-    const updatedMeal = await axios.put(baseUrl+"/meal/"+id, newMeal,{
+  await axios.put(baseUrl+'/meal/'+mealId, newMeal,{
       headers : headers,
-    });
-    return await dispatch(updateMeals(updatedMeal.data))
-    
+    }).then(dispatch(updateMeals(newMeal)));
   }catch(err){
     console.log(err.message)
   }
@@ -187,7 +241,29 @@ export const updateMeals=(updatedMeal)=>({
 
 //MEAL PLANS//
 
+// export const addMeals = (meal) => ({
+//   type: ActionTypes.ADD_MEALS,
+//   payload: meal,
+// });
+
+// export const fetchMealsByUser = (id) => async (dispatch) => {
+//   try {
+//     const response = await axios.get(baseUrl + "/meals/"+id, {
+//       headers: headers,
+//     });
+//     return await dispatch(addMeals(response.data));
+//   } catch (err) {
+//     console.log(err.message);
+//   }
+// };
+
 //this fetches all the meal plans based on user id
+
+export let addMealPlans = (mealPlan) => ({
+  type: ActionTypes.ADD_MEAL_PLANS,
+  payload: mealPlan,
+});
+
 export const fetchMealPlansByUserId = (id) => async (dispatch) => {
   try {
     const mealPlan = await axios.get(baseUrl + '/mealplans/'+ id, {
@@ -199,10 +275,6 @@ export const fetchMealPlansByUserId = (id) => async (dispatch) => {
   }
 };
 
-export const addMealPlans = (mealPlan) => ({
-  type: ActionTypes.ADD_MEAL_PLANS,
-  payload: mealPlan,
-});
 
 
 //this adds a meal plan to our meal plans

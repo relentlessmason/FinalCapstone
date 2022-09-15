@@ -29,8 +29,8 @@ export default function Navbar(props) {
         </div>
         <nav
           onClick={() => {
-            props.fetchMealsByUser(props.userId);
-            props.fetchMealPlansByUserId(props.userId)
+            // props.fetchMealsByUser(props.userId);
+            // props.fetchMealPlansByUserId(props.userId)
           }}
           className={sidebar ? "nav_menu active" : "nav_menu"}
         >

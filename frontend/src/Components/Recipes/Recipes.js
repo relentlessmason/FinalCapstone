@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Recipes.css";
 import {
   Card,
@@ -20,11 +20,25 @@ import {
 import { Control, LocalForm, Errors } from "react-redux-form";
 import { Link, Redirect, withRouter } from "react-router-dom";
 
-function RenderRecipeCard({ meal, postMealPlan }) {
+// function RenderMenu({ meal }) {
+//   return (
+//     <Card>
+//       {/* <Link to={`/recipe/${meal.id}`}> */}
+//       {meal.mealName}
+//       <CardTitle className="font-weight-bold"></CardTitle>
+//       {/* </Link> */}
+//     </Card>
+//   );
+// }
+
+function RenderRecipeCard({ meal, postMealPlan, fetchMealsByUser }) {
   const [clickedMealId, setClickedMealId] = useState(null);
 
+ 
+
+
   if (meal === null || meal == undefined) {
-    return <>Nothing to show</>;
+    return (<>Nothing to show</>);
   }
 
   return (
@@ -154,6 +168,15 @@ function AddMealPlanModal({ postMealPlan, clickedMealId }) {
 }
 
 const Recipes = (props) => {
+  // const recipes = props.meal.map((m) => {
+  //   return (
+  //     <div key={m.id}>
+  //       <RenderMenu meal={m} />
+  //     </div>
+  //   );
+  // });
+
+
   return (
     <div className="container-lg">
       <Link to="/add-recipe" className="text-decoration-none">
@@ -161,13 +184,13 @@ const Recipes = (props) => {
       </Link>
       <br />
       <div className="row my-5 align-items-center">
-        <RenderRecipeCard
-          postMealPlan={props.postMealPlan}
-          meal={props.meal.meal}
-        />
+        <RenderRecipeCard 
+        fetchMealsByUser={props.fetchMealsByUser}
+        postMealPlan={props.postMealPlan} 
+        meal={props.meal} />
       </div>
     </div>
   );
 };
 
-export default withRouter(Recipes);
+export default Recipes;

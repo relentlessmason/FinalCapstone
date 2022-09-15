@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
 import placeholder from "./Plain_onigiri.png";
 import "./AddRecipe.css";
 import { Control, LocalForm } from "react-redux-form";
@@ -12,8 +12,9 @@ function resetForm() {
   //   selectBoxes.selectedIndex = 4;
 }
 
-async function handleSubmit(values, { user, postMeal, props }) {
-  await postMeal(
+ function handleSubmit(values, { user, postMeal, props }) {
+
+   postMeal(
     values.mealName,
     values.categoryId,
     values.timeOfDayId,
@@ -25,6 +26,8 @@ async function handleSubmit(values, { user, postMeal, props }) {
 
   resetForm();
 }
+
+
 
 export default function AddRecipe(props) {
   let user = props.user.id;
