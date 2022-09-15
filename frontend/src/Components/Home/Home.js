@@ -25,12 +25,12 @@ function Home(props) {
         {"  " + props.user.username}
       </div>
 
-      <QuickLook
+      {/* <QuickLook
         fetchMealPlansByUserId={props.fetchMealPlansByUserId}
         fetchMealsByUser={props.fetchMealsByUser}
         showDetailsHandle={showDetailsHandle}
         mealPlan={props.mealPlan}
-      />
+      /> */}
       <br />
       {/* {showDetails && <Details data={data} />}    */}
 

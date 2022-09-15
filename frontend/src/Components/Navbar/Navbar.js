@@ -61,12 +61,12 @@ export default function Navbar(props) {
                 <span>Home</span>
               </Link>
             </li>
-            <li className="nav-text">
+            {/* <li className="nav-text">
               <Link to="/search">
                 <RiIcons.RiSearchLine />
                 <span>Search</span>
               </Link>
-            </li>
+            </li> */}
             <li className="nav-text">
               <Link to="/recipes">
                 <GiIcons.GiRiceCooker />
@@ -79,18 +79,18 @@ export default function Navbar(props) {
                 <span>Add Recipe</span>
               </Link>
             </li>
-            <li className="nav-text">
+            {/* <li className="nav-text">
               <Link to="/favorites">
                 <AiIcons.AiOutlineHeart />
                 <span>Favorites</span>
               </Link>
-            </li>
-            <li className="nav-text">
+            </li> */}
+            {/* <li className="nav-text">
               <Link to="/calendar">
                 <BsIcons.BsCalendar3 />
                 <span>Calendar</span>
               </Link>
-            </li>
+            </li> */}
             <li className="nav-text">
               <Link to="/grocery-list">
                 <BsIcons.BsFillBasket2Fill />
