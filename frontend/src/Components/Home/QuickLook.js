@@ -31,8 +31,6 @@ import {
 
 const QuickLook = ({
   showDetailsHandle,
-  fetchMealsByUser,
-  fetchMealPlansByUserId,
   mealPlan,
 }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());

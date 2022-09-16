@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from "react";
+import React from "react";
 import placeholder from "./Bento.png";
 import "./AddRecipe.css";
 import { Control, LocalForm } from "react-redux-form";
@@ -7,38 +7,16 @@ import { Link } from "react-router-dom";
 
 function resetForm() {
   const form = document.getElementById("form");
-  //   const selectBoxes = document.getElementById("selectBox");
   form.reset();
-  //   selectBoxes.selectedIndex = 4;
 }
-
- function handleSubmit(values, { user, postMeal, props }) {
-
-   postMeal(
-    values.mealName,
-    values.categoryId,
-    values.timeOfDayId,
-    values.description,
-    values.recipe,
-    values.ingredients,
-    user
-  );
-
-  resetForm();
-}
-
 
 
 export default function AddRecipe(props) {
-  let user = props.user.id;
-  let postMeal = props.postMeal;
-  let userId = props.userId;
-  let fetchMealsByUser = props.fetchMealsByUser;
 
   return (
     <LocalForm
       id="form"
-      onSubmit={(values) => handleSubmit(values, { user, postMeal, props })}
+      onSubmit={(values) => props.handlePostMeals(values)}
     >
       <div className="wrapperAR">
         <div className="leftWrapper">
@@ -152,11 +130,7 @@ export default function AddRecipe(props) {
             <Button className="submitAR col-6" type="submit">
               Submit
             </Button>
-            <Link
-              onClick={() => {
-                fetchMealsByUser(userId);
-              }}
-              className="col-6 text-decoration-none"
+            <Link className="col-6 text-decoration-none"
               to="/recipes"
             >
               <Button className="submitAR">View Recipes</Button>

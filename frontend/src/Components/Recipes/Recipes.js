@@ -20,22 +20,9 @@ import {
 import { Control, LocalForm, Errors } from "react-redux-form";
 import { Link, Redirect, withRouter } from "react-router-dom";
 
-// function RenderMenu({ meal }) {
-//   return (
-//     <Card>
-//       {/* <Link to={`/recipe/${meal.id}`}> */}
-//       {meal.mealName}
-//       <CardTitle className="font-weight-bold"></CardTitle>
-//       {/* </Link> */}
-//     </Card>
-//   );
-// }
 
-function RenderRecipeCard({ meal, postMealPlan, fetchMealsByUser, user ,fetchMealPlansByUserId }) {
+function RenderRecipeCard({ meal, postMealPlan, user, fetchMealPlansByUserId }) {
   const [clickedMealId, setClickedMealId] = useState(null);
-
- 
-
 
   if (meal === null || meal == undefined) {
     return (<>Nothing to show</>);
@@ -56,16 +43,18 @@ function RenderRecipeCard({ meal, postMealPlan, fetchMealsByUser, user ,fetchMea
               <CardBody className="text-center ">
                 <CardTitle className="h3 mt-1 ml-2 text-lowercase">{m.mealName}</CardTitle>
                 <CardText id="card-text" className="text-muted text-lowercase">
-                  {/* {m.description.length <= 15
+                  {m.description.length <= 15
                     ? m.description
-                    : `${m.description.slice(0, 15)}...`} */}
-                  {m.description}
+                    : `${m.description.slice(0, 20)}...`}
+                    
+                  {/* {m.description} */}
                 </CardText>
                 <CardSubtitle id="card-text" className="text-lowercase">
-                  {/* {m.recipe.length <= 25
+                  {m.recipe.length <= 25
                     ? m.recipe
-                    : `${m.recipe.slice(0, 25)}...`} */}
-                  {m.recipe}
+                    : `${m.recipe.slice(0, 50)}...`}
+
+                  {/* {m.recipe} */}
                 </CardSubtitle>
               </CardBody>
 
@@ -83,8 +72,8 @@ function RenderRecipeCard({ meal, postMealPlan, fetchMealsByUser, user ,fetchMea
                 </div>
                 <div className="col-sm-8 col-lg-6">
                   <AddMealPlanModal
-                  user={user}
                   fetchMealPlansByUserId={fetchMealPlansByUserId}
+                  user={user}
                     postMealPlan={postMealPlan}
                     clickedMealId={clickedMealId}
                   />
@@ -98,7 +87,7 @@ function RenderRecipeCard({ meal, postMealPlan, fetchMealsByUser, user ,fetchMea
   );
 }
 
-function AddMealPlanModal({ postMealPlan, clickedMealId, fetchMealPlansByUserId, user }) {
+function AddMealPlanModal({ postMealPlan, clickedMealId, user,fetchMealPlansByUserId }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
 
@@ -106,9 +95,9 @@ function AddMealPlanModal({ postMealPlan, clickedMealId, fetchMealPlansByUserId,
     setIsModalOpen(!isModalOpen);
   }
 
-  function handleSubmit(values) {
-    postMealPlan(clickedMealId, values.dayOfWeek);
-    fetchMealPlansByUserId(user.id);
+  async function handleSubmit(values) {
+   await postMealPlan(clickedMealId, values.dayOfWeek);
+    fetchMealPlansByUserId(user.id)
   }
 
   return (
@@ -173,10 +162,6 @@ function AddMealPlanModal({ postMealPlan, clickedMealId, fetchMealPlansByUserId,
 
 const Recipes = (props) => {
 
-  console.log(props.mealPlan)
-
-  
-
   return (
     <div className="container-lg">
       <Link to="/add-recipe" className="text-decoration-none">
@@ -184,10 +169,9 @@ const Recipes = (props) => {
       </Link>
       <br />
       <div className="row my-5 align-items-center">
-        <RenderRecipeCard 
+        <RenderRecipeCard
+        fetchMealPlansByUserId={props.fetchMealPlansByUserId} 
         user={props.user}
-        fetchMealPlansByUserId={props.fetchMealPlansByUserId}
-        fetchMealsByUser={props.fetchMealsByUser}
         postMealPlan={props.postMealPlan} 
         meal={props.meal} />
       </div>

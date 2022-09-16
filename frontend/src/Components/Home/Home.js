@@ -17,17 +17,7 @@ function Home(props) {
 
   return (
     <>
-      <div>
-        ID:
-        {"  " + props.user.id}
-        <br />
-        USERNAME:
-        {"  " + props.user.username}
-      </div>
-
       {/* <QuickLook
-        fetchMealPlansByUserId={props.fetchMealPlansByUserId}
-        fetchMealsByUser={props.fetchMealsByUser}
         showDetailsHandle={showDetailsHandle}
         mealPlan={props.mealPlan}
       /> */}
@@ -35,8 +25,8 @@ function Home(props) {
       {/* {showDetails && <Details data={data} />}    */}
 
       <Carousel
-      deleteMealPlan={props.deleteMealPlan}
-      fetchMealPlansByUserId={props.fetchMealPlansByUserId}
+      handleUpdateMealPlans={props.handleUpdateMealPlans}
+      handleDeleteMealPlans={props.handleDeleteMealPlans}
       user={props.user}
       mealPlan={props.mealPlan}
       />

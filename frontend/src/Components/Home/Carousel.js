@@ -17,15 +17,109 @@ import {
   Col,
 } from "reactstrap";
 import Carousel from "react-bootstrap/Carousel";
+import { Control, LocalForm, Errors } from "react-redux-form";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import "./Home.css";
 
-function RenderCarouselCard(dayOfWeek, handleDeletePlan, props) {
+function RenderEditMealPlanModal({
+  props,
+  isModalOpen,
+  setIsModalOpen,
+  mealId,
+  mealPlanId,
+}) {
+  function toggleModal() {
+    setIsModalOpen(!isModalOpen);
+  }
+
+  async function handleEditSubmit(values) {
+    const newMeal = {
+      mealPlanId: mealPlanId,
+      mealId: mealId,
+      dayOfWeek: values.dayOfWeek,
+    };
+
+    await props.handleUpdateMealPlans(newMeal);
+  }
+
+  return (
+    <>
+      <Modal isOpen={isModalOpen} toggle={toggleModal}>
+        <ModalHeader toggle={toggleModal}>Choose a day of the week</ModalHeader>
+
+        <ModalBody>
+          <LocalForm onSubmit={(values) => handleEditSubmit(values)}>
+            <Row className="form-group">
+              <Label htmlFor="mealPlan" md={2}></Label>
+              <Col md={12}>
+                <Control.select
+                  model=".dayOfWeek"
+                  className="form-control"
+                  id="dayOfWeek"
+                  name="dayOfWeek"
+                  required
+                >
+                  <option
+                    value="Please Select"
+                    disabled="disabled"
+                    selected="true"
+                  >
+                    Please Select
+                  </option>
+                  <option value="Monday">Monday</option>
+                  <option value="Tuesday">Tuesday</option>
+                  <option value="Wednesday">Wednesday</option>
+                  <option value="Thursday">Thursday</option>
+                  <option value="Friday">Friday</option>
+                  <option value="Saturday">Saturday</option>
+                  <option value="Sunday">Sunday</option>
+                </Control.select>
+              </Col>
+            </Row>
+            <Button
+              onClick={() => {
+                toggleModal();
+              }}
+              type="submit"
+              value="submit"
+              className="mt-2 submitAR"
+            >
+              Submit
+            </Button>
+          </LocalForm>
+        </ModalBody>
+      </Modal>
+    </>
+  );
+}
+
+function RenderBlank() {
+  return (
+    <Carousel.Item>
+      <div className="text-center ">
+        <Link to="/recipes">
+          <Button className="submitAR">
+            Nothing to display you stupid bitch
+          </Button>
+        </Link>
+      </div>
+    </Carousel.Item>
+  );
+}
+
+function RenderCarouselCard(dayOfWeek, props) {
   function today() {
     let d = null;
     dayOfWeek.map((day) => {
       d = day.dayOfWeek + " Meals";
     });
     return d;
+  }
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  function toggleModal() {
+    setIsModalOpen(!isModalOpen);
   }
 
   return (
@@ -48,14 +142,37 @@ function RenderCarouselCard(dayOfWeek, handleDeletePlan, props) {
                     {m.timeOfDay}
                   </CardText>
                 </CardBody>
-                <Button
-                  onClick={() => {
-                    handleDeletePlan(m.mealId);
-                    props.fetchMealPlansByUserId(props.user.id);
-                  }}
-                >
-                  Remove
-                </Button>
+                <div>
+                  <Button
+                    className="submitAR"
+                    onClick={() => {
+                      props.handleDeleteMealPlans(m.mealPlanId);
+                    }}
+                  >
+                    Remove
+                  </Button>
+                  <Link
+                    to={"/recipe/" + m.mealId}
+                    className="text-decoration-none"
+                  >
+                    <Button className="submitAR ">View Recipe</Button>
+                  </Link>
+                  <Button
+                    onClick={() => {
+                      toggleModal();
+                    }}
+                    className="submitAR"
+                  >
+                    Edit Meal Plan
+                  </Button>
+                  <RenderEditMealPlanModal
+                    mealId={m.mealId}
+                    mealPlanId={m.mealPlanId}
+                    isModalOpen={isModalOpen}
+                    setIsModalOpen={setIsModalOpen}
+                    props={props}
+                  />
+                </div>
               </Card>
             </>
           );
@@ -106,26 +223,37 @@ export default function ControlledCarousel(props) {
     setIndex(selectedIndex);
   };
 
-  function handleDeletePlan(e) {
-    props.deleteMealPlan(e);
-  }
 
   return (
     <div className="container">
       <Carousel>
-        {RenderCarouselCard(monday, handleDeletePlan, props)}
+        {monday.length !== 0
+          ? RenderCarouselCard(monday, props)
+          : RenderBlank()}
 
-        {RenderCarouselCard(tuesday, handleDeletePlan, props)}
+        {tuesday.length !== 0
+          ? RenderCarouselCard(tuesday, props)
+          : RenderBlank()}
 
-        {RenderCarouselCard(wednesday, handleDeletePlan, props)}
+        {wednesday.length !== 0
+          ? RenderCarouselCard(wednesday, props)
+          : RenderBlank()}
 
-        {RenderCarouselCard(thursday, handleDeletePlan, props)}
+        {thursday.length !== 0
+          ? RenderCarouselCard(thursday, props)
+          : RenderBlank()}
 
-        {RenderCarouselCard(friday, handleDeletePlan, props)}
+        {friday.length !== 0
+          ? RenderCarouselCard(friday, props)
+          : RenderBlank()}
 
-        {RenderCarouselCard(saturday, handleDeletePlan, props)}
+        {saturday.length !== 0
+          ? RenderCarouselCard(saturday, props)
+          : RenderBlank()}
 
-        {RenderCarouselCard(sunday, handleDeletePlan, props)}
+        {sunday.length !== 0
+          ? RenderCarouselCard(sunday, props)
+          : RenderBlank()}
       </Carousel>
     </div>
   );

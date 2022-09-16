@@ -40,6 +40,8 @@ class Login extends Component {
     await this.props.dispatch(fetchMealsByUser(userWithToken.data.user.id))
     await this.props.dispatch(fetchMealPlansByUserId(userWithToken.data.user.id))
 
+    this.props.history.push('/home')
+
   };
 
   handleInputChange = (event) => {

@@ -36,7 +36,7 @@ public class JdbcMealPlan implements MealPlanDao{
     @Override
     public MealPlanJoin[] findMealPlanByUserId(Long id) {
         List<MealPlanJoin> mealPlans = new ArrayList<>();
-        String SQL = "select m.meal_name, m.meal_id, mp.day_of_week, tod.time_of_day_desc from meal_plan mp " +
+        String SQL = "select mp.meal_plan_id, m.meal_name, m.meal_id, mp.day_of_week, tod.time_of_day_desc from meal_plan mp " +
                 "JOIN meal m ON m.meal_id=mp.meal_id " +
                 "JOIN meal_account ma ON ma.meal_id=m.meal_id " +
                 "JOIN time_of_day tod ON tod.time_of_day_id=m.time_of_day_id " +
@@ -64,8 +64,19 @@ public class JdbcMealPlan implements MealPlanDao{
 
     @Override
     public void deleteMealPlan(Long id) {
-        String sql = "DELETE from meal_plan where meal_id = ?;";
+        String sql = "DELETE from meal_plan where meal_plan_id = ?;";
         jdbcTemplate.update(sql, id);
+    }
+
+    public void updateMealPlan(Long id, MealPlan mealPlan) {
+        String sql = "UPDATE meal_plan " +
+                "SET meal_id = ?, " +
+                "day_of_week = ? " +
+                "WHERE meal_plan_id = ?;";
+        jdbcTemplate.update(sql,
+                mealPlan.getMealId(),
+                mealPlan.getDayOfWeek(),
+                id);
     }
 
     private MealPlan mapToRowMealPlan(SqlRowSet m) {
@@ -78,6 +89,7 @@ public class JdbcMealPlan implements MealPlanDao{
 
     private MealPlanJoin mapToRowMealPlanJoin(SqlRowSet m) {
         MealPlanJoin mp = new MealPlanJoin();
+        mp.setMealPlanId(m.getLong("meal_plan_id"));
         mp.setMealName(m.getString("meal_name"));
         mp.setMealId(m.getLong("meal_id"));
         mp.setDayOfWeek(m.getString("day_of_week"));

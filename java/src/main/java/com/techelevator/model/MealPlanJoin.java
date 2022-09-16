@@ -1,19 +1,29 @@
 package com.techelevator.model;
 
 public class MealPlanJoin {
-    private String mealName;
+    private Long mealPlanId;
     private Long mealId;
+    private String mealName;
     private String dayOfWeek;
     private String timeOfDay;
 
     public MealPlanJoin() {
     }
 
-    public MealPlanJoin(String mealName, Long mealId, String dayOfWeek, String timeOfDay) {
+    public MealPlanJoin(Long mealPlanId, String mealName, Long mealId, String dayOfWeek, String timeOfDay) {
+        this.mealPlanId = mealPlanId;
         this.mealName = mealName;
         this.mealId = mealId;
         this.dayOfWeek = dayOfWeek;
         this.timeOfDay = timeOfDay;
+    }
+
+    public Long getMealPlanId() {
+        return mealPlanId;
+    }
+
+    public void setMealPlanId(Long mealPlanId) {
+        this.mealPlanId = mealPlanId;
     }
 
     public String getMealName() {

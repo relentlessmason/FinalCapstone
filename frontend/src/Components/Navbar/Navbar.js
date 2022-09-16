@@ -27,12 +27,7 @@ export default function Navbar(props) {
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
         </div>
-        <nav
-          onClick={() => {
-            // props.fetchMealsByUser(props.userId);
-            // props.fetchMealPlansByUserId(props.userId)
-          }}
-          className={sidebar ? "nav_menu active" : "nav_menu"}
+        <nav className={sidebar ? "nav_menu active" : "nav_menu"}
         >
           <ul className="nav_menu_items" onClick={showSidebar}>
             <li className="navbar_toggle">

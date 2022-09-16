@@ -15,9 +15,6 @@ export default function Header(props){
         <div className='header_container'>
 
         <Navbar 
-        fetchMealPlansByUserId={props.fetchMealPlansByUserId}
-        userId={props.userId}
-        fetchMealsByUser={props.fetchMealsByUser}
         handleLogout={props.handleLogout}
         />
         

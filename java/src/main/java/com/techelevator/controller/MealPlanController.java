@@ -39,6 +39,11 @@ public class MealPlanController {
         mealPlanDao.addMealPlan(mealPlan);
     };
 
+    @PutMapping(path="/updatemealplan/{id}")
+    public void updateMealPlan(@Valid @RequestBody MealPlan mealPlan, @PathVariable Long id){
+        mealPlanDao.updateMealPlan(id, mealPlan);
+    }
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping(path = "mealplan/{id}")
     public void delete(@PathVariable Long id) {

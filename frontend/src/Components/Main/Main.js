@@ -16,10 +16,10 @@ import {
   deleteMealPlan,
   fetchMealByMealId,
   updateMeal,
+  updateMealPlan,
 } from "../../Redux/actionCreators";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { actions } from "react-redux-form";
 import Header from "../Header/Header";
 import Search from "../Search/Search";
 import AddRecipe from "../AddRecipe/AddRecipe";
@@ -38,7 +38,7 @@ const mapStateToProps = (state) => {
     user: state.user,
     meal: state.meal,
     mealAccount: state.mealAccount,
-    mealPlan: state.mealPlan
+    mealPlan: state.mealPlan,
   };
 };
 
@@ -77,26 +77,8 @@ const mapDispatchToProps = (dispatch) => ({
         userId
       )
     ),
-  updateMeal: (
-    id,
-    mealName,
-    categoryId,
-    timeOfDayId,
-    description,
-    recipe,
-    ingredients
-  ) => {
-    dispatch(
-      updateMeal(
-        id,
-        mealName,
-        categoryId,
-        timeOfDayId,
-        description,
-        recipe,
-        ingredients
-      )
-    );
+  updateMeal: (id, newMeal) => {
+    dispatch(updateMeal(id, newMeal));
   },
 
   fetchMealPlansByUserId: (id) => {
@@ -111,12 +93,13 @@ const mapDispatchToProps = (dispatch) => ({
 
   deleteMealPlan: (id) => dispatch(deleteMealPlan(id)),
 
-  // MEAL ACCOUNTS
   fetchMealAccount: () => {
     dispatch(fetchMealAccount());
   },
   postMealAccount: (mealId, userId) =>
     dispatch(postMealAccount(mealId, userId)),
+
+  updateMealPlan: (mealPlan) => dispatch(updateMealPlan(mealPlan)),
 });
 
 class Main extends Component {
@@ -134,35 +117,63 @@ class Main extends Component {
     this.props.deleteMeals(parseInt(id));
   };
 
+  handleDeleteMealPlans = (id) => {
+    this.props.deleteMealPlan(id);
+  };
+
+  handlePostMeals = async (values) => {
+    await this.props.postMeal(
+      values.mealName,
+      values.categoryId,
+      values.timeOfDayId,
+      values.description,
+      values.recipe,
+      values.ingredients,
+      this.props.user.id
+    );
+    await this.props.fetchMealsByUser(this.props.user.id)
+  };
+
+  handleUpdateMeals = async (
+    id,
+    mealName,
+    categoryId,
+    timeOfDayId,
+    description,
+    recipe,
+    ingredients
+  ) => {
+    let newMeal = {
+      mealName,
+      categoryId,
+      timeOfDayId,
+      description,
+      recipe,
+      ingredients,
+    };
+
+    await this.props.updateMeal(id, newMeal);
+
+    this.props.fetchMealsByUser(this.props.user.id);
+  };
+
+  handleUpdateMealPlans = async (newMeal) => {
+    await this.props.updateMealPlan(newMeal);
+
+    this.props.fetchMealPlansByUserId(this.props.user.id);
+  };
+
   componentDidMount() {
-    // this.props.fetchMealAccount();
     this.props.fetchMealsByUser(this.props.user.id);
     this.props.fetchMealPlansByUserId(this.props.user.id);
   }
 
   render() {
-    const MealComponent = () => {
-      return (
-        <Recipes
-          mealPlan={this.props.mealPlan}
-          // onemeal={this.props.mealPlan.meal.filter((meal) => meal.mealName == 'allison')[0]}
-          postMealPlan={this.props.postMealPlan}
-          user={this.props.user}
-          fetchMealsByUser={this.props.fetchMealsByUser}
-          meal={this.props.meal.meal}
-          deleteMeals={this.props.deleteMeals}
-          fetchMealPlansByUserId={this.props.fetchMealPlansByUserId}
-        />
-      );
-    };
-
     return (
       <div className="App">
         <Header
           userId={this.props.user.id}
-          fetchMealsByUser={this.props.fetchMealsByUser}
           handleLogout={this.handleLogout}
-          fetchMealPlansByUserId={this.props.fetchMealPlansByUserId}
           mealPlan={this.props.mealPlan}
         />
 
@@ -191,19 +202,15 @@ class Main extends Component {
           <Route path="/register" component={() => <Register />} />
           <Route
             path="/home"
-            onClick={() => {
-              this.props.fetchMealPlansByUserId(this.props.user.id);
-            }}
             component={
               this.props.token.token !== undefined
                 ? () => (
                     <Home
-                    deleteMealPlan={this.props.deleteMealPlan}
-                    mealPlan={this.props.mealPlan}
+                      handleUpdateMealPlans={this.handleUpdateMealPlans}
+                      handleDeleteMealPlans={this.handleDeleteMealPlans}
+                      mealPlan={this.props.mealPlan}
                       meal={this.props.meal}
                       user={this.props.user}
-                      fetchMealsByUser={this.props.fetchMealsByUser}
-                      fetchMealPlansByUserId={this.props.fetchMealPlansByUserId}
                     />
                   )
                 : () => <ReturnToLoginComponent />
@@ -224,8 +231,9 @@ class Main extends Component {
               localStorage.getItem("token") != undefined
                 ? () => (
                     <AddRecipe
-                      user={this.props.user}
+                      handlePostMeals={this.handlePostMeals}
                       fetchMealsByUser={this.props.fetchMealsByUser}
+                      user={this.props.user}
                       postMeal={this.props.postMeal}
                       postMealPlan={this.props.postMealPlan}
                       userId={this.props.user.id}
@@ -236,25 +244,42 @@ class Main extends Component {
           />
           <Route
             path="/recipes"
-            component={MealComponent}
+            component={
+              localStorage.getItem("token") != undefined
+                ? () => (
+                    <Recipes
+                      fetchMealPlansByUserId={this.props.fetchMealPlansByUserId}
+                      mealPlan={this.props.mealPlan}
+                      postMealPlan={this.props.postMealPlan}
+                      user={this.props.user}
+                      meal={this.props.meal.meal}
+                      deleteMeals={this.props.deleteMeals}
+                    />
+                  )
+                : () => <ReturnToLoginComponent />
+            }
           />
 
           <Route
-            onClick={() => {
-              // this.props.fetchMealsByUser(this.props.user.id)
-            }}
             path="/recipe/:id"
             component={
               localStorage.getItem("token") != undefined
-                ? ({match}) => (
+                ? ({ match }) => (
                     <IndividualRecipe
-                      onemeal={this.props.meal.meal.filter((meal) => meal.id == parseInt(match.params.id,10))[0]}
-                      fetchMealByMealId={this.props.fetchMealByMealId}
+                      fetchMealPlansByUserId={this.props.fetchMealPlansByUserId}
+                      handleDeleteMealPlans={this.handleDeleteMealPlans}
+                      handleDeleteMeals={this.handleDeleteMeals}
+                      mealPlan={this.props.mealPlan.mealPlan}
+                      handleUpdateMeals={this.handleUpdateMeals}
+                      onemeal={
+                        this.props.meal.meal.filter(
+                          (meal) => meal.id == parseInt(match.params.id, 10)
+                        )[0]
+                      }
                       meal={this.props.meal.meal}
                       postMealPlan={this.props.postMealPlan}
                       deleteMealPlan={this.props.deleteMealPlan}
                       deleteMeals={this.props.deleteMeals}
-                      fetchMealsByUser={this.props.fetchMealsByUser}
                       userId={this.props.user.id}
                       updateMeal={this.props.updateMeal}
                     />
