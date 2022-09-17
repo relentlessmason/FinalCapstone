@@ -69,7 +69,7 @@ export const postMeal =
       ingredients: ingredients,
     };
     try {
-      axios.post(baseUrl + "/meals/" + userId, newMeal, {
+     await axios.post(baseUrl + "/meals/" + userId, newMeal, {
         headers: headers,
       }).then(dispatch(addMeal(newMeal)));
     } catch (err) {
@@ -86,7 +86,7 @@ export const deleteMeal = (id) => ({
 export const deleteMeals = (id) => async (dispatch) => {
   let newId = parseInt(id);
     try {
-   axios.delete(baseUrl + "/meals/" + newId, {
+  await axios.delete(baseUrl + "/meals/" + newId, {
       headers: headers,
     }).then((dispatch(deleteMeal(newId))));
   } catch (err) {
@@ -115,7 +115,7 @@ export const updateMeals=(newMeal)=>({
 //FETCH BY MEAL SPECIFIC (I don't think it works atm)
 export const fetchMealByMealId = (id) => async (dispatch)=>{
   try{
-    const meal = axios.get(baseUrl+"/meal/"+id, {
+    const meal = await axios.get(baseUrl+"/meal/"+id, {
       headers: headers,
     }).then(dispatch(addMeals(meal.data)));    
   } catch (err){
@@ -162,7 +162,7 @@ export const postMealPlan =
       dayOfWeek: dayOfWeek
     };
     try {
-      axios.post(baseUrl + "/mealplan/", newMealPlan, {
+     await axios.post(baseUrl + "/mealplan/", newMealPlan, {
         headers: headers,
       }).then(dispatch(addMealPlan(newMealPlan)));
     } catch (err) {
@@ -181,7 +181,7 @@ export const postMealPlan =
 export const deleteMealPlan = (id) => async (dispatch) =>{
   let deletedId = parseInt(id);
   try{
-     axios.delete(baseUrl+'/mealplan/'+deletedId,{
+    await axios.delete(baseUrl+'/mealplan/'+deletedId,{
       headers: headers,
     }).then(dispatch(deletePlan(deletedId)));
   } catch(err){

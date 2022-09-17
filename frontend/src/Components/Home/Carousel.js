@@ -97,7 +97,7 @@ function RenderBlank() {
   return (
     <Carousel.Item>
       <div className="text-center ">
-        <Link to="/recipes">
+        <Link to="/recipes" className="text-decoration-none">
           <Button className="submitAR">
             Nothing to display you stupid bitch
           </Button>

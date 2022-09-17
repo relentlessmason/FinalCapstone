@@ -131,7 +131,7 @@ class Main extends Component {
       values.ingredients,
       this.props.user.id
     );
-    await this.props.fetchMealsByUser(this.props.user.id)
+    await this.props.fetchMealsByUser(this.props.user.id);
   };
 
   handleUpdateMeals = async (
@@ -307,7 +307,12 @@ class Main extends Component {
             path="/grocery-list"
             component={
               this.props.token.token !== undefined
-                ? () => <GroceryList />
+                ? () => (
+                    <GroceryList
+                      mealPlan={this.props.mealPlan}
+                      meal={this.props.meal}
+                    />
+                  )
                 : () => <ReturnToLoginComponent />
             }
           />
