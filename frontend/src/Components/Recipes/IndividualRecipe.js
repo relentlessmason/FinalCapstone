@@ -66,6 +66,7 @@ class IndividualRecipe extends Component {
                   <br />
                   {this.props.onemeal.recipe}
                 </CardText>
+
               </CardBody>
 
               <div className="row text-center ">

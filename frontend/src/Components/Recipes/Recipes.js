@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import banner from './onigiri-neko-cat.png';
+import banner from "./onigiri-neko-cat.png";
 import "./Recipes.css";
 import {
   Card,
@@ -22,84 +22,127 @@ import { Control, LocalForm, Errors } from "react-redux-form";
 import { Link, Redirect, withRouter } from "react-router-dom";
 import RandomRecipe from './RandomRecipe';
 
-
-function RenderRecipeCard({ meal, postMealPlan, user, fetchMealPlansByUserId }) {
+function RenderRecipeCard({
+  meal,
+  postMealPlan,
+  user,
+  fetchMealPlansByUserId,
+  mealPlan,
+}) {
   const [clickedMealId, setClickedMealId] = useState(null);
 
+  const [searchByName, setSearchByName] = useState("");
+  const [searchByIngredient, setSearchByIngredient] = useState(null);
+
   if (meal === null || meal == undefined) {
-    return (<>Nothing to show</>);
+    return <>Nothing to show</>;
   }
+
 
   return (
     <>
-      {meal.map((m) => {
-        return (
-          <div className="col-4 mt-2">
-            <Card
-              onClick={() => {
-                setClickedMealId(m.id);
-              }}
-              key={m.id}
-              className="border-0"
-            >
-              <CardBody className="text-center">
-                <CardTitle className="h3 mt-1 ml-2 text-lowercase">{m.mealName}</CardTitle>
-                <CardText id="card-text" className="text-muted text-lowercase">
-                  {m.description.length <= 15
-                    ? m.description
-                    : `${m.description.slice(0, 20)}...`}
-                    
-                  {/* {m.description} */}
-                </CardText>
-                <CardSubtitle id="card-text" className="text-lowercase">
-                  {m.recipe.length <= 25
-                    ? m.recipe
-                    : `${m.recipe.slice(0, 50)}...`}
+      <div className="form-group row ">
+        <div className="col-xs-2 inputdiv">
+          <input
+            className="inputfield"
+            type="text"
+            placeholder="Search by..."
+            onChange={(e) => {
+              setSearchByName(e.target.value);
+              setSearchByIngredient(e.target.value);
+            }}
+          />{" "}
+        </div>
+      </div>
 
-                  {/* {m.recipe} */}
-                </CardSubtitle>
-              </CardBody>
-
-              <Row className="row ">
-                <div className="col-sm-4 col-lg-6">
-                  <Link
-                    onClick={() => {
-                      setClickedMealId(m.id);
-                    }}
-                    to={"/recipe/" + m.id}
-                    className="text-decoration-none"
+      {meal
+        .filter((m) => {
+          if (searchByName == "") {
+            return m;
+          } else if (m.mealName.toLowerCase().includes(searchByName)) {
+            return m;
+          } else if (m.ingredients.toLowerCase().includes(searchByIngredient)) {
+            return m;
+          }
+        })
+        .map((m) => {
+          return (
+            <div className="col-4 mt-2">
+              <Card
+                onClick={() => {
+                  setClickedMealId(m.id);
+                }}
+                key={m.id}
+                className="border-0"
+              >
+                <CardBody className="text-center">
+                  <CardTitle className="h3 mt-1 ml-2 text-lowercase">
+                    {m.mealName}
+                  </CardTitle>
+                  <CardText
+                    id="card-text"
+                    className="text-muted text-lowercase"
                   >
-                    <Button className="submitAR ">View Recipe</Button>
-                  </Link>
-                </div>
-                <div className="col-sm-8 col-lg-6">
-                  <AddMealPlanModal
-                  fetchMealPlansByUserId={fetchMealPlansByUserId}
-                  user={user}
-                    postMealPlan={postMealPlan}
-                    clickedMealId={clickedMealId}
-                  />
-                </div>
-              </Row>
-            </Card>
-          </div>
-        );
-      })}
+                    {m.description.length <= 15
+                      ? m.description
+                      : `${m.description.slice(0, 20)}...`}
+
+                    {/* {m.description} */}
+                  </CardText>
+                  <CardSubtitle id="card-text" className="text-lowercase">
+                    {m.recipe.length <= 25
+                      ? m.recipe
+                      : `${m.recipe.slice(0, 50)}...`}
+
+                    {/* {m.recipe} */}
+                  </CardSubtitle>
+
+                </CardBody>
+
+                <Row className="row ">
+                  <div className="col-sm-4 col-lg-6">
+                    <Link
+                      onClick={() => {
+                        setClickedMealId(m.id);
+                      }}
+                      to={"/recipe/" + m.id}
+                      className="text-decoration-none"
+                    >
+                      <Button className="submitAR ">View Recipe</Button>
+                    </Link>
+                  </div>
+                  <div className="col-sm-8 col-lg-6">
+                    <AddMealPlanModal
+                      fetchMealPlansByUserId={fetchMealPlansByUserId}
+                      user={user}
+                      postMealPlan={postMealPlan}
+                      clickedMealId={clickedMealId}
+                    />
+                  </div>
+                </Row>
+              </Card>
+            </div>
+          );
+        })}
     </>
   );
 }
 
-function AddMealPlanModal({ postMealPlan, clickedMealId, user,fetchMealPlansByUserId }) {
+function AddMealPlanModal({
+  postMealPlan,
+  clickedMealId,
+  user,
+  fetchMealPlansByUserId,
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
 
   function toggleModal() {
     setIsModalOpen(!isModalOpen);
   }
 
   async function handleSubmit(values) {
-   await postMealPlan(clickedMealId, values.dayOfWeek);
-    fetchMealPlansByUserId(user.id)
+    await postMealPlan(clickedMealId, values.dayOfWeek);
+    fetchMealPlansByUserId(user.id);
   }
 
   return (
@@ -163,29 +206,23 @@ function AddMealPlanModal({ postMealPlan, clickedMealId, user,fetchMealPlansByUs
 }
 
 const Recipes = (props) => {
-
   return (
     <>
-   
-    
-
-    <div className="container-lg">
-
-      <Link to="/add-recipe" className="text-decoration-none">
-        <Button className="submitAR">Click to add a new Recipe</Button>
-      </Link>
-      <RandomRecipe />
-      <div className="row my-5 align-items-center">
-        <RenderRecipeCard
-        fetchMealPlansByUserId={props.fetchMealPlansByUserId} 
-        user={props.user}
-        postMealPlan={props.postMealPlan} 
-        meal={props.meal} />
+      <div className="container-lg">
+        <Link to="/add-recipe" className="text-decoration-none">
+          <Button className="submitAR">Click to add a new Recipe</Button>
+        </Link>
+        <br />
+        <div className="row my-5 align-items-center">
+          <RenderRecipeCard
+            fetchMealPlansByUserId={props.fetchMealPlansByUserId}
+            user={props.user}
+            postMealPlan={props.postMealPlan}
+            meal={props.meal}
+            mealPlan={props.mealPlan}
+          />
+        </div>
       </div>
-      
-    </div>
-    {/* <img src={banner} alt="onigiri-cat!" className=""/> */}
-
     </>
   );
 };

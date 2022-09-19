@@ -10,6 +10,7 @@ import dessert from "./dessert.png";
 import sushi from './sushi.png';
 import fishcake from './fishcake.png';
 import sushiwrap from './sushi-wrap.png';
+import breakfastbento from './breakfast-bento.png';
 
 import {
   Card,

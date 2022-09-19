@@ -6,16 +6,46 @@ public class MealPlanJoin {
     private String mealName;
     private String dayOfWeek;
     private String timeOfDay;
+    private String categoryTypeDesc;
+    private Long categoryTypeId;
+    private Long timeOfDayId;
+
+    public MealPlanJoin(Long mealPlanId, Long mealId, String mealName, String dayOfWeek, String timeOfDay, String categoryTypeDesc, Long categoryTypeId, Long timeOfDayId) {
+        this.mealPlanId = mealPlanId;
+        this.mealId = mealId;
+        this.mealName = mealName;
+        this.dayOfWeek = dayOfWeek;
+        this.timeOfDay = timeOfDay;
+        this.categoryTypeDesc = categoryTypeDesc;
+        this.categoryTypeId = categoryTypeId;
+        this.timeOfDayId = timeOfDayId;
+    }
 
     public MealPlanJoin() {
     }
 
-    public MealPlanJoin(Long mealPlanId, String mealName, Long mealId, String dayOfWeek, String timeOfDay) {
-        this.mealPlanId = mealPlanId;
-        this.mealName = mealName;
-        this.mealId = mealId;
-        this.dayOfWeek = dayOfWeek;
-        this.timeOfDay = timeOfDay;
+    public Long getCategoryTypeId() {
+        return categoryTypeId;
+    }
+
+    public void setCategoryTypeId(Long categoryTypeId) {
+        this.categoryTypeId = categoryTypeId;
+    }
+
+    public Long getTimeOfDayId() {
+        return timeOfDayId;
+    }
+
+    public void setTimeOfDayId(Long timeOfDayId) {
+        this.timeOfDayId = timeOfDayId;
+    }
+
+    public String getCategoryTypeDesc() {
+        return categoryTypeDesc;
+    }
+
+    public void setCategoryTypeDesc(String categoryTypeDesc) {
+        this.categoryTypeDesc = categoryTypeDesc;
     }
 
     public Long getMealPlanId() {
