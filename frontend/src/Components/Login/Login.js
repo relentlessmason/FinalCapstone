@@ -20,6 +20,12 @@ class Login extends Component {
       password: "",
     };
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.submitHandler = this.submitHandler.bind(this);
+  }
+
+  submitHandler = (event) => {
+    event.preventDefault(); 
+    this.handleLogin();
   }
 
   handleLogin = async () => {
@@ -37,26 +43,32 @@ class Login extends Component {
 
     await this.props.dispatch(addToken(userToken));
     await this.props.dispatch(addUser(userWithToken.data.user));
-    await this.props.dispatch(fetchMealsByUser(userWithToken.data.user.id))
-    await this.props.dispatch(fetchMealPlansByUserId(userWithToken.data.user.id))
+    await this.props.dispatch(fetchMealsByUser(userWithToken.data.user.id));
+    await this.props.dispatch(fetchMealPlansByUserId(userWithToken.data.user.id));
 
-    this.props.history.push('/home')
+    this.props.history.push('/home');
+
 
   };
 
   handleInputChange = (event) => {
-    event.preventDefault();
+    event.preventDefault();    
     this.setState({
       [event.target.name]: event.target.value,
     });
+
   };
 
   render() {
     return (
       <div className="login_entity">
+        <form onSubmit={(e)=> {
+          this.submitHandler(e)
+        }}> 
+
         <h1 className="login_header">please sign in</h1>
         <div className="spacer"></div>
-        <label class="sr-only" className="login_username_label">
+        <label className="sr-only login_username_label">
           username
         </label>
         <input
@@ -71,15 +83,14 @@ class Login extends Component {
           required
         />
         <div className="spacer"></div>
-        <label class="sr-only" className="login_password_label">
+        <label className="sr-only login_password_label">
           password
         </label>
         <input
-          className="login_password"
+          className="login_password form-control"
           type="password"
           id="password"
           name="password"
-          class="form-control"
           placeholder="password"
           v-model="user.password"
           onChange={this.handleInputChange}
@@ -89,11 +100,10 @@ class Login extends Component {
         <Link to="/register" className="login_signup">
           need an account?
         </Link>
-        <button type="submit" className="submit" onClick={()=>{
-          this.handleLogin()
-        }}>
+        <button type="submit" className="submit" >
           sign in
         </button>
+        </form>
       </div>
     );
   }

@@ -99,7 +99,7 @@ function RenderBlank() {
       <div className="text-center ">
         <Link to="/recipes" className="text-decoration-none">
           <Button className="submitAR">
-            Nothing to display you stupid bitch
+            Nothing to display yet, lets add some recipes!
           </Button>
         </Link>
       </div>
