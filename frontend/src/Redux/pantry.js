@@ -8,7 +8,7 @@ export const Pantry = (
 ) => {
     switch (action.type) {
         case ActionTypes.ADD_TO_PANTRY:
-            return { ... state, pantry: action.paylod};
+            return { ... state, pantry: action.payload};
 
         case ActionTypes.ADD_TO_PANTRY:
             let p = action.paylod;

@@ -16,3 +16,13 @@
   text-overflow: ellipsis;
 } */
 
+.inputfield{
+
+  border-radius: 10px;
+}
+
+.inputdiv{
+  display:flex;
+  justify-content: flex-end;
+}
+

@@ -36,10 +36,11 @@ public class JdbcMealPlan implements MealPlanDao{
     @Override
     public MealPlanJoin[] findMealPlanByUserId(Long id) {
         List<MealPlanJoin> mealPlans = new ArrayList<>();
-        String SQL = "select mp.meal_plan_id, m.meal_name, m.meal_id, mp.day_of_week, tod.time_of_day_desc from meal_plan mp " +
+        String SQL = "select mp.meal_plan_id, m.meal_name, m.meal_id, mp.day_of_week, tod.time_of_day_desc, tod.time_of_day_id, ct.category_type_desc, ct.category_id from meal_plan mp " +
                 "JOIN meal m ON m.meal_id=mp.meal_id " +
                 "JOIN meal_account ma ON ma.meal_id=m.meal_id " +
                 "JOIN time_of_day tod ON tod.time_of_day_id=m.time_of_day_id " +
+                "JOIN category_type ct ON ct.category_id=m.category_id "+
                 "WHERE ma.user_id=? " +
                 "ORDER BY m.time_of_day_id;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(SQL, id);
@@ -89,7 +90,10 @@ public class JdbcMealPlan implements MealPlanDao{
 
     private MealPlanJoin mapToRowMealPlanJoin(SqlRowSet m) {
         MealPlanJoin mp = new MealPlanJoin();
+        mp.setCategoryTypeId(m.getLong("category_id"));
+        mp.setTimeOfDayId(m.getLong("time_of_day_id"));
         mp.setMealPlanId(m.getLong("meal_plan_id"));
+        mp.setCategoryTypeDesc(m.getString("category_type_desc"));
         mp.setMealName(m.getString("meal_name"));
         mp.setMealId(m.getLong("meal_id"));
         mp.setDayOfWeek(m.getString("day_of_week"));

@@ -250,7 +250,7 @@ class Main extends Component {
                 ? () => (
                     <Recipes
                       fetchMealPlansByUserId={this.props.fetchMealPlansByUserId}
-                      mealPlan={this.props.mealPlan}
+                      mealPlan={this.props.mealPlan.mealPlan}
                       postMealPlan={this.props.postMealPlan}
                       user={this.props.user}
                       meal={this.props.meal.meal}
