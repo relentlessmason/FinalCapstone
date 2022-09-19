@@ -7,8 +7,8 @@ export default function Footer(){
         <footer>
         {/* <span classname="footerText">I am a foot.</span> */}
         <div className="footerText">
-        <span dangerouslySetInnerHTML={{ "__html": "&copy;" }} />
-        <span>meal please! LLC</span>
+      
+        <span>Meal Please! a BEKM production </span>
         </div>
         </footer>
         </div>

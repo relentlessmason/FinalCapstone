@@ -18,7 +18,7 @@ export default function Header(props){
         handleLogout={props.handleLogout}
         />
         
-            <h1 className='header_title'><img src={logo} alt="meal please!" className="logoImg"/>meal please!</h1>
+            <h1 className='header_title'><img src={logo} alt="meal please!" className="logoImg"/>Meal Please!</h1>
         </div>
        
     </div>

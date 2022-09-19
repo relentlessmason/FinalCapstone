@@ -66,7 +66,7 @@ class Login extends Component {
           this.submitHandler(e)
         }}> 
 
-        <h1 className="login_header">please sign in</h1>
+        <h1 className="login_header">Please Sign In</h1>
         <div className="spacer"></div>
         <label className="sr-only login_username_label">
           username
@@ -101,7 +101,7 @@ class Login extends Component {
           need an account?
         </Link>
         <button type="submit" className="submit" >
-          sign in
+          Sign In
         </button>
         </form>
       </div>
