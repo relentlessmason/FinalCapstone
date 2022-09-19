@@ -19,6 +19,7 @@ import {
 } from "reactstrap";
 import React, { Component, useState } from "react";
 import { Control, LocalForm, Errors } from "react-redux-form";
+import { toDate } from "date-fns";
 
 class IndividualRecipe extends Component {
   constructor(props) {
@@ -46,6 +47,21 @@ class IndividualRecipe extends Component {
    await this.props.handleDeleteMeals(this.props.onemeal.id);
   }
 
+  category(props){
+    let cat = this.props.category.map((c)=>{
+      return c.categoryId==props ? c.categoryTypeDesc : null;
+    })
+    return cat;
+  }
+
+  timeOfDay(props){
+    let tod = this.props.tod.map((t)=>{
+      return t.timeOfDayId==props ? t.timeOfDayDesc : null;
+    })
+    return tod;
+  }
+
+
   render() {
 
     const post = this.props.onemeal ? (
@@ -59,7 +75,9 @@ class IndividualRecipe extends Component {
               </CardTitle>
 
               <CardSubtitle className="text-left">
-                <span>Time of Day Here</span><span>Category Here or directly below TOD</span>
+                <span>
+                  
+                  </span>{this.timeOfDay(this.props.onemeal.timeOfDayId)}<span>{this.category(this.props.onemeal.categoryId)}</span>
               </CardSubtitle>
 
               <CardBody className="text-center">
@@ -70,7 +88,6 @@ class IndividualRecipe extends Component {
                   <br />
                   {this.props.onemeal.recipe}
                 </CardText>
-
               </CardBody>
 
               <div className="row text-center ">
@@ -123,7 +140,7 @@ class IndividualRecipe extends Component {
       <>
         <Button
           onClick={() => {
-            this.props.history.push("/recipes");
+            this.props.history.push('/recipes');
           }}
           className="submitAR"
         >
@@ -150,6 +167,7 @@ function RenderEditModal({
   }
 
   async function handleEditSubmit(values) {
+
     await handleUpdateMeals(
       params,
       values.mealName,
@@ -159,6 +177,8 @@ function RenderEditModal({
       values.recipe,
       values.ingredients
     );
+
+    // this.props.history.push('/recipes')
 
   }
   return (

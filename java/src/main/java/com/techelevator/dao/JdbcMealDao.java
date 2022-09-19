@@ -1,11 +1,14 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.Category;
 import com.techelevator.model.Meal;
+import com.techelevator.model.TimeOfDay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,9 +122,10 @@ public class JdbcMealDao implements MealDao{
     }
 
     @Override
-    public void updateMeal(Long mealId, Meal meal) {
+    public Meal updateMeal(Long mealId, Meal meal) {
         String sql = "UPDATE meal " +
-                "SET meal_name = ?, " +
+                "SET meal_id = ?, " +
+                "meal_name = ?, " +
                 "category_id = ?, " +
                 "time_of_day_id = ?, " +
                 "description = ?, " +
@@ -129,6 +133,7 @@ public class JdbcMealDao implements MealDao{
                 "ingredients = ? " +
                 "WHERE meal_id=?;";
         jdbcTemplate.update(sql,
+                mealId,
                 meal.getMealName(),
                 meal.getCategoryId(),
                 meal.getTimeOfDayId(),
@@ -136,6 +141,49 @@ public class JdbcMealDao implements MealDao{
                 meal.getRecipe(),
                 meal.getIngredients(),
                 mealId);
+        return meal;
+    }
+
+    @Override
+    public Category[] findAllCate() {
+        List<Category> cats = new ArrayList<>();
+        String sql = "select * from category_type;";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        while(results.next()) {
+            Category category = mapToRowCategory(results);
+            cats.add(category);
+        }
+
+        return cats.toArray(new Category[0]);
+    }
+
+    @Override
+    public TimeOfDay[] findAllTod() {
+        List<TimeOfDay> tod = new ArrayList<>();
+        String sql = "select * from time_of_day;";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        while(results.next()) {
+            TimeOfDay timeOfDay = mapToRowTimeOfDay(results);
+            tod.add(timeOfDay);
+        }
+
+        return tod.toArray(new TimeOfDay[0]);
+    }
+
+    private Category mapToRowCategory(SqlRowSet c){
+        Category category = new Category();
+        category.setCategoryId(c.getLong("category_id"));
+        category.setCategoryTypeDesc(c.getString("category_type_desc"));
+        return category;
+    }
+
+    private TimeOfDay mapToRowTimeOfDay(SqlRowSet t){
+        TimeOfDay timeOfDay = new TimeOfDay();
+        timeOfDay.setTimeOfDayId(t.getLong("time_of_day_id"));
+        timeOfDay.setTimeOfDayDesc(t.getString("time_of_day_desc"));
+        return timeOfDay;
     }
 
     private Meal mapToRowMeal(SqlRowSet m) {

@@ -4,9 +4,7 @@ import * as FaIcons from "react-icons/fa";
 
 function RenderIngredients({ meal, mealPlan }) {
   let eachIngredient = [];
-  // meal.map((m) => {
-  //   eachIngredient.push(...m.ingredients.split(/\s+/));
-  // });
+  
 
  meal.map((m)=>{
   mealPlan.map((mp)=>{
@@ -44,6 +42,20 @@ const GroceryList = (props) => {
   const [inputValue, setInputValue] = useState("");
   const [totalItemCount, setTotalItemCount] = useState(0);
   const [startingIngredients, setStartingIngredients] = useState([]);
+
+  let eachIngredient = [];
+  
+
+ props.meal.meal.map((m)=>{
+  props.mealPlan.mealPlan.map((mp)=>{
+    let ingredients = m.ingredients.split(/\s+/);
+    let matching = mp.mealId==m.id;
+    if(matching){
+      eachIngredient.push(...ingredients)
+    }
+  })
+ })
+ 
 
   const handleAddButtonClick = () => {
     const newItem = {

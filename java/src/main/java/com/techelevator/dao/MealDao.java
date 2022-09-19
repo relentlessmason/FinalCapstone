@@ -1,6 +1,8 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.Category;
 import com.techelevator.model.Meal;
+import com.techelevator.model.TimeOfDay;
 
 import java.util.List;
 
@@ -22,6 +24,11 @@ public interface MealDao {
 
     boolean deleteMeal(Long id);
 
-    void updateMeal(Long mealId, Meal meal);
+    Meal updateMeal(Long mealId, Meal meal);
+
+    Category[] findAllCate();
+
+    TimeOfDay[] findAllTod();
+
 
 }

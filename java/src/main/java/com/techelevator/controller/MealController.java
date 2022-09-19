@@ -4,9 +4,7 @@ import com.techelevator.dao.MealAccountDao;
 import com.techelevator.dao.MealDao;
 import com.techelevator.dao.MealIngredientsDao;
 import com.techelevator.dao.UserDao;
-import com.techelevator.model.Meal;
-import com.techelevator.model.MealAccount;
-import com.techelevator.model.User;
+import com.techelevator.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -62,7 +60,6 @@ public class MealController {
     };
 
 
-
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping(path = "meals/{id}")
     public void delete(@PathVariable Long id) {
@@ -70,9 +67,22 @@ public class MealController {
         mealDao.deleteMeal(id);
     }
 
+    @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping(path="/meal/{id}")
-    public void updateMeal(@Valid @RequestBody Meal meal, @PathVariable Long id){
-        mealDao.updateMeal(id, meal);
+    public Meal updateMeal(@Valid @RequestBody Meal meal, @PathVariable Long id){
+       return mealDao.updateMeal(id, meal);
+    }
+
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @GetMapping(path = "category/")
+    public Category[] findAllCategories(){
+        return mealDao.findAllCate();
+    }
+
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @GetMapping(path = "timeofday/")
+    public TimeOfDay[] findAllTimeOfDay(){
+        return mealDao.findAllTod();
     }
 
 

@@ -7,6 +7,8 @@ import logger from 'redux-logger';
 import {createForms} from 'react-redux-form';
 import {MealAccount} from './mealAccount';
 import { MealPlan } from './mealPlan'
+import { Category } from './category';
+import { TimeOfDay } from './timeofday';
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -15,7 +17,9 @@ export const ConfigureStore = () => {
             user: User,
             meal: Meal,
             mealAccount: MealAccount,
-            mealPlan: MealPlan
+            mealPlan: MealPlan,
+            category: Category,
+            tod: TimeOfDay,
             
         }),
         applyMiddleware(thunk, logger)

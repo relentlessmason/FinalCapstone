@@ -200,7 +200,6 @@ export const updateMealPlan = (mealPlan) => async (dispatch) =>{
   dayOfWeek : mealPlan.dayOfWeek
  }
 
-
   try{
   await axios.put(baseUrl+'/updatemealplan/'+ mealPlanId , newPlan,{
       headers : headers,
@@ -217,6 +216,43 @@ export const updateMealPlans=(mealPlan)=>({
 
 
 //END MEAL PLANS//
+
+
+//CATEGORY AND TIME OF DAY
+
+export const addCategory = (category) => ({
+  type: ActionTypes.ADD_CATEGORY,
+  payload: category,
+});
+
+export const fetchCategory = () => async (dispatch) => {
+try {
+  const response = await axios.get(baseUrl + "/category/", {
+    headers: headers,
+  })
+  return await (dispatch(addCategory(response.data)));
+} catch (err) {
+  console.log(err.message);
+}
+};
+
+export const addTimeOfDay = (timeOfDay) => ({
+  type: ActionTypes.ADD_TIME_OF_DAY,
+  payload: timeOfDay,
+});
+
+export const fetchTimeOfDay = () => async (dispatch) => {
+try {
+  const response = await axios.get(baseUrl + "/timeofday/", {
+    headers: headers,
+  })
+  return await (dispatch(addTimeOfDay(response.data)));
+} catch (err) {
+  console.log(err.message);
+}
+};
+
+//END CATEGORY AND TIME OF DAY
 
 
 

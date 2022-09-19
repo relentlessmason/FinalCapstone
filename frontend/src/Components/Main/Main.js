@@ -18,6 +18,8 @@ import {
   fetchMealByMealId,
   updateMeal,
   updateMealPlan,
+  fetchCategory,
+  fetchTimeOfDay
 } from "../../Redux/actionCreators";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -40,6 +42,8 @@ const mapStateToProps = (state) => {
     meal: state.meal,
     mealAccount: state.mealAccount,
     mealPlan: state.mealPlan,
+    category: state.category,
+    tod: state.tod,
   };
 };
 
@@ -101,6 +105,13 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(postMealAccount(mealId, userId)),
 
   updateMealPlan: (mealPlan) => dispatch(updateMealPlan(mealPlan)),
+
+  fetchCategory: () => {
+    dispatch(fetchCategory());
+  },
+  fetchTimeOfDay: () => {
+    dispatch(fetchTimeOfDay());
+  },
 });
 
 class Main extends Component {
@@ -167,11 +178,14 @@ class Main extends Component {
   componentDidMount() {
     this.props.fetchMealsByUser(this.props.user.id);
     this.props.fetchMealPlansByUserId(this.props.user.id);
+    this.props.fetchCategory();
+    this.props.fetchTimeOfDay();
   }
 
   render() {
     return (
       <div className="App">
+
         <Header
           userId={this.props.user.id}
           handleLogout={this.handleLogout}
@@ -267,6 +281,8 @@ class Main extends Component {
               localStorage.getItem("token") != undefined
                 ? ({ match }) => (
                     <IndividualRecipe
+                      category={this.props.category.category}
+                      tod={this.props.tod.tod}
                       fetchMealPlansByUserId={this.props.fetchMealPlansByUserId}
                       handleDeleteMealPlans={this.handleDeleteMealPlans}
                       handleDeleteMeals={this.handleDeleteMeals}
