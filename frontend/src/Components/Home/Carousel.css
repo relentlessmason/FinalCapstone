@@ -23,16 +23,14 @@
 
  
   #test{
-    background: rgb(209,0,129);
-    background: linear-gradient(180deg, rgba(209,0,129,1) 0%, 
-rgba(234,144,133,1) 76%);
+    background: #fedeff;
     border:10px;
     border-radius: 25px;
     padding: 20px;
  
   }
  .carouselname{
-    color:#e9e2d0;
+    color:#fedeff;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: #330036;
  }
@@ -42,22 +40,18 @@ rgba(234,144,133,1) 76%);
     letter-spacing:22px;
     width:fit-content;
     padding:4px;
-    background: rgb(209,0,129);
-background: linear-gradient(180deg, rgba(209,0,129,1) 0%, 
-rgba(234,144,133,1) 76%);
+    background: #fedeff;
     border-radius: 25px;
  }
 
  .todayp{
-    color:#e9e2d0;
+    color: #330036;
  }
 
  .todayb{
     text-transform:lowercase; 
     letter-spacing:22px;
-    color: #e9e2d0;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: #330036;
+    color: #6f5e5c;
  }
 
  .catimage{
@@ -71,7 +65,7 @@ rgba(234,144,133,1) 76%);
     background: #D10081;
     border:0;
     border-radius: 5px;
-    color: #e9e2d0;
+    color: #fedeff;
     text-transform: lowercase;
     font-family: helvetica;
     font-size: 12px;

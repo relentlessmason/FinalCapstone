@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import banner from "../Recipes/onigiri-neko-cat.png";
+import banner from "../Recipes/onigiri-neko-cat-pinkbg.png";
 import "./Carousel.css";
 import breakfast from "./breakfast.png";
 import dumpling from "./dumpling.png";
