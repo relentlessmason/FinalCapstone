@@ -2,26 +2,35 @@ import React, { useState, useEffect } from "react";
 import "./GroceryList.css";
 import * as FaIcons from "react-icons/fa";
 
-function RenderIngredients({ meal }) {
+function RenderIngredients({ meal, mealPlan }) {
   let eachIngredient = [];
-  meal.map((m) => {
-    eachIngredient.push(...m.ingredients.split(/\s+/));
-  });
+  // meal.map((m) => {
+  //   eachIngredient.push(...m.ingredients.split(/\s+/));
+  // });
+
+ meal.map((m)=>{
+  mealPlan.map((mp)=>{
+    let ingredients = m.ingredients.split(/\s+/);
+    let matching = mp.mealId==m.id;
+    if(matching){
+      eachIngredient.push(...ingredients)
+    }
+  })
+ })
+
   const ingredient = eachIngredient.map((ingredient) => {
-	return(
-		<>
-		<div className="item-container">
-        <div className="item-name">
-		<FaIcons.FaCircle />
-          <span className="">
-		{ingredient}
-		</span>
+    return (
+      <>
+        <div className="item-container">
+          <div className="item-name">
+            <FaIcons.FaCircle />
+            <span className="">{ingredient}</span>
+          </div>
         </div>
-      </div>
-		</>
-	)
+      </>
+    );
   });
-  return (ingredient);
+  return ingredient;
 }
 
 const GroceryList = (props) => {
@@ -129,16 +138,16 @@ const GroceryList = (props) => {
             </div>
           ))}
         </div>
-		<RenderIngredients
+        <RenderIngredients
           items={items}
           setItems={setItems}
           meal={props.meal.meal}
+          mealPlan={props.mealPlan.mealPlan}
         />
         {/* <div className='total'>Total: {totalItemCount}</div> */}
         <button type="submit" className="submit">
           Print
         </button>
-        
       </div>
     </div>
   );

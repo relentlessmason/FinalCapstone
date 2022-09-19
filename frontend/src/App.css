@@ -31,7 +31,6 @@ body {
 
 .header_container {
   height: 100px;
-  max-width: 20000px;
   margin: 0;
   display: flex;
   text-align: center;

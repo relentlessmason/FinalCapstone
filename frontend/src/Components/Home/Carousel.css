@@ -1,0 +1,119 @@
+.inner-button-divs{
+    display:flex;
+    flex-grow: 1;
+}
+
+.eight h1 {
+    text-align:center;
+    text-transform:lowercase;
+    font-size:26px; 
+    letter-spacing:4px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: 16px 0;
+    grid-gap: 22px;
+    padding:20px;
+  }
+  
+  .eight h1:after,.eight h1:before  {
+    content: " ";
+    display: block;
+    border-bottom: 1px solid #ccc;
+  }
+
+ 
+  #test{
+    background-color: #ea9085;
+    border:10px;
+    border-radius: 25px;
+    padding: 20px;
+ 
+  }
+ .carouselname{
+    background-color: #ea9085;
+    color:#e9e2d0;
+ }
+
+ .today{
+    text-transform:lowercase; 
+    letter-spacing:22px;
+    width:fit-content;
+    padding:4px;
+    background-color: #ea9085;
+    border-radius: 25px;
+ }
+
+ .todayp{
+    color:#e9e2d0;
+ }
+
+ .todayb{
+    text-transform:lowercase; 
+    letter-spacing:22px;
+
+ }
+
+ .catimage{
+    border-radius: 25px;
+    padding:15px;
+
+ }
+
+ .mealPlan, Link {
+    padding: 15px 20px;
+    background: #552e5a;
+    border:0;
+    border-radius: 5px;
+    color: #e9e2d0;
+    text-transform: lowercase;
+    font-family: helvetica;
+    font-size: 12px;
+    letter-spacing: 3px;
+    position: relative;
+    transition:         all .4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    cursor: pointer;
+    display: block;
+    margin: 20px auto;
+  }
+  
+  .mealPlan::after,
+  .mealPlan::before{
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    transform: translateY(-50%);
+      opacity: 0;
+    transition:         all .4s cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+  
+  .mealPlan::after{
+      width: 30px;
+      height: 1px;
+      background: white;
+      transform: translateX(-3px);
+      margin-top: 0px;
+  }
+  
+  .mealPlan::before{
+      content: "";
+      transform: rotate(-135deg) translateX(50%);
+      width: 11px;
+      height: 11px;
+      background: transparent;
+      border-left: 1px solid white;
+      border-bottom: 1px solid white;
+    margin-top: -1px;
+  }
+  
+  .mealPlan:hover{
+    padding: 15px 60px 15px 20px;
+  }
+  
+  .mealPlan:hover::after,
+  .mealPlan:hover::before{
+    opacity: 1;
+    right: 15px;
+  }
+
+  

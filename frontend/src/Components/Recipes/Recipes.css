@@ -1,5 +1,11 @@
+
 .var_header{
     margin-top: 25px;
+}
+
+.example {
+  background: url(onigiri-neko-cat.png);
+  background-size: contain, cover;
 }
 
 /* #card-text{
@@ -9,3 +15,4 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 } */
+

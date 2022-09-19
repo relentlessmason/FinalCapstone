@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import banner from './onigiri-neko-cat.png';
 import "./Recipes.css";
 import {
   Card,
@@ -40,7 +41,7 @@ function RenderRecipeCard({ meal, postMealPlan, user, fetchMealPlansByUserId }) 
               key={m.id}
               className="border-0"
             >
-              <CardBody className="text-center ">
+              <CardBody className="text-center">
                 <CardTitle className="h3 mt-1 ml-2 text-lowercase">{m.mealName}</CardTitle>
                 <CardText id="card-text" className="text-muted text-lowercase">
                   {m.description.length <= 15
@@ -163,7 +164,12 @@ function AddMealPlanModal({ postMealPlan, clickedMealId, user,fetchMealPlansByUs
 const Recipes = (props) => {
 
   return (
+    <>
+   
+    
+
     <div className="container-lg">
+
       <Link to="/add-recipe" className="text-decoration-none">
         <Button className="submitAR">Click to add a new Recipe</Button>
       </Link>
@@ -175,8 +181,11 @@ const Recipes = (props) => {
         postMealPlan={props.postMealPlan} 
         meal={props.meal} />
       </div>
-     
+      
     </div>
+    {/* <img src={banner} alt="onigiri-cat!" className=""/> */}
+
+    </>
   );
 };
 

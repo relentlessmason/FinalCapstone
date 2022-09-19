@@ -3,6 +3,7 @@ import { Switch, Route, Redirect, Link } from "react-router-dom";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import Home from "../Home/Home";
+import CarouselTest from "../Home/CarouselTest";
 import {
   fetchMealAccount,
   postMealAccount,

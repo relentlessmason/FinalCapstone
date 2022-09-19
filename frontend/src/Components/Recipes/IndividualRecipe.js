@@ -79,16 +79,24 @@ class IndividualRecipe extends Component {
                   params={this.props.onemeal.id}
                 />
 
-                <RenderMealPlanModal
+                {/* <RenderMealPlanModal
                 fetchMealPlansByUserId={this.props.fetchMealPlansByUserId}
                   postMealPlan={this.props.postMealPlan}
                   meal={this.props.onemeal}
                   userId={this.props.userId}
-                />
+                /> */}
+
+                <Link className="text-decoration-none col-4" to="/home">
+                  <Button className="submitAR "
+                  >
+                   View Meal Plans
+                  </Button>
+                  </Link>
+
                 <Link className="text-decoration-none col-4" to="/recipes">
                   <Button className="submitAR "
                   >
-                    Return To Recipes
+                    View All Recipes
                   </Button>
                 </Link>
               </div>

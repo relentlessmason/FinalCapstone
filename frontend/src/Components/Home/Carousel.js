@@ -1,4 +1,16 @@
 import React, { useState } from "react";
+import banner from "../Recipes/onigiri-neko-cat.png";
+import "./Carousel.css";
+import breakfast from "./breakfast.png";
+import dumpling from "./dumpling.png";
+import dinner from "./dinner.png";
+import lunch from "./rice.png";
+import snack from "./snack.png";
+import dessert from "./dessert.png";
+import sushi from './sushi.png';
+import fishcake from './fishcake.png';
+import sushiwrap from './sushi-wrap.png';
+
 import {
   Card,
   CardImg,
@@ -96,13 +108,32 @@ function RenderEditMealPlanModal({
 function RenderBlank() {
   return (
     <Carousel.Item>
-      <div className="text-center ">
-        <Link to="/recipes" className="text-decoration-none">
-          <Button className="submitAR">
-            Nothing to display yet, lets add some recipes!
-          </Button>
+
+      <div id="test" class="text-center pt-1  m-3">
+        <h2 className="todayb"><small>
+                    <img
+                      
+                      src={sushi}
+                      alt=""
+                    />
+                  </small> no plans for today yet <small>
+                    <img
+                      className="imagez"
+                      src={sushiwrap}
+                      alt=""
+                    />
+                  </small></h2>
+          
+            <div class="todayp">
+            <Link to="/recipes" className="text-decoration-none">
+          <Button className="mealPlan">View Recipes</Button>
         </Link>
-      </div>
+            </div>
+            
+        </div>
+        <br/>
+        <br/>
+
     </Carousel.Item>
   );
 }
@@ -122,62 +153,105 @@ function RenderCarouselCard(dayOfWeek, props) {
     setIsModalOpen(!isModalOpen);
   }
 
+  function timeOfDay(tod) {
+    if (tod == "Breakfast") {
+      return breakfast;
+    }
+    if (tod == "Lunch") {
+      return lunch;
+    }
+    if (tod == "Dinner") {
+      return dinner;
+    }
+    if (tod === "Snack") {
+      return snack;
+    } else return dessert;
+  }
+
   return (
     <Carousel.Item>
-      <div className="text-center">
-        <br />
-
-        <h2>{today()}</h2>
-        {dayOfWeek.map((m, i) => {
-          return (
-            <>
-              <Card className=" m-3 p-2 text-center" key={i}>
-                <CardTitle>
-                  <h3>Meal Name</h3>
-                  {m.mealName}
-                </CardTitle>
-                <CardBody>
-                  <CardText>
-                    <h4>Time Of Day</h4>
-                    {m.timeOfDay}
-                  </CardText>
-                </CardBody>
-                <div>
-                  <Button
-                    className="submitAR"
-                    onClick={() => {
-                      props.handleDeleteMealPlans(m.mealPlanId);
-                    }}
-                  >
-                    Remove
-                  </Button>
-                  <Link
-                    to={"/recipe/" + m.mealId}
-                    className="text-decoration-none"
-                  >
-                    <Button className="submitAR ">View Recipe</Button>
-                  </Link>
-                  <Button
-                    onClick={() => {
-                      toggleModal();
-                    }}
-                    className="submitAR"
-                  >
-                    Edit Meal Plan
-                  </Button>
-                  <RenderEditMealPlanModal
-                    mealId={m.mealId}
-                    mealPlanId={m.mealPlanId}
-                    isModalOpen={isModalOpen}
-                    setIsModalOpen={setIsModalOpen}
-                    props={props}
-                  />
-                </div>
-              </Card>
-            </>
-          );
-        })}
+      
+      <div className="today m-4">
+        <p className="todayp">
+          <small>
+            <img className="center" src={dumpling} alt="" />
+          </small>{" "}
+          {today()}
+        </p>
       </div>
+
+      {dayOfWeek.map((m, i) => {
+        return (
+          <>
+            <div id="test" class="text-center pt-1  m-3" key={i}>
+              <div class="row ">
+                <div class="col-md-2">
+                  <small>
+                    <img
+                      className="imagez"
+                      src={timeOfDay(m.timeOfDay)}
+                      alt="time of day image"
+                    />
+                  </small>
+                </div>
+                <div class="col-md-8 ">
+                  <div class="eight">
+                    <h1 className="carouselname ">{m.mealName}</h1>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <small>
+                    <img
+                      className="imagez"
+                      src={timeOfDay(m.timeOfDay)}
+                      alt="time of day image"
+                    />
+                  </small>
+                </div>
+
+                <div className="button-divs">
+                  <div className="inner-button-divs">
+                    <Button
+                      className="mealPlan"
+                      onClick={() => {
+                        props.handleDeleteMealPlans(m.mealPlanId);
+                      }}
+                    >
+                      Remove
+                    </Button>
+
+                    <Link
+                      id="buttonz"
+                      to={"/recipe/" + m.mealId}
+                      className="text-decoration-none"
+                    >
+                      <Button className="mealPlan">View Recipe</Button>
+                    </Link>
+                    <Button
+                      id="buttonz"
+                      onClick={() => {
+                        toggleModal();
+                      }}
+                      className="mealPlan"
+                    >
+                      Edit Meal Plan
+                    </Button>
+                    <RenderEditMealPlanModal
+                      mealId={m.mealId}
+                      mealPlanId={m.mealPlanId}
+                      isModalOpen={isModalOpen}
+                      setIsModalOpen={setIsModalOpen}
+                      props={props}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        );
+      })}
+              <br/>
+              <br/>
     </Carousel.Item>
   );
 }
@@ -223,9 +297,8 @@ export default function ControlledCarousel(props) {
     setIndex(selectedIndex);
   };
 
-
   return (
-    <div className="container">
+    <>
       <Carousel>
         {monday.length !== 0
           ? RenderCarouselCard(monday, props)
@@ -254,7 +327,9 @@ export default function ControlledCarousel(props) {
         {sunday.length !== 0
           ? RenderCarouselCard(sunday, props)
           : RenderBlank()}
+
       </Carousel>
-    </div>
+      <img class="card-img-top catimage" src={banner} alt="Card image cap" />
+    </>
   );
 }
