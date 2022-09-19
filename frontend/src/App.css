@@ -6,6 +6,11 @@ body {
 
 }
 
+a {
+  color: #D10081;
+}
+
+
 #page-container {
   position: relative;
   min-height: 100vh;

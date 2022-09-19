@@ -23,15 +23,18 @@
 
  
   #test{
-    background-color: #ea9085;
+    background: rgb(209,0,129);
+    background: linear-gradient(180deg, rgba(209,0,129,1) 0%, 
+rgba(234,144,133,1) 76%);
     border:10px;
     border-radius: 25px;
     padding: 20px;
  
   }
  .carouselname{
-    background-color: #ea9085;
     color:#e9e2d0;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #330036;
  }
 
  .today{
@@ -39,7 +42,9 @@
     letter-spacing:22px;
     width:fit-content;
     padding:4px;
-    background-color: #ea9085;
+    background: rgb(209,0,129);
+background: linear-gradient(180deg, rgba(209,0,129,1) 0%, 
+rgba(234,144,133,1) 76%);
     border-radius: 25px;
  }
 
@@ -50,18 +55,20 @@
  .todayb{
     text-transform:lowercase; 
     letter-spacing:22px;
-
+    color: #e9e2d0;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #330036;
  }
 
  .catimage{
     border-radius: 25px;
-    padding:15px;
-
+    padding: 15px;
+    
  }
 
  .mealPlan, Link {
     padding: 15px 20px;
-    background: #552e5a;
+    background: #D10081;
     border:0;
     border-radius: 5px;
     color: #e9e2d0;

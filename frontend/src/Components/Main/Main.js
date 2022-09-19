@@ -180,9 +180,9 @@ class Main extends Component {
 
         {this.props.token.token !== undefined ? (
           <div classname="navigator">
-            <Link to="/home">Home | </Link>
+            {/* <Link to="/home">Home | </Link> */}
             <Link to="/login" onClick={this.handleLogout}>
-              logout
+              Logout
             </Link>
           </div>
         ) : (
