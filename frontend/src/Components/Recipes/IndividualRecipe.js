@@ -53,10 +53,14 @@ class IndividualRecipe extends Component {
         <div className="container">
           <div className="row  justify-content-center">
             <Card className="col-md-6 col-xl-4 col-sm-4 text-lowercase">
-              <CardHeader className="text-muted"></CardHeader>
+              {/* <CardHeader className="text-muted"></CardHeader> */}
               <CardTitle className="h3">
                 {this.props.onemeal.mealName}
               </CardTitle>
+
+              <CardSubtitle className="text-left">
+                <span>Time of Day Here</span><span>Category Here or directly below TOD</span>
+              </CardSubtitle>
 
               <CardBody className="text-center">
                 {this.props.onemeal.description}
