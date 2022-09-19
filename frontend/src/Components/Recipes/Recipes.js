@@ -20,6 +20,7 @@ import {
 } from "reactstrap";
 import { Control, LocalForm, Errors } from "react-redux-form";
 import { Link, Redirect, withRouter } from "react-router-dom";
+import RandomRecipe from './RandomRecipe';
 
 
 function RenderRecipeCard({ meal, postMealPlan, user, fetchMealPlansByUserId }) {
@@ -173,7 +174,7 @@ const Recipes = (props) => {
       <Link to="/add-recipe" className="text-decoration-none">
         <Button className="submitAR">Click to add a new Recipe</Button>
       </Link>
-      <br />
+      <RandomRecipe />
       <div className="row my-5 align-items-center">
         <RenderRecipeCard
         fetchMealPlansByUserId={props.fetchMealPlansByUserId} 

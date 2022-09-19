@@ -178,16 +178,16 @@ class Main extends Component {
           mealPlan={this.props.mealPlan}
         />
 
-        {this.props.token.token !== undefined ? (
+        {/* {this.props.token.token !== undefined ? (
           <div classname="navigator">
-            {/* <Link to="/home">Home | </Link> */}
+            <Link to="/home">Home | </Link>
             <Link to="/login" onClick={this.handleLogout}>
               Logout
             </Link>
           </div>
         ) : (
           <Link to="/login">Home | </Link>
-        )}
+        )} */}
 
         <Switch>
           <Route

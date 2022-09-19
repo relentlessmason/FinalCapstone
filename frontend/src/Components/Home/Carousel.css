@@ -81,6 +81,7 @@
   .mealPlan::before{
     content: "";
     position: absolute;
+    background: #D10081;
     top: 50%;
     right: 0px;
     transform: translateY(-50%);
