@@ -1,22 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import placeholder from "./Bento.png";
 import "./AddRecipe.css";
 import { Control, LocalForm } from "react-redux-form";
 import { Label, Button, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
+import { BsInfoLg } from "react-icons/bs";
+import { RiInstagramLine } from "react-icons/ri";
 
 function resetForm() {
   const form = document.getElementById("form");
   form.reset();
 }
 
-
 export default function AddRecipe(props) {
+  const [ingredients, setIngredients] = useState([]);
+  const [inputValue, setInputValue] = useState(null);
+  const [search, setSearch] = useState("");
+  const [searchByIngredient, setSearchByIngredient] = useState(null);
+
+  function handleAdd(value) {
+    setIngredients(ingredients.concat(value));
+  }
+
+  const handleChange = (e) =>{
+    setSearch(e.target.value)
+  }
+  function renderCategory() {
+    
+    let cate = props.category.map((c) => {
+      return <option value={c.categoryId}>{c.categoryTypeDesc}</option>;
+    });
+    return cate;
+  }
+
+  function renderTod() {
+    let tod = props.tod.map((t) => {
+      return <option value={t.timeOfDayId}>{t.timeOfDayDesc}</option>;
+    });
+    return tod;
+  }
 
   return (
     <LocalForm
       id="form"
-      onSubmit={(values) => props.handlePostMeals(values)}
+      onSubmit={(values) =>props.handlePostMeals(values, ingredients)}
     >
       <div className="wrapperAR">
         <div className="leftWrapper">
@@ -36,28 +63,38 @@ export default function AddRecipe(props) {
               </Label>
               <Col md={12} className="input-group">
                 <Control.textarea
+                onChange={(e) => {
+                  handleChange(e)
+                }}
                   model=".ingredients"
                   id="ingredients"
-                  className="form-control"
+                  className="form-control "
                   type="textarea"
-                  name="ingredient"
-                  placeholder="'1/2 cup Sugar,
-                  2 cups Flour..'"
-                  rows="6"
+                  placeholder="rice.."
+                  rows="1"
                 />
               </Col>
             </Row>
 
-            <Button
+            <button              
               onClick={(e) => {
                 e.preventDefault();
+                setIngredients(ingredients.concat(search));
+                // handleAdd(inputValue);
                 //not sure how to gather multiple input fields and put them into db yet
               }}
-              className="submitAR"
               type="submit"
+              className="submit"
             >
               Add Ingredients
-            </Button>
+            </button>
+            {ingredients.map((i) => {
+              return (
+                <>
+                  <div>{i}</div>
+                </>
+              );
+            })}
           </div>
         </div>
 
@@ -82,12 +119,7 @@ export default function AddRecipe(props) {
             <option disabled="disabled" selected="true" value="0">
               When do you plan to...eat this
             </option>
-            <option value="1">Breakfast</option>
-            <option value="2">Lunch</option>
-            <option value="3">Snack</option>
-            <option value="4">Dinner</option>
-            <option value="5">Dessert</option>
-            <option value="6">Drinks</option>
+            {renderTod()}
           </Control.select>
 
           <Label htmlFor="categoryId">Categories</Label>
@@ -106,13 +138,8 @@ export default function AddRecipe(props) {
             >
               Please Select a Category
             </option>
-            <option value="1">Vegetarian</option>
-            <option value="2">Meat Lovers</option>
-            <option value="3">Gluten-Free</option>
-            <option value="4">Mexican</option>
-            <option value="5">Chinese</option>
-            <option value="6">Indian</option>
-            <option value="7">Other</option>
+
+            {renderCategory()}
           </Control.select>
 
           <Label htmlFor="description">Tell us about it!</Label>
@@ -130,9 +157,7 @@ export default function AddRecipe(props) {
             <Button className="submitAR col-6" type="submit">
               Submit
             </Button>
-            <Link className="col-6 text-decoration-none"
-              to="/recipes"
-            >
+            <Link className="col-6 text-decoration-none" to="/recipes">
               <Button className="submitAR">View Recipes</Button>
             </Link>
           </div>
@@ -160,7 +185,6 @@ export default function AddRecipe(props) {
           </Row>
         </div>
       </div>
-
     </LocalForm>
   );
 }
