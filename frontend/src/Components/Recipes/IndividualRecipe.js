@@ -18,15 +18,13 @@ import {
   Col,
 } from "reactstrap";
 import React, { Component, useState } from "react";
-import { Control, LocalForm, Errors } from "react-redux-form";
-import { toDate } from "date-fns";
+import { Control, LocalForm } from "react-redux-form";
 
 class IndividualRecipe extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      meal: null,
       isModalOpen: false,
       isEditModalOpen: false,
     };
@@ -42,42 +40,41 @@ class IndividualRecipe extends Component {
         }
       });
     };
+    findMealPlan();
 
-   findMealPlan();
-   await this.props.handleDeleteMeals(this.props.onemeal.id);
+    await this.props.handleDeleteMeals(this.props.onemeal.id);
   }
 
-  category(props){
-    let cat = this.props.category.map((c)=>{
-      return c.categoryId==props ? c.categoryTypeDesc : null;
-    })
+  category(props) {
+    let cat = this.props.category.map((c) => {
+      return c.categoryId == props ? c.categoryTypeDesc : null;
+    });
     return cat;
   }
 
-  timeOfDay(props){
-    let tod = this.props.tod.map((t)=>{
-      return t.timeOfDayId==props ? t.timeOfDayDesc : null;
-    })
+  timeOfDay(props) {
+    let tod = this.props.tod.map((t) => {
+      return t.timeOfDayId == props ? t.timeOfDayDesc : null;
+    });
     return tod;
   }
 
-
   render() {
-
     const post = this.props.onemeal ? (
       <>
         <div className="container">
           <div className="row  justify-content-center">
             <Card className="col-md-6 col-xl-4 col-sm-4 text-lowercase">
               {/* <CardHeader className="text-muted"></CardHeader> */}
+
               <CardTitle className="h3">
                 {this.props.onemeal.mealName}
               </CardTitle>
 
               <CardSubtitle className="text-left">
-                <span>
-                  
-                  </span>{this.timeOfDay(this.props.onemeal.timeOfDayId)}<span>{this.category(this.props.onemeal.categoryId)}</span>
+                <span>{this.timeOfDay(this.props.onemeal.timeOfDayId)}</span>
+
+                <span>{this.category(this.props.onemeal.categoryId)}</span>
               </CardSubtitle>
 
               <CardBody className="text-center">
@@ -109,17 +106,11 @@ class IndividualRecipe extends Component {
                 /> */}
 
                 <Link className="text-decoration-none col-4" to="/home">
-                  <Button className="submitAR "
-                  >
-                   View Meal Plans
-                  </Button>
-                  </Link>
+                  <button className="submitAR ">View Meal Plans</button>
+                </Link>
 
                 <Link className="text-decoration-none col-4" to="/recipes">
-                  <Button className="submitAR "
-                  >
-                    View All Recipes
-                  </Button>
+                  <button className="submitAR ">View All Recipes</button>
                 </Link>
               </div>
             </Card>
@@ -132,20 +123,20 @@ class IndividualRecipe extends Component {
               this.handleDelete();
             }}
           >
-            <Button className="submitAR bg-danger">Delete</Button>
+            <button className="submitAR bg-danger">Delete</button>
           </Link>
         </div>
       </>
     ) : (
       <>
-        <Button
+        <button
           onClick={() => {
-            this.props.history.push('/recipes');
+            this.props.history.push("/recipes");
           }}
           className="submitAR"
         >
           Recipe Deleted
-        </Button>
+        </button>
       </>
     );
 
@@ -153,11 +144,7 @@ class IndividualRecipe extends Component {
   }
 }
 
-function RenderEditModal({
-  meal,
-  params,
-  handleUpdateMeals,
-}) {
+function RenderEditModal({ meal, params, handleUpdateMeals }) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   handleEditSubmit = handleEditSubmit.bind(this);
@@ -167,7 +154,6 @@ function RenderEditModal({
   }
 
   async function handleEditSubmit(values) {
-
     await handleUpdateMeals(
       params,
       values.mealName,
@@ -179,18 +165,17 @@ function RenderEditModal({
     );
 
     // this.props.history.push('/recipes')
-
   }
   return (
     <>
-      <Button
+      <button
         onClick={() => {
           toggleModal();
         }}
         className="submitAR col-3 "
       >
         Edit
-      </Button>
+      </button>
 
       <Modal isOpen={isEditModalOpen} toggle={toggleModal}>
         <ModalHeader toggle={toggleModal}>Update Recipe Below</ModalHeader>
@@ -304,11 +289,9 @@ function RenderEditModal({
                 />
               </Col>
             </Row>
-            <Button className="submitAR"
-              type="submit"
-            >
+            <button className="submit" type="submit">
               Submit
-            </Button>
+            </button>
           </LocalForm>
         </ModalBody>
       </Modal>
@@ -316,78 +299,83 @@ function RenderEditModal({
   );
 }
 
-function RenderMealPlanModal({ meal, postMealPlan, userId, fetchMealPlansByUserId }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+// function RenderMealPlanModal({
+//   meal,
+//   postMealPlan,
+//   userId,
+//   fetchMealPlansByUserId,
+// }) {
+//   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  handleSubmit = handleSubmit.bind(this);
+//   handleSubmit = handleSubmit.bind(this);
 
-  function toggleModal() {
-    setIsModalOpen(!isModalOpen);
-  }
+//   function toggleModal() {
+//     setIsModalOpen(!isModalOpen);
+//   }
 
- async function handleSubmit(values) {
-   await postMealPlan(meal.id, values.dayOfWeek);
-   await fetchMealPlansByUserId(userId)
-  }
+//   async function handleSubmit(values) {
+//     await postMealPlan(meal.id, values.dayOfWeek);
+//     await fetchMealPlansByUserId(userId);
+//   }
 
-  return (
-    <>
-      <Button
-        onClick={() => {
-          toggleModal();
-        }}
-        className="submitAR col-3 "
-      >
-        Add To Meal Plan
-      </Button>
+//   return (
+//     <>
+//       <Button
+//         onClick={() => {
+//           toggleModal();
+//         }}
+//         className="submitAR col-3 "
+//       >
+//         Add To Meal Plan
+//       </Button>
 
-      <Modal isOpen={isModalOpen} toggle={toggleModal}>
-        <ModalHeader toggle={toggleModal}>Choose a day of the week</ModalHeader>
+//       <Modal isOpen={isModalOpen} toggle={toggleModal}>
+//         <ModalHeader toggle={toggleModal}>Choose a day of the week</ModalHeader>
 
-        <ModalBody>
-          <LocalForm onSubmit={(values) => handleSubmit(values)}>
-            <Row className="form-group">
-              <Label htmlFor="mealPlan" md={2}></Label>
-              <Col md={12}>
-                <Control.select
-                  model=".dayOfWeek"
-                  className="form-control"
-                  id="dayOfWeek"
-                  name="dayOfWeek"
-                  required
-                >
-                  <option
-                    value="Please Select"
-                    disabled="disabled"
-                    selected="true"
-                  >
-                    Please Select
-                  </option>
-                  <option value="Monday">Monday</option>
-                  <option value="Tuesday">Tuesday</option>
-                  <option value="Wednesday">Wednesday</option>
-                  <option value="Thursday">Thursday</option>
-                  <option value="Friday">Friday</option>
-                  <option value="Saturday">Saturday</option>
-                  <option value="Sunday">Sunday</option>
-                </Control.select>
-              </Col>
-            </Row>
-            <Button
-              onClick={() => {
-                toggleModal();
-              }}
-              type="submit"
-              value="submit"
-              className="mt-2 submitAR"
-            >
-              Submit
-            </Button>
-          </LocalForm>
-        </ModalBody>
-      </Modal>
-    </>
-  );
-}
+//         <ModalBody>
+//           <LocalForm onSubmit={(values) => handleSubmit(values)}>
+//             <Row className="form-group">
+//               <Label htmlFor="mealPlan" md={2}></Label>
+//               <Col md={12}>
+//                 <Control.select
+//                   model=".dayOfWeek"
+//                   className="form-control"
+//                   id="dayOfWeek"
+//                   name="dayOfWeek"
+//                   required
+//                 >
+//                   <option
+//                     value="Please Select"
+//                     disabled="disabled"
+//                     selected="true"
+//                   >
+//                     Please Select
+//                   </option>
+//                   <option value="Monday">Monday</option>
+//                   <option value="Tuesday">Tuesday</option>
+//                   <option value="Wednesday">Wednesday</option>
+//                   <option value="Thursday">Thursday</option>
+//                   <option value="Friday">Friday</option>
+//                   <option value="Saturday">Saturday</option>
+//                   <option value="Sunday">Sunday</option>
+//                 </Control.select>
+//               </Col>
+//             </Row>
+//             <Button
+//               onClick={() => {
+//                 toggleModal();
+//               }}
+//               type="submit"
+//               value="submit"
+//               className="mt-2 submitAR"
+//             >
+//               Submit
+//             </Button>
+//           </LocalForm>
+//         </ModalBody>
+//       </Modal>
+//     </>
+//   );
+// }
 
 export default withRouter(IndividualRecipe);

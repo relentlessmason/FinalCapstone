@@ -89,7 +89,7 @@ function RenderEditMealPlanModal({
                 </Control.select>
               </Col>
             </Row>
-            <Button
+            <button
               onClick={() => {
                 toggleModal();
               }}
@@ -98,7 +98,7 @@ function RenderEditMealPlanModal({
               className="mt-2 submitAR"
             >
               Submit
-            </Button>
+            </button>
           </LocalForm>
         </ModalBody>
       </Modal>
@@ -133,7 +133,7 @@ function RenderBlank(day) {
 
         <div class="todayp">
           <Link to="/recipes" className="text-decoration-none">
-            <Button className="mealPlan">View Recipes</Button>
+            <button className="mealPlan">View Recipes</button>
           </Link>
         </div>
       </div>
@@ -210,23 +210,23 @@ function RenderCarouselCard(dayOfWeek, props, day) {
 
                 <div className="button-divs">
                   <div className="inner-button-divs">
-                    <Button
+                    <button
                       className="mealPlan"
                       onClick={() => {
                         props.handleDeleteMealPlans(m.mealPlanId);
                       }}
                     >
                       Remove
-                    </Button>
+                    </button>
 
                     <Link
                       id="buttonz"
                       to={"/recipe/" + m.mealId}
                       className="text-decoration-none"
                     >
-                      <Button className="mealPlan">View Recipe</Button>
+                      <button className="mealPlan">View Recipe</button>
                     </Link>
-                    <Button
+                    <button
                       id="buttonz"
                       onClick={() => {
                         toggleModal();
@@ -234,7 +234,7 @@ function RenderCarouselCard(dayOfWeek, props, day) {
                       className="mealPlan"
                     >
                       Edit Meal Plan
-                    </Button>
+                    </button>
                     <RenderEditMealPlanModal
                       mealId={m.mealId}
                       mealPlanId={m.mealPlanId}

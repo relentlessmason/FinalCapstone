@@ -1,5 +1,3 @@
-import { RiContrastDropLine } from "react-icons/ri";
-import { updateMeals } from "./actionCreators";
 import * as ActionTypes from "./actionTypes";
 
 export const Meal = (
@@ -30,24 +28,9 @@ export const Meal = (
       return { ...state, meal: updateMeals };
     }
 
-  
-
-//       case COMPLETE_TODO: {
-//  const index = state.todos.findIndex(todo => todo.id !==                                                                        action.payload); //finding index of the item
-//  const newArray = [...state.todos]; //making a new array
-//  newArray[index].completed = true//changing value in the new array
-//  return { 
-//   ...state, //copying the orignal state
-//   todos: newArray, //reassingning todos to new array
-//  }
-// }
-      //       return {
-      // ...state, 
-      // meal: action.payload };
-
     case ActionTypes.UPDATE_MEAL: {
 
-      const updatedMeal = state.meal.filter((meal) => {
+      const updatedMeal = state.meal.map((meal) => {
         if (meal.id == action.payload) {
           return {
             ...state,

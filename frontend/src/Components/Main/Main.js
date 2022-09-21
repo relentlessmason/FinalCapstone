@@ -131,8 +131,6 @@ class Main extends Component {
 
   handlePostMeals = async (values, ingredients) => {
     
-    console.log("in main "+ingredients.toString())
-
     await this.props.postMeal(
       values.mealName,
       values.categoryId,

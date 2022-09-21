@@ -114,7 +114,7 @@ function RenderRecipeCard({
                       to={"/recipe/" + m.id}
                       className="text-decoration-none"
                     >
-                      <Button className="submitAR ">View Recipe</Button>
+                      <button className="submit ">View Recipe</button>
                     </Link>
                   </div>
                   <div className="col-sm-8 col-lg-6">
@@ -156,14 +156,15 @@ function AddMealPlanModal({
 
   return (
     <>
-      <Button
+      <button
         onClick={() => {
           toggleModal();
         }}
-        className="submitAR"
+        type="submit"
+        className="submit"
       >
         Add to Meal Plan
-      </Button>
+      </button>
       <Modal isOpen={isModalOpen} toggle={toggleModal}>
         <ModalHeader toggle={toggleModal}>Choose a day of the week</ModalHeader>
 
@@ -197,7 +198,7 @@ function AddMealPlanModal({
               </Col>
             </Row>
 
-            <Button
+            <button
               onClick={() => {
                 toggleModal();
               }}
@@ -206,7 +207,7 @@ function AddMealPlanModal({
               className="mt-2 submitAR"
             >
               Submit
-            </Button>
+            </button>
           </LocalForm>
         </ModalBody>
       </Modal>
@@ -219,7 +220,7 @@ const Recipes = (props) => {
     <>
       <div className="container-lg">
         <Link to="/add-recipe" className="text-decoration-none">
-          <Button className="submitAR">Click to add a new Recipe</Button>
+          <button className="submitAR">Click to add a new Recipe</button>
         </Link>
         <br />
         <div className="row my-5 align-items-center">
