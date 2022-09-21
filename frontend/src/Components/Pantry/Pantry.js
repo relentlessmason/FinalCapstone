@@ -15,7 +15,7 @@ export default function Pantry(props){
         <div className="pantry">
           <Row className="form-group">
             <Label htmlFor="pantry" md={12}>
-              Pantry List
+              My Pantry List
             </Label>
             <Col md={12} className="input-group">
               <Control.textarea
@@ -39,7 +39,7 @@ export default function Pantry(props){
               className="submitAR"
               type="submit"
             >
-              Add Ingredients
+              Add to Pantry
             </Button>
         </div>
           
