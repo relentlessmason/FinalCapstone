@@ -31,7 +31,7 @@ export default function Pantry(props){
 
             </Col>
           </Row>
-          <Button
+          <button
               onClick={(e) => {
                 e.preventDefault();
                 //not sure how to gather multiple input fields and put them into db yet
@@ -40,7 +40,7 @@ export default function Pantry(props){
               type="submit"
             >
               Add to Pantry
-            </Button>
+            </button>
         </div>
           
       </LocalForm>
