@@ -15,7 +15,7 @@ export default function Pantry(props){
         <div className="pantry">
           <Row className="form-group">
             <Label htmlFor="pantry" md={12}>
-              Pantry List
+              My Pantry List
             </Label>
             <Col md={12} className="input-group">
               <Control.textarea
@@ -31,7 +31,7 @@ export default function Pantry(props){
 
             </Col>
           </Row>
-          <Button
+          <button
               onClick={(e) => {
                 e.preventDefault();
                 //not sure how to gather multiple input fields and put them into db yet
@@ -39,8 +39,8 @@ export default function Pantry(props){
               className="submitAR"
               type="submit"
             >
-              Add Ingredients
-            </Button>
+              Add to Pantry
+            </button>
         </div>
           
       </LocalForm>
