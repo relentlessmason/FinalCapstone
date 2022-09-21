@@ -143,11 +143,9 @@ function RenderBlank(day) {
   );
 }
 
-function RenderCarouselCard(dayOfWeek, props) {
+function RenderCarouselCard(dayOfWeek, props, day) {
  
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const days = ['Monday', 'Teusday', 'Wednesday']
 
   function toggleModal() {
     setIsModalOpen(!isModalOpen);
@@ -171,20 +169,15 @@ function RenderCarouselCard(dayOfWeek, props) {
   
   return (
     <Carousel.Item >
-      {dayOfWeek.map((m,i)=>{
-        return(
+      
       <div className="today m-4">
         <p className="todayp">
           <small>
             <img className="center" src={dumpling} alt="" />
           </small>
-          {m.dayOfWeek+" meals"}
+          {day+" meals"}
         </p>
-      </div>
-        );
-      })}    
-
-      
+      </div>  
 
       {dayOfWeek.map((m, i) => {
         return (
@@ -265,7 +258,6 @@ function RenderCarouselCard(dayOfWeek, props) {
 export default function ControlledCarousel(props) {
   const [index, setIndex] = useState(0);
 
-  console.log(props)
 
   let monday = props.mealPlan.mealPlan.filter(
     (meal) => meal.dayOfWeek == "Monday",
@@ -309,31 +301,31 @@ export default function ControlledCarousel(props) {
     <>
       <Carousel>
         {monday.length !== 0
-          ? RenderCarouselCard(monday, props)
+          ? RenderCarouselCard(monday, props, 'Monday')
           : RenderBlank('Monday')}
 
         {tuesday.length 
-          ? RenderCarouselCard(tuesday, props)
+          ? RenderCarouselCard(tuesday, props,"Tuesday")
           : RenderBlank("Tuesday")}
 
         {wednesday.length !== 0
-          ? RenderCarouselCard(wednesday, props)
+          ? RenderCarouselCard(wednesday, props,'Wednesday')
           : RenderBlank('Wednesday')}
 
         {thursday.length !== 0
-          ? RenderCarouselCard(thursday, props)
+          ? RenderCarouselCard(thursday, props,'Thursday')
           : RenderBlank('Thursday')}
 
         {friday.length !== 0
-          ? RenderCarouselCard(friday, props)
+          ? RenderCarouselCard(friday, props,'Friday')
           : RenderBlank('Friday')}
 
         {saturday.length !== 0
-          ? RenderCarouselCard(saturday, props)
+          ? RenderCarouselCard(saturday, props,'Saturday')
           : RenderBlank('Saturday')}
 
         {sunday.length !== 0
-          ? RenderCarouselCard(sunday, props)
+          ? RenderCarouselCard(sunday, props, 'Sunday')
           : RenderBlank('Sunday')}
 
       </Carousel>
