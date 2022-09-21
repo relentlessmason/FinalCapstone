@@ -39,6 +39,7 @@
   letter-spacing:2px;
   background: #fedeff;
   border-radius: 25px;
+
   
 }
 
@@ -55,7 +56,9 @@
   color: #6f5e5c;
   font-size: 32px;
   border-bottom: 1px solid #6f5e5c;
-  
+  border-top-left-radius: 8px;
+  border-top-right-radius: 18px;
+  font-family: "Zen Maru Gothic", Arial, Helvetica, sans-serif;
 }
 
 .recipebody{
@@ -73,6 +76,3 @@
   color: #6f5e5c;
  
 }
-
-
-

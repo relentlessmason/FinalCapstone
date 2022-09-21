@@ -62,16 +62,16 @@ class IndividualRecipe extends Component {
   render() {
     const post = this.props.onemeal ? (
       <>
-        <div className="container">
+        <div className="container mt-4">
           <div className="row  justify-content-center">
-            <Card className="col-md-6 col-xl-4 col-sm-4 text-lowercase">
+            <Card className="recipe col-md-6 col-xl-8 col-sm-4 text-lowercase">
               {/* <CardHeader className="text-muted"></CardHeader> */}
 
-              <CardTitle className="h3">
+              <CardTitle className="recipeheader text-center">
                 {this.props.onemeal.mealName}
               </CardTitle>
 
-              <CardSubtitle className="text-left">
+              <CardSubtitle className="text-center">
                 <span>{this.timeOfDay(this.props.onemeal.timeOfDayId)}</span>
 
                 <span>{this.category(this.props.onemeal.categoryId)}</span>
@@ -79,7 +79,7 @@ class IndividualRecipe extends Component {
 
               <CardBody className="text-center">
                 {this.props.onemeal.description}
-                <CardText>{this.props.onemeal.ingredients}</CardText>
+                <CardText className="mt-3">{this.props.onemeal.ingredients}</CardText>
 
                 <CardText>
                   <br />

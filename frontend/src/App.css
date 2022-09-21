@@ -3,6 +3,7 @@ body {
   background-color: #EEB1D5;
   background-image: linear-gradient(#330036, #D10081, #EEB1D5);
   background-attachment: fixed;
+  font-family: Arial, 'Times New Roman', sans-serif;
 
 }
 
@@ -46,7 +47,7 @@ a {
 }
 
 .header_title {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: "Fredoka One", Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   margin-left:33%;
   margin-bottom: -10px;  
   
