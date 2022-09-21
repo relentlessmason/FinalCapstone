@@ -30,6 +30,8 @@ function Home(props) {
         handleDeleteMealPlans={props.handleDeleteMealPlans}
         user={props.user}
         mealPlan={props.mealPlan}
+        meal={props.meal}
+
       />
     </>
   );

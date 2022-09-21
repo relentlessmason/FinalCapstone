@@ -40,7 +40,6 @@ public class PantryController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "pantry/")
     public void addToPantry (@Valid @RequestBody Pantry pantry) {
-        System.out.println(pantry);
         pantryDao.addToPantry(pantry);
     }
 

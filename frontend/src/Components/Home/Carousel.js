@@ -95,7 +95,7 @@ function RenderEditMealPlanModal({
               }}
               type="submit"
               value="submit"
-              className="mt-2 submitAR"
+              className="mt-2 submit"
             >
               Submit
             </button>
@@ -110,7 +110,7 @@ function RenderBlank(day) {
   return (
     <Carousel.Item>
       
-      <div className="today m-4">
+      <div className="today today m-2">
         <p className="todayp">
           <small>
             <img className="center" src={dumpling} alt="" />
@@ -118,7 +118,6 @@ function RenderBlank(day) {
           {day+" meals"}
         </p>
       </div>
-        
 
       <div id="test" class="text-center pt-1  m-3">
         <h2 className="todayb">
@@ -170,7 +169,7 @@ function RenderCarouselCard(dayOfWeek, props, day) {
   return (
     <Carousel.Item >
       
-      <div className="today m-4">
+      <div className="today m-2">
         <p className="todayp">
           <small>
             <img className="center" src={dumpling} alt="" />
@@ -180,9 +179,12 @@ function RenderCarouselCard(dayOfWeek, props, day) {
       </div>  
 
       {dayOfWeek.map((m, i) => {
+
+       let meal = props.meal.meal.filter((meal)=>meal.id==m.mealId)[0];
+
         return (
           <>
-            <div id="test" class="text-center pt-1  m-3" key={i}>
+            <div id="test" class="text-center m-3" key={i}>
               <div class="row ">
                 <div class="col-md-2">
                   <small>
@@ -196,6 +198,7 @@ function RenderCarouselCard(dayOfWeek, props, day) {
                 <div class="col-md-8 ">
                   <div class="eight">
                     <h1 className="carouselname ">{m.mealName}</h1>
+                    <div className="todaydiv ">'{meal.description}'</div>
                   </div>
                 </div>
                 <div class="col-md-2">
@@ -233,7 +236,7 @@ function RenderCarouselCard(dayOfWeek, props, day) {
                       }}
                       className="mealPlan"
                     >
-                      Edit Meal Plan
+                      Change day
                     </button>
                     <RenderEditMealPlanModal
                       mealId={m.mealId}
@@ -257,7 +260,6 @@ function RenderCarouselCard(dayOfWeek, props, day) {
 
 export default function ControlledCarousel(props) {
   const [index, setIndex] = useState(0);
-
 
   let monday = props.mealPlan.mealPlan.filter(
     (meal) => meal.dayOfWeek == "Monday",

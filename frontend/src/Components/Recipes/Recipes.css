@@ -17,14 +17,61 @@
   text-overflow: ellipsis;
 } */
 
-.inputfield{
 
-  border-radius: 10px;
-}
 
 .inputdiv{
-  display:flex;
-  justify-content: flex-end;
+  background: #fedeff;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  font-size: 15px;
+  letter-spacing:2px;
+  
+}
+
+
+
+
+
+.recipe{
+  text-transform:lowercase;
+  font-size: 12px; 
+  letter-spacing:2px;
+  background: #fedeff;
+  border-radius: 25px;
+  
+}
+
+
+.recipep{
+  color: #330036;
+    background: #fedeff;
+    
+}
+
+.recipeheader{
+  background: #fedeff;
+  letter-spacing:10px;
+  color: #6f5e5c;
+  font-size: 32px;
+  border-bottom: 1px solid #6f5e5c;
+  
+}
+
+.recipebody{
+  letter-spacing:4px;
+  font-size: 13px;
+  margin: 12px;
+
+}
+
+.recipeb{
+  background: #fedeff;
+
+  text-transform:lowercase; 
+  letter-spacing:2px;
+  color: #6f5e5c;
+ 
 }
 
 

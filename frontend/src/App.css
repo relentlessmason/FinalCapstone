@@ -21,10 +21,8 @@ a {
 }
 
 .container_x {
-  max-width: 20000px;
   justify-items: center;
   align-items: center;
-  margin-bottom: 2rem;
 }
 
 .container {
@@ -36,7 +34,6 @@ a {
 /* HEADER */
 
 .header_container {
-  height: 100px;
   margin: 0;
   display: flex;
   text-align: center;
@@ -49,14 +46,10 @@ a {
 }
 
 .header_title {
-  padding-top: 15px;
-  padding-left: 30%;
-  padding-right: 30%;
-
-  text-justify: center;
-  text-align: center;
-  align-items: center;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  margin-left:33%;
+  margin-bottom: -10px;  
+  
 }
 
 .logoImg { /* literally the logo*/

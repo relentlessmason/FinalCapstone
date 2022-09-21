@@ -21,14 +21,14 @@ export default function Navbar(props) {
 
   return (
     <>
-      <IconContext.Provider value={{ color: "#D10081" }}>
+      <IconContext.Provider value={{ color: "#D10081" }} className="">
         <div className="navbar">
           <Link to="#" className="navbar_menu_bars">
             <FaIcons.FaBars onClick={showSidebar}  />
           </Link>
         </div>
         
-        <nav className={sidebar ? "nav_menu active" : "nav_menu"}
+        <nav className={sidebar ? "nav_menu active " : "nav_menu "}
         >
           <ul className="nav_menu_items" onClick={showSidebar}>
             <li className="navbar_toggle">

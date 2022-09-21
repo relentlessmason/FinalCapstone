@@ -43,6 +43,12 @@
     background: #fedeff;
     border-radius: 25px;
  }
+ .todaydiv{
+  text-transform:lowercase; 
+  letter-spacing:4px;
+  background: #fedeff;
+  font-family: sans-serif;
+}
 
  .todayp{
     color: #330036;
