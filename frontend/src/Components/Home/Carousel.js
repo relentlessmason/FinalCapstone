@@ -7,10 +7,10 @@ import dinner from "./dinner.png";
 import lunch from "./rice.png";
 import snack from "./snack.png";
 import dessert from "./dessert.png";
-import sushi from './sushi.png';
-import fishcake from './fishcake.png';
-import sushiwrap from './sushi-wrap.png';
-import breakfastbento from './breakfast-bento.png';
+import sushi from "./sushi.png";
+import fishcake from "./fishcake.png";
+import sushiwrap from "./sushi-wrap.png";
+import breakfastbento from "./breakfast-bento.png";
 
 import {
   Card,
@@ -106,49 +106,48 @@ function RenderEditMealPlanModal({
   );
 }
 
-function RenderBlank() {
+function RenderBlank(day) {
   return (
     <Carousel.Item>
+      
+      <div className="today m-4">
+        <p className="todayp">
+          <small>
+            <img className="center" src={dumpling} alt="" />
+          </small>
+          {day+" meals"}
+        </p>
+      </div>
+        
 
       <div id="test" class="text-center pt-1  m-3">
-        <h2 className="todayb"><small>
-                    <img
-                      
-                      src={sushi}
-                      alt=""
-                    />
-                  </small> no plans for today yet <small>
-                    <img
-                      className="imagez"
-                      src={sushiwrap}
-                      alt=""
-                    />
-                  </small></h2>
-          
-            <div class="todayp">
-            <Link to="/recipes" className="text-decoration-none">
-          <Button className="mealPlan">View Recipes</Button>
-        </Link>
-            </div>
-            
-        </div>
-        <br/>
-        <br/>
+        <h2 className="todayb">
+          <small>
+            <img src={sushi} alt="" />
+            {"   "}</small>
+          no plans yet
+          <small>{"   "}
+            <img className="imagez" src={sushiwrap} alt="" />
+          </small>
+        </h2>
 
+        <div class="todayp">
+          <Link to="/recipes" className="text-decoration-none">
+            <Button className="mealPlan">View Recipes</Button>
+          </Link>
+        </div>
+      </div>
+      <br />
+      <br />
     </Carousel.Item>
   );
 }
 
 function RenderCarouselCard(dayOfWeek, props) {
-  function today() {
-    let d = null;
-    dayOfWeek.map((day) => {
-      d = day.dayOfWeek + " Meals";
-    });
-    return d;
-  }
-
+ 
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const days = ['Monday', 'Teusday', 'Wednesday']
 
   function toggleModal() {
     setIsModalOpen(!isModalOpen);
@@ -169,17 +168,23 @@ function RenderCarouselCard(dayOfWeek, props) {
     } else return dessert;
   }
 
+  
   return (
-    <Carousel.Item>
-      
+    <Carousel.Item >
+      {dayOfWeek.map((m,i)=>{
+        return(
       <div className="today m-4">
         <p className="todayp">
           <small>
             <img className="center" src={dumpling} alt="" />
-          </small>{" "}
-          {today()}
+          </small>
+          {m.dayOfWeek+" meals"}
         </p>
       </div>
+        );
+      })}    
+
+      
 
       {dayOfWeek.map((m, i) => {
         return (
@@ -251,14 +256,16 @@ function RenderCarouselCard(dayOfWeek, props) {
           </>
         );
       })}
-              <br/>
-              <br/>
+      <br />
+      <br />
     </Carousel.Item>
-  );
+  )
 }
 
 export default function ControlledCarousel(props) {
   const [index, setIndex] = useState(0);
+
+  console.log(props)
 
   let monday = props.mealPlan.mealPlan.filter(
     (meal) => meal.dayOfWeek == "Monday",
@@ -303,31 +310,31 @@ export default function ControlledCarousel(props) {
       <Carousel>
         {monday.length !== 0
           ? RenderCarouselCard(monday, props)
-          : RenderBlank()}
+          : RenderBlank('Monday')}
 
-        {tuesday.length !== 0
+        {tuesday.length 
           ? RenderCarouselCard(tuesday, props)
-          : RenderBlank()}
+          : RenderBlank("Tuesday")}
 
         {wednesday.length !== 0
           ? RenderCarouselCard(wednesday, props)
-          : RenderBlank()}
+          : RenderBlank('Wednesday')}
 
         {thursday.length !== 0
           ? RenderCarouselCard(thursday, props)
-          : RenderBlank()}
+          : RenderBlank('Thursday')}
 
         {friday.length !== 0
           ? RenderCarouselCard(friday, props)
-          : RenderBlank()}
+          : RenderBlank('Friday')}
 
         {saturday.length !== 0
           ? RenderCarouselCard(saturday, props)
-          : RenderBlank()}
+          : RenderBlank('Saturday')}
 
         {sunday.length !== 0
           ? RenderCarouselCard(sunday, props)
-          : RenderBlank()}
+          : RenderBlank('Sunday')}
 
       </Carousel>
       <img class="card-img-top catimage" src={banner} alt="Card image cap" />

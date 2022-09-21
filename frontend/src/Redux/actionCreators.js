@@ -97,9 +97,8 @@ export const deleteMeals = (id) => async (dispatch) => {
 //UPDATE
 
 export const updateMeal = (id, newMeal) => async (dispatch) =>{
-  let mealId = parseInt(id);
   try{
-  await axios.put(baseUrl+'/meal/'+mealId, newMeal,{
+  await axios.put(`${baseUrl}/meal/${id}`, newMeal,{
       headers : headers,
     }).then(dispatch(updateMeals(newMeal)));
   }catch(err){
@@ -109,21 +108,11 @@ export const updateMeal = (id, newMeal) => async (dispatch) =>{
 
 export const updateMeals=(newMeal)=>({
   type: ActionTypes.UPDATE_MEAL,
-  payload: newMeal
+  payload: newMeal,
 })
 
-//FETCH BY MEAL SPECIFIC (I don't think it works atm)
-export const fetchMealByMealId = (id) => async (dispatch)=>{
-  try{
-    const meal = await axios.get(baseUrl+"/meal/"+id, {
-      headers: headers,
-    }).then(dispatch(addMeals(meal.data)));    
-  } catch (err){
-    console.log(err.message)
-  }
-}
-
 //END MEALS//
+
 
 //START MEAL PLANS//
 
@@ -254,90 +243,56 @@ try {
 
 //END CATEGORY AND TIME OF DAY
 
+//START PANTRY
 
-
-// ***MEAL ACCOUNTS ***
-
-export const addMealAccount = (mealAccount) => ({
-  type: ActionTypes.ADD_MEAL_ACCOUNT,
-  payload: mealAccount,
+//GET
+export const addPantries = (pantry) => ({
+  type: ActionTypes.ADD_TO_PANTRYS,
+  payload: pantry,
 });
 
-export let postMealAccount = (mealId, userId) => async (dispatch) => {
-  const newMealAccount = {
-    mealId: mealId,
-    userId: userId,
+export const fetchPantryByUser = (id) => async (dispatch) => {
+try {
+  const response = await axios.get(`${baseUrl}/pantry/user/${id}`, {
+    headers: headers,
+  })
+  return await (dispatch(addPantries(response.data)));
+} catch (err) {
+  console.log(err.message);
+}
+};
+
+//POST
+export let addPantryItem = (pantry) => ({
+  type: ActionTypes.ADD_TO_PANTRY,
+  payload: pantry,
+});
+
+export const postPantry = (newPantryItem) =>
+  async (dispatch)  => {
+    try {
+     await axios.post(`${baseUrl}/pantry/`, newPantryItem, {
+        headers: headers,
+      }).then(dispatch(addPantryItem(newPantryItem)));
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
-  const url =
-    baseUrl + "/mealaccount/" + parseInt(mealId) + "/" + parseInt(userId);
-
-  const response = await fetch(url, {
-    method: "POST",
-    body: JSON.stringify(newMealAccount),
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ` + localStorage.getItem("token"),
-    },
-    credentials: "same-origin",
-  }).then(
-    (response) => {
-      if (response.ok) {
-        return response;
-      } else {
-        var error = new Error(
-          "Error " + response.status + ": " + response.statusText
-        );
-        error.response = response;
-        throw error;
-      }
-    },
-    (error) => {
-      var errmess = new Error(error.message);
-      throw errmess;
-    }
-  );
-
-  const mealAccount = response;
-  return dispatch(addMealAccount(mealAccount));
-};
-
-export const fetchMealAccount = () => async (dispatch) => {
-  const response = await fetch(baseUrl + "/mealaccounts/", {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    credentials: "same-origin",
-  });
-
-  const mealAccount = await response.json();
-
-  return dispatch(postAccounts(mealAccount));
-
-  // return fetch(baseUrl + '/mealaccounts/')
-  // .then(response => {
-  //     if (response.ok) {
-  //       return response;
-  //     } else {
-  //       var error = new Error('Error ' + response.status + ': ' + response.statusText);
-  //       error.response = response;
-  //       throw error;
-  //     }
-  //   },
-  //   error => {
-  //         var errmess = new Error(error.message);
-  //         throw errmess;
-  //   })
-  // .then(response => response.json())
-  // .then(mealAccount => dispatch(postAccounts(mealAccount)));
-};
-
-export const postAccounts = (mealAccount) => ({
-  type: ActionTypes.ADD_MEAL_ACCOUNTS,
-  payload: mealAccount,
+//DELETE
+export const deleteFromPantry = (id) => ({
+  type: ActionTypes.DELETE_FROM_PANTRY,
+  payload: id
 });
 
-// *** END MEAL ACCOUNTS***
+export const deletePantryItem = (id) => async (dispatch) => {
+    try {
+  await axios.delete(`${baseUrl}/pantry/${id}}`, {
+      headers: headers,
+    }).then((dispatch(deleteFromPantry(id))));
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+//END PANTRY

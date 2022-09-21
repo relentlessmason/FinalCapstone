@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import QuickLook from "./QuickLook";
-import Carousel  from "./Carousel";
+import Carousel from "./Carousel";
 import Details from "./Details";
 
 import { useState } from "react";
@@ -25,10 +25,11 @@ function Home(props) {
       {/* {showDetails && <Details data={data} />}    */}
 
       <Carousel
-      handleUpdateMealPlans={props.handleUpdateMealPlans}
-      handleDeleteMealPlans={props.handleDeleteMealPlans}
-      user={props.user}
-      mealPlan={props.mealPlan}
+        category={props.category}
+        handleUpdateMealPlans={props.handleUpdateMealPlans}
+        handleDeleteMealPlans={props.handleDeleteMealPlans}
+        user={props.user}
+        mealPlan={props.mealPlan}
       />
     </>
   );

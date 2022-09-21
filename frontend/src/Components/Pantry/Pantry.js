@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import "./Pantry.css";
 
 export default function Pantry(props){
+
     return(
       <LocalForm
       id="form"
@@ -45,10 +46,3 @@ export default function Pantry(props){
       </LocalForm>
     )
 }
-// export default function Pantry(){
-//     return(
-//         <>
-//         Pantry route is working
-//         </>
-//     )
-// }

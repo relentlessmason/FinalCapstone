@@ -3,10 +3,7 @@ import { Switch, Route, Redirect, Link } from "react-router-dom";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import Home from "../Home/Home";
-import CarouselTest from "../Home/CarouselTest";
 import {
-  fetchMealAccount,
-  postMealAccount,
   postMeal,
   deleteMeals,
   fetchMealsByUser,
@@ -15,11 +12,13 @@ import {
   fetchMealPlansByUserId,
   postMealPlan,
   deleteMealPlan,
-  fetchMealByMealId,
   updateMeal,
   updateMealPlan,
   fetchCategory,
-  fetchTimeOfDay
+  fetchTimeOfDay,
+  fetchPantryByUser,
+  postPantry,
+  deleteFromPantry,
 } from "../../Redux/actionCreators";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -40,10 +39,10 @@ const mapStateToProps = (state) => {
     token: state.token,
     user: state.user,
     meal: state.meal,
-    mealAccount: state.mealAccount,
     mealPlan: state.mealPlan,
     category: state.category,
     tod: state.tod,
+    pantry: state.pantry,
   };
 };
 
@@ -89,20 +88,12 @@ const mapDispatchToProps = (dispatch) => ({
   fetchMealPlansByUserId: (id) => {
     dispatch(fetchMealPlansByUserId(id));
   },
-  fetchMealByMealId: (id) => {
-    dispatch(fetchMealByMealId(id));
-  },
 
   postMealPlan: (mealId, dayOfWeek) =>
     dispatch(postMealPlan(mealId, dayOfWeek)),
 
   deleteMealPlan: (id) => dispatch(deleteMealPlan(id)),
 
-  fetchMealAccount: () => {
-    dispatch(fetchMealAccount());
-  },
-  postMealAccount: (mealId, userId) =>
-    dispatch(postMealAccount(mealId, userId)),
 
   updateMealPlan: (mealPlan) => dispatch(updateMealPlan(mealPlan)),
 
@@ -111,6 +102,15 @@ const mapDispatchToProps = (dispatch) => ({
   },
   fetchTimeOfDay: () => {
     dispatch(fetchTimeOfDay());
+  },
+  fetchPantryByUser: (id) =>{
+    dispatch(fetchPantryByUser(id));
+  },
+  postPantry: (newPantryItem) =>{
+    dispatch(postPantry(newPantryItem));
+  },
+  deleteFromPantry: (id) =>{
+    dispatch(deleteFromPantry(id));
   },
 });
 
@@ -129,21 +129,21 @@ class Main extends Component {
     this.props.deleteMeals(parseInt(id));
   };
 
-  handleDeleteMealPlans = (id) => {
-    this.props.deleteMealPlan(id);
-  };
+  handlePostMeals = async (values, ingredients) => {
+    
+    console.log("in main "+ingredients.toString())
 
-  handlePostMeals = async (values) => {
     await this.props.postMeal(
       values.mealName,
       values.categoryId,
       values.timeOfDayId,
       values.description,
       values.recipe,
-      values.ingredients,
+      ingredients.toString().replaceAll(',',' '),
       this.props.user.id
     );
     await this.props.fetchMealsByUser(this.props.user.id);
+
   };
 
   handleUpdateMeals = async (
@@ -156,6 +156,7 @@ class Main extends Component {
     ingredients
   ) => {
     let newMeal = {
+      id,
       mealName,
       categoryId,
       timeOfDayId,
@@ -165,21 +166,40 @@ class Main extends Component {
     };
 
     await this.props.updateMeal(id, newMeal);
+    await this.props.fetchMealsByUser(this.props.user.id);
+    await this.props.fetchMealPlansByUserId(this.props.user.id);
+  };
 
-    this.props.fetchMealsByUser(this.props.user.id);
+  handlePostMealPlan = async (values, mealId) => {
+    await this.props.postMealPlan(mealId, values.dayOfWeek);
+    await this.props.fetchMealPlansByUserId(this.props.user.id);
   };
 
   handleUpdateMealPlans = async (newMeal) => {
     await this.props.updateMealPlan(newMeal);
-
-    this.props.fetchMealPlansByUserId(this.props.user.id);
+    await this.props.fetchMealsByUser(this.props.user.id);
+    await this.props.fetchMealPlansByUserId(this.props.user.id);
   };
+
+  handleDeleteMealPlans = (id) => {
+    this.props.deleteMealPlan(id);
+  };
+
+  handlePostPantry = async (newPantryItem) =>{
+   await this.props.postPantry(newPantryItem);
+   await this.props.fetchPantryByUser(this.props.user.id);
+  }
+
+  handleDeletePantry = async (id) =>{
+    await this.props.deleteFromPantry(id);
+  }
 
   componentDidMount() {
     this.props.fetchMealsByUser(this.props.user.id);
     this.props.fetchMealPlansByUserId(this.props.user.id);
     this.props.fetchCategory();
     this.props.fetchTimeOfDay();
+    this.props.fetchPantryByUser(this.props.user.id);
   }
 
   render() {
@@ -208,6 +228,7 @@ class Main extends Component {
             path="/login"
             component={() => (
               <Login
+                fetchPantryByUser={this.props.fetchPantryByUser}
                 fetchMealPlansByUserId={this.props.fetchMealPlansByUserId}
                 fetchMealsByUser={this.props.fetchMealsByUser}
                 userId={this.props.user}
@@ -223,6 +244,7 @@ class Main extends Component {
                     <Home
                       handleUpdateMealPlans={this.handleUpdateMealPlans}
                       handleDeleteMealPlans={this.handleDeleteMealPlans}
+                      category={this.props.category}
                       mealPlan={this.props.mealPlan}
                       meal={this.props.meal}
                       user={this.props.user}
@@ -246,6 +268,8 @@ class Main extends Component {
               localStorage.getItem("token") != undefined
                 ? () => (
                     <AddRecipe
+                      category={this.props.category.category}
+                      tod={this.props.tod.tod}
                       handlePostMeals={this.handlePostMeals}
                       fetchMealsByUser={this.props.fetchMealsByUser}
                       user={this.props.user}
@@ -263,6 +287,7 @@ class Main extends Component {
               localStorage.getItem("token") != undefined
                 ? () => (
                     <Recipes
+                      handlePostMealPlan={this.handlePostMealPlan}
                       fetchMealPlansByUserId={this.props.fetchMealPlansByUserId}
                       mealPlan={this.props.mealPlan.mealPlan}
                       postMealPlan={this.props.postMealPlan}
@@ -337,7 +362,12 @@ class Main extends Component {
             path="/pantry"
             component={
               this.props.token.token !== undefined
-                ? () => <Pantry />
+                ? () => <Pantry
+                pantry={this.props.pantry.pantry}
+                handlePostPantry={this.handlePostPantry}
+                handleDeletePantry={this.handleDeletePantry}
+                fetchPantryByUser={this.props.fetchPantryByUser}
+                 />
                 : () => <ReturnToLoginComponent />
             }
           />

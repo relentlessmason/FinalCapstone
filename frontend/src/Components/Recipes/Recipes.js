@@ -20,7 +20,25 @@ import {
 } from "reactstrap";
 import { Control, LocalForm, Errors } from "react-redux-form";
 import { Link, Redirect, withRouter } from "react-router-dom";
-import RandomRecipe from './RandomRecipe';
+import RandomRecipe from "./RandomRecipe";
+
+function RenderSearchBar({ setSearchByName, setSearchByIngredient }) {
+  return (
+    <div className="form-group row ">
+      <div className="col-xs-2 inputdiv">
+        <input
+          className="inputfield"
+          type="text"
+          placeholder="Search by..."
+          onChange={(e) => {
+            setSearchByName(e.target.value);
+            setSearchByIngredient(e.target.value);
+          }}
+        />{" "}
+      </div>
+    </div>
+  );
+}
 
 function RenderRecipeCard({
   meal,
@@ -28,9 +46,9 @@ function RenderRecipeCard({
   user,
   fetchMealPlansByUserId,
   mealPlan,
+  handlePostMealPlan,
 }) {
   const [clickedMealId, setClickedMealId] = useState(null);
-
   const [searchByName, setSearchByName] = useState("");
   const [searchByIngredient, setSearchByIngredient] = useState(null);
 
@@ -38,23 +56,12 @@ function RenderRecipeCard({
     return <>Nothing to show</>;
   }
 
-
   return (
     <>
-      <div className="form-group row ">
-        <div className="col-xs-2 inputdiv">
-          <input
-            className="inputfield"
-            type="text"
-            placeholder="Search by..."
-            onChange={(e) => {
-              setSearchByName(e.target.value);
-              setSearchByIngredient(e.target.value);
-            }}
-          />{" "}
-        </div>
-      </div>
-
+      <RenderSearchBar
+        setSearchByName={setSearchByName}
+        setSearchByIngredient={setSearchByIngredient}
+      />
       {meal
         .filter((m) => {
           if (searchByName == "") {
@@ -77,26 +84,25 @@ function RenderRecipeCard({
               >
                 <CardBody className="text-center">
                   <CardTitle className="h3 mt-1 ml-2 text-lowercase">
-                    {m.mealName}
+                    {m.mealName.length <= 15
+                      ? m.mealName
+                      : `${m.mealName.slice(0, 18)}...`}
                   </CardTitle>
                   <CardText
                     id="card-text"
                     className="text-muted text-lowercase"
                   >
+                    '
                     {m.description.length <= 15
                       ? m.description
-                      : `${m.description.slice(0, 20)}...`}
-
-                    {/* {m.description} */}
+                      : `${m.description.slice(0, 25)}...`}
+                    '
                   </CardText>
                   <CardSubtitle id="card-text" className="text-lowercase">
                     {m.recipe.length <= 25
                       ? m.recipe
                       : `${m.recipe.slice(0, 50)}...`}
-
-                    {/* {m.recipe} */}
                   </CardSubtitle>
-
                 </CardBody>
 
                 <Row className="row ">
@@ -113,6 +119,7 @@ function RenderRecipeCard({
                   </div>
                   <div className="col-sm-8 col-lg-6">
                     <AddMealPlanModal
+                    handlePostMealPlan={handlePostMealPlan}
                       fetchMealPlansByUserId={fetchMealPlansByUserId}
                       user={user}
                       postMealPlan={postMealPlan}
@@ -133,6 +140,7 @@ function AddMealPlanModal({
   clickedMealId,
   user,
   fetchMealPlansByUserId,
+  handlePostMealPlan
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -140,10 +148,11 @@ function AddMealPlanModal({
     setIsModalOpen(!isModalOpen);
   }
 
-  async function handleSubmit(values) {
-    await postMealPlan(clickedMealId, values.dayOfWeek);
-    fetchMealPlansByUserId(user.id);
-  }
+  // async function handleSubmit(values) {
+  //   await postMealPlan(clickedMealId, values.dayOfWeek);
+  //   fetchMealPlansByUserId(user.id);
+  // }
+
 
   return (
     <>
@@ -159,7 +168,7 @@ function AddMealPlanModal({
         <ModalHeader toggle={toggleModal}>Choose a day of the week</ModalHeader>
 
         <ModalBody>
-          <LocalForm onSubmit={(values) => handleSubmit(values)}>
+          <LocalForm onSubmit={(values) => handlePostMealPlan(values,clickedMealId)}>
             <Row className="form-group">
               <Label htmlFor="mealPlan" md={2}></Label>
               <Col md={12}>
@@ -215,6 +224,7 @@ const Recipes = (props) => {
         <br />
         <div className="row my-5 align-items-center">
           <RenderRecipeCard
+            handlePostMealPlan={props.handlePostMealPlan}
             fetchMealPlansByUserId={props.fetchMealPlansByUserId}
             user={props.user}
             postMealPlan={props.postMealPlan}

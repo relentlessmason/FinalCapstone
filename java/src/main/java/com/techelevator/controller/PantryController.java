@@ -13,7 +13,6 @@ import javax.validation.Valid;
 @RestController
 @CrossOrigin
 @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-
 public class PantryController {
 
     PantryDao pantryDao;
@@ -29,12 +28,12 @@ public class PantryController {
     }
 
     @GetMapping(path = "pantry/user/{id}")
-    public Pantry[] findAllPantryItemsByUserId(Long id) {
+    public Pantry[] findAllPantryItemsByUserId(@PathVariable Long id) {
         return pantryDao.findAllPantryItemsByUserId(id);
     }
 
     @GetMapping (path = "pantry/{id}")
-    public Pantry[] findAllPantryItemsByPantryId(Long id) {
+    public Pantry[] findAllPantryItemsByPantryId(@PathVariable Long id) {
         return pantryDao.findAllPantryItemsByPantryId(id);
     }
 
