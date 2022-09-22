@@ -272,12 +272,17 @@ export const postPantry = (newPantryItem,  userId) =>
   async (dispatch)  => {
     try {
       console.log('post to pantry', newPantryItem);
-      const fixedPantry = {
-        ingredientsName: newPantryItem.pantry
-      }
-     await axios.post(`${baseUrl}/pantry/${userId}`, fixedPantry, {
+      // const fixedPantry = {
+      //   ingredientsName: newPantryItem.pantry
+      // }
+      const newItem = {
+        userId: userId,
+        ingredientsName: newPantryItem.pantry,
+        qty: 1
+      };
+     await axios.post(`${baseUrl}/pantry/${userId}`, newItem, {
         headers: headers,
-      }).then(dispatch(addPantryItem(newPantryItem)));
+      }).then(dispatch(addPantryItem(newItem)));
     } catch (err) {
       console.log(err.message);
     }
