@@ -16,11 +16,6 @@ export const Meal = (
       return { ...state, meal: state.meal.concat(m) };
     }
 
-    // case ActionTypes.DELETE_MEAL:
-    //   return {
-    //     ...state,
-    //     meal: state.meal.filter((meal) => parseInt(meal.id) !== action.payload)};
-
     case ActionTypes.DELETE_MEAL: {
       const updateMeals = state.meal.filter(
         (meal) => meal.id != action.payload
@@ -29,7 +24,6 @@ export const Meal = (
     }
 
     case ActionTypes.UPDATE_MEAL: {
-
       const updatedMeal = state.meal.map((meal) => {
         if (meal.id == action.payload) {
           return {
@@ -41,7 +35,6 @@ export const Meal = (
       });
 
       return {
-        
         meal: updatedMeal,
       };
     }

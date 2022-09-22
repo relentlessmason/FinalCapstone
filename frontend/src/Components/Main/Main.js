@@ -23,7 +23,6 @@ import {
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import Header from "../Header/Header";
-import Search from "../Search/Search";
 import AddRecipe from "../AddRecipe/AddRecipe";
 import Favorites from "../Favorites/Favorites";
 import CalendarBuild from "../Calendar/Calendar";
@@ -33,7 +32,6 @@ import Footer from "../Footer/Footer";
 import Recipes from "../Recipes/Recipes";
 import IndividualRecipe from "../Recipes/IndividualRecipe";
 import ReturnToLoginComponent from "../ReturnToMain/ReturnToLoginComponent";
-import { GiConsoleController } from "react-icons/gi";
 
 const mapStateToProps = (state) => {
   return {
@@ -254,14 +252,6 @@ class Main extends Component {
             }
           />
 
-          <Route
-            path="/search"
-            component={
-              this.props.token.token !== undefined
-                ? () => <Search />
-                : () => <ReturnToLoginComponent />
-            }
-          />
           <Route
             path="/add-recipe"
             component={

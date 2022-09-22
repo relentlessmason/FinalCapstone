@@ -19,7 +19,6 @@ export const ConfigureStore = () => {
             category: Category,
             tod: TimeOfDay,
             pantry: Pantry,
-            
         }),
         applyMiddleware(thunk, logger)
     );

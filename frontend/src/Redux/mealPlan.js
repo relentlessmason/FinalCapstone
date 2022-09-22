@@ -14,11 +14,6 @@ export const MealPlan = (
       let m = action.payload;
       return { ...state, mealPlan: state.mealPlan.concat(m) };
 
-    // case ActionTypes.DELETE_MEAL_PLAN:
-    //   return {
-    //     ...state,
-    //     mealPlan: state.mealPlan.filter((mealPlan) => parseInt(mealPlan.id) !== action.payload)};
-
     case ActionTypes.DELETE_MEAL_PLAN: {
       const updateMealPlan = state.mealPlan.filter(
         (mp) => mp.mealPlanId != action.payload
@@ -29,22 +24,10 @@ export const MealPlan = (
     case ActionTypes.UPDATE_MEAL_PLAN:
       return {
         ...state,
-        mealPlan: state.mealPlan.filter((mealPlan) => (mealPlan = action.payload))};
-
-    // case ActionTypes.UPDATE_MEAL_PLAN: {
-    //   const updatedMeal = state.mealPlan.map((meal) => {
-    //     if (meal.mealPlanId == action.payload.mealPlanId) {
-    //       return {
-    //         ...state,
-    //         mealPlan: action.payload,
-    //       };
-    //     }
-    //   });
-    //   return {
-    //     ...state,
-    //     mealPlan: updatedMeal,
-    //   };
-    // }
+        mealPlan: state.mealPlan.filter(
+          (mealPlan) => (mealPlan = action.payload)
+        ),
+      };
 
     default:
       return state;

@@ -57,12 +57,7 @@ export default function Navbar(props) {
                 <span>home</span>
               </Link>
             </li>
-            {/* <li className="nav-text">
-              <Link to="/search">
-                <RiIcons.RiSearchLine />
-                <span>Search</span>
-              </Link>
-            </li> */}
+            
             <li className="nav-text">
               <Link to="/recipes">
                 <GiIcons.GiRiceCooker />

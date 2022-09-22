@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {Component} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import { baseUrl } from '../../Shared/baseUrl'
 
 class Register extends Component{
@@ -29,10 +29,12 @@ class Register extends Component{
         }else{
             alert("Password and Confirm Password must match!!!")
         }
+        this.props.history.push('/home');
     }
 
     render(){
         return(
+            <>
             <div className='register_entity'>
                 <h1 className='register_header'>create account</h1>
                 <div className='spacer'></div>
@@ -75,10 +77,13 @@ class Register extends Component{
                 />
                 <div className='spacer'></div>
                 <Link to="/login">have an account?</Link>
-                <button type="submit" onClick={this.handleSubmit} className="submit">Sign up</button>
+                <button type="submit" onClick={()=>{
+                    this.handleSubmit()
+                    }} className="submit">Sign up</button>
             </div>
+            </>
         )
     }
 }
 
-export default Register;
+export default withRouter(Register);

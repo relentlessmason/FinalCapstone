@@ -79,7 +79,9 @@ class IndividualRecipe extends Component {
 
               <CardBody className="text-center">
                 {this.props.onemeal.description}
-                <CardText className="mt-3">{this.props.onemeal.ingredients}</CardText>
+                <CardText className="mt-3">
+                  {this.props.onemeal.ingredients}
+                </CardText>
 
                 <CardText>
                   <br />
@@ -87,35 +89,43 @@ class IndividualRecipe extends Component {
                 </CardText>
               </CardBody>
 
-              <div className="row text-center">
-                <RenderEditModal
-                  handleUpdateMeals={this.props.handleUpdateMeals}
-                  mealId={this.props.onemeal.id}
-                  meal={this.props.onemeal}
-                  updateMeal={this.props.updateMeal}
-                  handleEditSubmit={this.handleEditSubmit}
-                  userId={this.props.userId}
-                  params={this.props.onemeal.id}
-                />
+              <div className="row ">
 
-                {/* <RenderMealPlanModal
-                fetchMealPlansByUserId={this.props.fetchMealPlansByUserId}
-                  postMealPlan={this.props.postMealPlan}
-                  meal={this.props.onemeal}
-                  userId={this.props.userId}
-                /> */}
                 
-                <div className="col-3">
-                <button type="print" className="submitAR" onClick={window.print}>Print</button>
+                  <RenderEditModal
+                    handleUpdateMeals={this.props.handleUpdateMeals}
+                    mealId={this.props.onemeal.id}
+                    meal={this.props.onemeal}
+                    updateMeal={this.props.updateMeal}
+                    handleEditSubmit={this.handleEditSubmit}
+                    userId={this.props.userId}
+                    params={this.props.onemeal.id}
+                  />
+
+                  <div className="col-3">
+                    <button
+                      type="print"
+                      className="submitAR"
+                      onClick={window.print}
+                    >
+                      Print
+                    </button>
+                  </div>
+
+                  <div className="col-3">
+                    <Link className="text-decoration-none" to="/home">
+                      <button className="submitAR ">View Plans</button>
+                    </Link>
+                  </div>
+
+                  <div className="col-3">
+                    <Link className="text-decoration-none " to="/recipes">
+                      <button className="submitAR ">
+                        View Recipes
+                      </button>
+                    </Link>
+
                 </div>
-
-                <Link className="text-decoration-none col-3" to="/home">
-                  <button className="submitAR ">View Meal Plans</button>
-                </Link>
-
-                <Link className="text-decoration-none col-3" to="/recipes">
-                  <button className="submitAR ">View All Recipes</button>
-                </Link>
               </div>
             </Card>
           </div>
@@ -172,14 +182,16 @@ function RenderEditModal({ meal, params, handleUpdateMeals }) {
   }
   return (
     <>
+    <div className=" col-3">
       <button
         onClick={() => {
           toggleModal();
         }}
-        className="submitAR col-3 "
+        className="submitAR "
       >
         Edit
       </button>
+      </div>
 
       <Modal isOpen={isEditModalOpen} toggle={toggleModal}>
         <ModalHeader toggle={toggleModal}>Update Recipe Below</ModalHeader>
