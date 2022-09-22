@@ -6,6 +6,7 @@ import { Label, Button, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import { BsInfoLg } from "react-icons/bs";
 import { RiInstagramLine } from "react-icons/ri";
+import * as FaIcons from "react-icons/fa";
 
 function resetForm() {
   const form = document.getElementById("form");
@@ -44,6 +45,7 @@ export default function AddRecipe(props) {
     <LocalForm
       id="form"
       onSubmit={(values) =>props.handlePostMeals(values, ingredients)}
+      className="mt-4"
     >
       <div className="wrapperAR">
         <div className="leftWrapper">
@@ -57,11 +59,11 @@ export default function AddRecipe(props) {
           </div>
           <br />
           <div className="ingredients ">
-            <Row className="form-group ">
+            <Row className="form-group text-center ">
               <Label htmlFor="ingredients" md={12}>
                 Ingredient List
               </Label>
-              <Col md={12} className="input-group">
+              <Col md={12} className="input-group ">
                 <Control.textarea
                 onChange={(e) => {
                   handleChange(e)
@@ -73,10 +75,7 @@ export default function AddRecipe(props) {
                   placeholder="rice.."
                   rows="1"
                 />
-              </Col>
-            </Row>
-
-            <button              
+                 <button              
               onClick={(e) => {
                 e.preventDefault();
                 setIngredients(ingredients.concat(search));
@@ -84,14 +83,23 @@ export default function AddRecipe(props) {
                 //not sure how to gather multiple input fields and put them into db yet
               }}
               type="submit"
-              className="submit"
+              className="submit mt-3 mb-1"
             >
               Add Ingredients
             </button>
+              </Col>
+              
+            </Row>
+
             {ingredients.map((i) => {
               return (
                 <>
-                  <div>{i}</div>
+                  <div className="item-container">
+          <div className="item-name">
+            <FaIcons.FaCircle />
+            {i}
+          </div>
+        </div>
                 </>
               );
             })}

@@ -198,7 +198,7 @@ function RenderCarouselCard(dayOfWeek, props, day) {
                 <div class="col-md-8 ">
                   <div class="eight">
                     <h1 className="carouselname ">{m.mealName}</h1>
-                    <div className="todaydiv ">'{meal.description}'</div>
+                    <div className="todaydiv ">'{meal ? meal.description : "Nothing to display"}'</div>
                   </div>
                 </div>
                 <div class="col-md-2">

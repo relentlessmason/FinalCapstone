@@ -1,23 +1,4 @@
 
-.var_header{
-    margin-top: 25px;
-}
-
-.example {
-  background: url(onigiri-neko-cat.png);
-  background-size: contain, cover;
-}
-
-
-/* #card-text{
-    display: block;
-  width: 250px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-} */
-
-
 
 .inputdiv{
   background: #fedeff;
@@ -76,3 +57,16 @@
   color: #6f5e5c;
  
 }
+
+.norecipe{
+  background: #fedeff;
+  letter-spacing:10px;
+  color: #6f5e5c;
+  font-size: 22px;
+  border-bottom: 1px solid #6f5e5c;
+  border-top: 1px solid #6f5e5c;
+
+  
+}
+
+

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import RenderBlank from '../ReturnToMain/RenderBlank'
 import banner from "./onigiri-neko-cat.png";
 import "./Recipes.css";
 import {
@@ -52,11 +53,11 @@ function RenderRecipeCard({
   fetchMealPlansByUserId,
   mealPlan,
   handlePostMealPlan,
-  searchByIngredient,
-  searchByName
+ 
 }) {
   const [clickedMealId, setClickedMealId] = useState(null);
- 
+  const [searchByName, setSearchByName] = useState("");
+  const [searchByIngredient, setSearchByIngredient] = useState(null);
 
   if (meal === null || meal == undefined) {
     return <>Nothing to show</>;
@@ -64,7 +65,10 @@ function RenderRecipeCard({
 
   return (
     <>
-      
+      <RenderSearchBar
+        setSearchByName={setSearchByName}
+        setSearchByIngredient={setSearchByIngredient}
+      />
       {meal
         .filter((m) => {
           if (searchByName == "") {
@@ -219,31 +223,22 @@ function AddMealPlanModal({
 }
 
 const Recipes = (props) => {
-  const [searchByName, setSearchByName] = useState("");
-  const [searchByIngredient, setSearchByIngredient] = useState(null);
+  
 
   return (
     <>
       <div className="row">
-        <RenderSearchBar
-        setSearchByName={setSearchByName}
-        setSearchByIngredient={setSearchByIngredient}
-      />
+        
      
-
-        <br />
-        <div className="row align-items-center">
-          <RenderRecipeCard
-          searchByName={searchByName}
-          searchByIngredient={searchByIngredient}
+      {props.meal.length>0 ? < RenderRecipeCard
             handlePostMealPlan={props.handlePostMealPlan}
             fetchMealPlansByUserId={props.fetchMealPlansByUserId}
             user={props.user}
             postMealPlan={props.postMealPlan}
             meal={props.meal}
             mealPlan={props.mealPlan}
-          />
-        </div>
+          />:<RenderBlank/>}
+       
       </div>
     </>
   );
