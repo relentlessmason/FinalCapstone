@@ -40,6 +40,8 @@ export default function Pantry(props){
               Add to Pantry
             </button>
         </div>
+
+       
           
       </LocalForm>
     )
