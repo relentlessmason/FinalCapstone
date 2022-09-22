@@ -157,7 +157,7 @@ const GroceryList = (props) => {
           mealPlan={props.mealPlan.mealPlan}
         />
         {/* <div className='total'>Total: {totalItemCount}</div> */}
-        <button type="submit" className="submit">
+        <button type="submit" className="submit" onClick={window.print}>
           Print
         </button>
       </div>
