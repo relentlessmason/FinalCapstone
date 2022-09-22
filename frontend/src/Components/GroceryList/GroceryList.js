@@ -106,7 +106,7 @@ const GroceryList = (props) => {
   // };
 
   return (
-    <div className="app-background">
+    <div className="app-background mt-4">
       <div className="main-container">
         <h1>Shopping List</h1>
         <div className="add-item-box">
