@@ -33,6 +33,7 @@ import Footer from "../Footer/Footer";
 import Recipes from "../Recipes/Recipes";
 import IndividualRecipe from "../Recipes/IndividualRecipe";
 import ReturnToLoginComponent from "../ReturnToMain/ReturnToLoginComponent";
+import { GiConsoleController } from "react-icons/gi";
 
 const mapStateToProps = (state) => {
   return {
@@ -106,8 +107,8 @@ const mapDispatchToProps = (dispatch) => ({
   fetchPantryByUser: (id) =>{
     dispatch(fetchPantryByUser(id));
   },
-  postPantry: (newPantryItem) =>{
-    dispatch(postPantry(newPantryItem));
+  postPantry: (newPantryItem, id) =>{
+    dispatch(postPantry(newPantryItem, id));
   },
   deleteFromPantry: (id) =>{
     dispatch(deleteFromPantry(id));
@@ -184,7 +185,8 @@ class Main extends Component {
   };
 
   handlePostPantry = async (newPantryItem) =>{
-   await this.props.postPantry(newPantryItem);
+    console.log('newPantryItem', newPantryItem);
+   await this.props.postPantry(newPantryItem,this.props.user.id);
    await this.props.fetchPantryByUser(this.props.user.id);
   }
 

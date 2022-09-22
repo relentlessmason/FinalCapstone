@@ -268,10 +268,14 @@ export let addPantryItem = (pantry) => ({
   payload: pantry,
 });
 
-export const postPantry = (newPantryItem) =>
+export const postPantry = (newPantryItem,  userId) =>
   async (dispatch)  => {
     try {
-     await axios.post(`${baseUrl}/pantry/`, newPantryItem, {
+      console.log('post to pantry', newPantryItem);
+      const fixedPantry = {
+        ingredientsName: newPantryItem.pantry
+      }
+     await axios.post(`${baseUrl}/pantry/${userId}`, fixedPantry, {
         headers: headers,
       }).then(dispatch(addPantryItem(newPantryItem)));
     } catch (err) {

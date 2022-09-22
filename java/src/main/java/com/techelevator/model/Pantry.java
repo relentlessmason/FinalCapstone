@@ -23,6 +23,7 @@ public class Pantry {
     }
 
     public Long getUserId() {
+        System.out.println(userId + " test!!!!!!!!!!!!!!!!!");
         return userId;
     }
 
@@ -31,12 +32,13 @@ public class Pantry {
     }
 
     public String getIngredientsName() {
-        System.out.println(ingredientsName);
-        return ingredientsName;
+        System.out.println("ingredientsName"+this.ingredientsName);
+        return this.ingredientsName;
     }
 
     public void setIngredientsName(String ingredientsName) {
-       this.ingredientsName = ingredientsName;
+        System.out.println("set ingredientsName"+ingredientsName);
+        this.ingredientsName = ingredientsName;
     }
 
     public Long getPantryId() {

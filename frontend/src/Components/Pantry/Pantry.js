@@ -2,10 +2,12 @@ import React from "react";
 import { Control, LocalForm } from "react-redux-form";
 import { Label, Button, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
+import { User } from "../../Redux/user";
 import "./Pantry.css";
 
 export default function Pantry(props){
-
+    let userId = User.id;
+    console.log('user id', props);
     return(
       <LocalForm
       id="form"
@@ -20,10 +22,10 @@ export default function Pantry(props){
             <Col md={12} className="input-group">
               <Control.textarea
                 model=".pantry"
-                id="pantry"
+                id="ingredientsName"
                 className="form-control"
                 type="textarea"
-                name="item"
+                name="ingredientsName"
                 placeholder="'Chicken, rice, milk...'"
                 rows="6"
                 
@@ -32,10 +34,6 @@ export default function Pantry(props){
             </Col>
           </Row>
           <button
-              onClick={(e) => {
-                e.preventDefault();
-                //not sure how to gather multiple input fields and put them into db yet
-              }}
               className="submitAR"
               type="submit"
             >

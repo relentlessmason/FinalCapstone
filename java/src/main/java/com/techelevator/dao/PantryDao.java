@@ -10,7 +10,7 @@ public interface PantryDao {
 
     void deletePantryByPantryId (Long id);
 
-    public void addToPantry (Pantry pantry);
+    public void addToPantry (Pantry pantry, Long id);
 
     Pantry[] findAllPantryItemsByPantryId(Long id);
 }

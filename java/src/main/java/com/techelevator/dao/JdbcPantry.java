@@ -64,12 +64,12 @@ public class JdbcPantry implements PantryDao {
     }
 
     @Override
-    public void addToPantry (Pantry pantry) {
+    public void addToPantry (Pantry pantry, Long userId) {
         System.out.println(pantry);
         String SQL = "INSERT INTO pantry (user_id, ingredients_name, qty)" +
                 " values (?, ?, ?);";
         jdbcTemplate.update(SQL,
-                pantry.getUserId(),
+                userId,
                 pantry.getIngredientsName(),
                 pantry.getQty());
     }
@@ -77,14 +77,14 @@ public class JdbcPantry implements PantryDao {
 
     private Pantry mapToRowPantry(SqlRowSet item ) {
         Pantry p = new Pantry();
+        System.out.println("**** item ****");
+        System.out.println(item);
         p.setPantryId(item.getLong("pantry_id"));
         p.setUserId(item.getLong("user_id"));
         p.setIngredientsName(item.getString("ingredients_name"));
         p.setQty(item.getInt("qty"));
 
         return p;
-
-
     }
 
 }
