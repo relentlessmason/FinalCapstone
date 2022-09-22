@@ -36,7 +36,7 @@ class Register extends Component{
         return(
             <>
             <div className='register_entity'>
-                <h1 className='register_header'>create account</h1>
+                <h1 className='register_header'>Create Account</h1>
                 <div className='spacer'></div>
                 <label class="sr-only">username</label>
                 <input
