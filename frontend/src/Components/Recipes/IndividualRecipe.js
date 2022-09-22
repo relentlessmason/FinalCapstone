@@ -87,7 +87,7 @@ class IndividualRecipe extends Component {
                 </CardText>
               </CardBody>
 
-              <div className="row text-center ">
+              <div className="row text-center">
                 <RenderEditModal
                   handleUpdateMeals={this.props.handleUpdateMeals}
                   mealId={this.props.onemeal.id}
@@ -104,12 +104,16 @@ class IndividualRecipe extends Component {
                   meal={this.props.onemeal}
                   userId={this.props.userId}
                 /> */}
+                
+                <div className="col-3">
+                <button type="print" className="submitAR" onClick={window.print}>Print</button>
+                </div>
 
-                <Link className="text-decoration-none col-4" to="/home">
+                <Link className="text-decoration-none col-3" to="/home">
                   <button className="submitAR ">View Meal Plans</button>
                 </Link>
 
-                <Link className="text-decoration-none col-4" to="/recipes">
+                <Link className="text-decoration-none col-3" to="/recipes">
                   <button className="submitAR ">View All Recipes</button>
                 </Link>
               </div>
